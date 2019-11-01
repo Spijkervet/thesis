@@ -1,0 +1,117 @@
+\documentclass{report}
+\usepackage{graphicx, color}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{lipsum}
+
+\newcommand{\red}[1]{{\color{red}{#1}}}
+
+\begin{document}
+
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\includegraphics[width=\linewidth]{images/uva.jpeg}\\[2.5cm]
+\textsc{\Large MSc Artificial Intelligence}\\[0.2cm]
+% \textsc{\normalsize Track: \red{track}}\\[1.0cm] % track
+\textsc{\Large Master Thesis}\\[0.5cm] 
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Deep Representation Learning for Audio}\\[0.4cm] % Title of your document
+\HRule \\[0.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+by\\[0.2cm]
+\textsc{\Large J. Spijkervet}\\[0.2cm] %you name
+10879609\\[1cm]
+
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\Large \today}\\[1cm] % Date, change the \today to a set date if you want to be precise
+
+Number of Credits\\ %
+48\\[1cm]%
+
+%----------------------------------------------------------------------------------------
+%	COMMITTEE SECTION
+%----------------------------------------------------------------------------------------
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Supervisor:} \\
+Dr. J.A. \textsc{Burgoyne}% Supervisor's Name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Assessor:} \\
+\red{Dr A  \textsc{Person}}\\
+\end{flushright}
+\end{minipage}\\[2cm]
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+% \framebox{\rule{0pt}{2.5cm}\rule{2.5cm}{0pt}}\\[0.5cm]
+%\includegraphics[width=2.5cm]{figure}\\ % Include a department/university logo - this will require the graphicx package
+\textsc{Faculteit der Natuurkunde, Wiskunde en Informatica}\\[1.0cm]
+\textsc{\large University of Amsterdam}\\[1.0cm] % 
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+
+\begin{abstract}
+\end{abstract}
+
+\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}
+\end{abstract}
+
+\tableofcontents
+
+
+\chapter{Introduction}
+
+
+\chapter{Background}
+
+\chapter{Method}
+
+\chapter{Experimental Setup}
+
+\section{Dataset}
+\section{Evaluation}
+
+\chapter{Results}
+
+\chapter{Conclusion \& Future Work}
+\section{Conclusion}
+\section{Future Work}
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+
+\chapter*{Appendix}
+
+\end{document}
