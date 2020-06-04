@@ -1,0 +1,474 @@
+
+@inproceedings{doersch_unsupervised_2015,
+	title = {Unsupervised {Visual} {Representation} {Learning} by {Context} {Prediction}},
+	isbn = {978-1-4673-8391-2},
+	url = {http://ieeexplore.ieee.org/document/7410524/},
+	doi = {10.1109/ICCV.2015.167},
+	abstract = {This work explores the use of spatial context as a source of free and plentiful supervisory signal for training a rich visual representation. Given only a large, unlabeled image collection, we extract random pairs of patches from each image and train a convolutional neural net to predict the position of the second patch relative to the ﬁrst. We argue that doing well on this task requires the model to learn to recognize objects and their parts. We demonstrate that the feature representation learned using this within-image context indeed captures visual similarity across images. For example, this representation allows us to perform unsupervised visual discovery of objects like cats, people, and even birds from the Pascal VOC 2011 detection dataset. Furthermore, we show that the learned ConvNet can be used in the RCNN framework [19] and provides a signiﬁcant boost over a randomly-initialized ConvNet, resulting in state-of-theart performance among algorithms which use only Pascalprovided training set annotations.},
+	language = {en},
+	urldate = {2020-03-07},
+	booktitle = {2015 {IEEE} {International} {Conference} on {Computer} {Vision} ({ICCV})},
+	publisher = {IEEE},
+	author = {Doersch, Carl and Gupta, Abhinav and Efros, Alexei A.},
+	year = {2015},
+	pages = {1422--1430},
+	file = {Doersch et al. - 2015 - Unsupervised Visual Representation Learning by Con.pdf:/Users/spijkervet/Zotero/storage/UUCPD729/Doersch et al. - 2015 - Unsupervised Visual Representation Learning by Con.pdf:application/pdf}
+}
+
+
+@article{mikolov_efficient_2013,
+	title = {Efficient {Estimation} of {Word} {Representations} in {Vector} {Space}},
+	url = {http://arxiv.org/abs/1301.3781},
+	abstract = {We propose two novel model architectures for computing continuous vector representations of words from very large data sets. The quality of these representations is measured in a word similarity task, and the results are compared to the previously best performing techniques based on different types of neural networks. We observe large improvements in accuracy at much lower computational cost, i.e. it takes less than a day to learn high quality word vectors from a 1.6 billion words data set. Furthermore, we show that these vectors provide state-of-the-art performance on our test set for measuring syntactic and semantic word similarities.},
+	urldate = {2020-03-07},
+	journal = {arXiv:1301.3781 [cs]},
+	author = {Mikolov, Tomas and Chen, Kai and Corrado, Greg and Dean, Jeffrey},
+	month = sep,
+	year = {2013},
+	note = {arXiv: 1301.3781},
+	keywords = {Computer Science - Computation and Language},
+	file = {arXiv Fulltext PDF:/Users/spijkervet/Zotero/storage/QB782CR7/Mikolov et al. - 2013 - Efficient Estimation of Word Representations in Ve.pdf:application/pdf;arXiv.org Snapshot:/Users/spijkervet/Zotero/storage/6QLHSC2M/1301.html:text/html}
+}
+
+
+@article{friston_predictive_2009,
+	title = {Predictive coding under the free-energy principle},
+	volume = {364},
+	url = {https://royalsocietypublishing.org/doi/full/10.1098/rstb.2008.0300},
+	doi = {10.1098/rstb.2008.0300},
+	abstract = {This paper considers prediction and perceptual categorization as an inference problem that is solved by the brain. We assume that the brain models the world as a hierarchy or cascade of dynamical systems that encode causal structure in the sensorium. Perception is equated with the optimization or inversion of these internal models, to explain sensory data. Given a model of how sensory data are generated, we can invoke a generic approach to model inversion, based on a free energy bound on the model's evidence. The ensuing free-energy formulation furnishes equations that prescribe the process of recognition, i.e. the dynamics of neuronal activity that represent the causes of sensory input. Here, we focus on a very general model, whose hierarchical and dynamical structure enables simulated brains to recognize and predict trajectories or sequences of sensory states. We first review hierarchical dynamical models and their inversion. We then show that the brain has the necessary infrastructure to implement this inversion and illustrate this point using synthetic birds that can recognize and categorize birdsongs.},
+	number = {1521},
+	urldate = {2019-11-14},
+	journal = {Philosophical Transactions of the Royal Society B: Biological Sciences},
+	author = {Friston, Karl and Kiebel, Stefan},
+	year = {2009},
+	pages = {1211--1221}
+}
+
+
+@article{linsker_self-organization_1988,
+	title = {Self-organization in a perceptual network},
+	volume = {21},
+	issn = {1558-0814},
+	doi = {10.1109/2.36},
+	abstract = {The emergence of a feature-analyzing function from the development rules of simple, multilayered networks is explored. It is shown that even a single developing cell of a layered network exhibits a remarkable set of optimization properties that are closely related to issues in statistics, theoretical physics, adaptive signal processing, the formation of knowledge representation in artificial intelligence, and information theory. The network studied is based on the visual system. These results are used to infer an information-theoretic principle that can be applied to the network as a whole, rather than a single cell. The organizing principle proposed is that the network connections develop in such a way as to maximize the amount of information that is preserved when signals are transformed at each processing stage, subject to certain constraints. The operation of this principle is illustrated for some simple cases.{\textless}{\textgreater}},
+	number = {3},
+	journal = {Computer},
+	author = {Linsker, R.},
+	month = mar,
+	year = {1988},
+	note = {Conference Name: Computer},
+	keywords = {Animal structures, Biological information theory, Biology computing, Circuits, Constraint theory, feature-analyzing function, Genetics, information theory, Intelligent networks, multilayered networks, network connections, neural nets, neural networks, Neural networks, Neuroscience, optimization, pattern recognition, perceptual network, self organization, self-adjusting systems, System testing, visual system},
+	pages = {105--117},
+	file = {IEEE Xplore Abstract Record:/Users/spijkervet/Zotero/storage/BPUYNTFX/36.html:text/html}
+}
+
+
+@article{oord_representation_2019,
+	title = {Representation {Learning} with {Contrastive} {Predictive} {Coding}},
+	url = {http://arxiv.org/abs/1807.03748},
+	abstract = {While supervised learning has enabled great progress in many applications, unsupervised learning has not seen such widespread adoption, and remains an important and challenging endeavor for artiﬁcial intelligence. In this work, we propose a universal unsupervised learning approach to extract useful representations from high-dimensional data, which we call Contrastive Predictive Coding. The key insight of our model is to learn such representations by predicting the future in latent space by using powerful autoregressive models. We use a probabilistic contrastive loss which induces the latent space to capture information that is maximally useful to predict future samples. It also makes the model tractable by using negative sampling. While most prior work has focused on evaluating representations for a particular modality, we demonstrate that our approach is able to learn useful representations achieving strong performance on four distinct domains: speech, images, text and reinforcement learning in 3D environments.},
+	language = {en},
+	urldate = {2019-11-12},
+	journal = {arXiv:1807.03748 [cs, stat]},
+	author = {Oord, Aaron van den and Li, Yazhe and Vinyals, Oriol},
+	year = {2019},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {Oord et al_2019_Representation Learning with Contrastive Predictive Coding.pdf:/Users/spijkervet/Zotero/storage/LD6ZATFM/Oord et al_2019_Representation Learning with Contrastive Predictive Coding.pdf:application/pdf}
+}
+
+
+@article{korzeniowski_fully_2016,
+	title = {A {Fully} {Convolutional} {Deep} {Auditory} {Model} for {Musical} {Chord} {Recognition}},
+	url = {http://arxiv.org/abs/1612.05082},
+	doi = {10.1109/MLSP.2016.7738895},
+	abstract = {Chord recognition systems depend on robust feature extraction pipelines. While these pipelines are traditionally hand-crafted, recent advances in end-to-end machine learning have begun to inspire researchers to explore data-driven methods for such tasks. In this paper, we present a chord recognition system that uses a fully convolutional deep auditory model for feature extraction. The extracted features are processed by a Conditional Random Field that decodes the final chord sequence. Both processing stages are trained automatically and do not require expert knowledge for optimising parameters. We show that the learned auditory system extracts musically interpretable features, and that the proposed chord recognition system achieves results on par or better than state-of-the-art algorithms.},
+	urldate = {2019-11-29},
+	journal = {2016 IEEE 26th International Workshop on Machine Learning for Signal Processing (MLSP)},
+	author = {Korzeniowski, Filip and Widmer, Gerhard},
+	year = {2016},
+	keywords = {Computer Science - Machine Learning, Computer Science - Sound},
+	pages = {1--6},
+	annote = {Comment: In Proceedings of the 2016 IEEE 26th International Workshop on Machine Learning for Signal Processing (MLSP), Vietro sul Mare, Italy},
+	file = {arXiv.org Snapshot:/Users/spijkervet/Zotero/storage/PK7HFILW/1612.html:text/html;Korzeniowski_Widmer_2016_A Fully Convolutional Deep Auditory Model for Musical Chord Recognition.pdf:/Users/spijkervet/Zotero/storage/2J2WF2DR/Korzeniowski_Widmer_2016_A Fully Convolutional Deep Auditory Model for Musical Chord Recognition.pdf:application/pdf}
+}
+
+
+@inproceedings{chen_harmony_2019,
+	title = {{Harmony} {Transformer}: {Incorporating} {Chord} {Segmentation} {Into} {Harmony} {Recognition}},
+	abstract = {Musical harmony analysis is usually a process of unfolding and interpreting the hierarchical structure of music. Computational approaches to such structural analysis are still challenging, owing to the fact that the boundary between different harmonic states (such as chord functions) is not explicitly deﬁned in the audio or symbolic music data. It is a novel approach to improve chord recognition by jointly identifying chord change using end-to-end sequence learning. In this paper, we propose the Harmony Transformer, a multi-task music harmony analysis model aiming to improve chord recognition through incorporating chord segmentation into the recognition process. The integration of chord segmentation and chord recognition is implemented with the Transformer, a deep sequential learning model yielding fruitful results in the ﬁeld of natural language processing. A non-autoregressive decoding framework is also adopted here in aid of concatenating the two highly correlated tasks. Experiments of both chord symbol recognition and functional harmony recognition on audio and symbolic datasets demonstrate that explicitly learning the hierarchical structural information of musical data can facilitate and improve the harmony recognition.},
+	language = {en},
+	author = {Chen, Tsung-Ping and Su, Li},
+	year = {2019},
+	booktitle={Proceedings of the 20th International Society for Music Information Retrieval Conference, ISMIR}
+}
+
+@inproceedings{korzeniowski_end--end_2017,
+	address = {Kos, Greece},
+	title = {End-to-{End} {Musical} {Key} {Estimation} {Using} a {Convolutional} {Neural} {Network}},
+	url = {http://arxiv.org/abs/1706.02921},
+	abstract = {We present an end-to-end system for musical key estimation, based on a convolutional neural network. The proposed system not only out-performs existing key estimation methods proposed in the academic literature; it is also capable of learning a unified model for diverse musical genres that performs comparably to existing systems specialised for specific genres. Our experiments confirm that different genres do differ in their interpretation of tonality, and thus a system tuned e.g. for pop music performs subpar on pieces of electronic music. They also reveal that such cross-genre setups evoke specific types of error (predicting the relative or parallel minor). However, using the data-driven approach proposed in this paper, we can train models that deal with multiple musical styles adequately, and without major losses in accuracy.},
+	urldate = {2020-03-01},
+	booktitle = {25th European Signal Processing Conference (EUSIPCO)},
+	author = {Korzeniowski, Filip and Widmer, Gerhard},
+	year = {2017},
+	keywords = {Computer Science - Machine Learning, Computer Science - Sound}
+}
+
+
+
+@incollection{van_den_oord_deep_2013,
+	title = {Deep content-based music recommendation},
+	url = {http://papers.nips.cc/paper/5004-deep-content-based-music-recommendation.pdf},
+	urldate = {2019-12-18},
+	booktitle = {Advances in {Neural} {Information} {Processing} {Systems} 26},
+	author = {van den Oord, Aaron and Dieleman, Sander and Schrauwen, Benjamin},
+	year = {2013},
+	pages = {2643--2651},
+	file = {NIPS Snapshot:/Users/spijkervet/Zotero/storage/DPHRBQRH/5004-deep-content-based-music-recommendation.html:text/html;NIPS Full Text PDF:/Users/spijkervet/Zotero/storage/CGGK5J9E/van den Oord et al. - 2013 - Deep content-based music recommendation.pdf:application/pdf}
+}
+
+
+@article{pons_end--end_2017,
+	title = {End-to-{End} {Learning} for {Music} {Audio} {Tagging} at {Scale}},
+	url = {http://arxiv.org/abs/1711.02520},
+	abstract = {The lack of data tends to limit the outcomes of deep learning research, particularly when dealing with end-to-end learning stacks processing raw data such as waveforms. In this study, 1.2M tracks annotated with musical labels are available to train our end-to-end models. This large amount of data allows us to unrestrictedly explore two different design paradigms for music auto-tagging: assumption-free models – using waveforms as input with very small convolutional ﬁlters; and models that rely on domain knowledge – log-mel spectrograms with a convolutional neural network designed to learn timbral and temporal features. Our work focuses on studying how these two types of deep architectures perform when datasets of variable size are available for training: the MagnaTagATune (25k songs), the Million Song Dataset (240k songs), and a private dataset of 1.2M songs. Our experiments suggest that music domain assumptions are relevant when not enough training data are available, thus showing how waveform-based models outperform spectrogrambased ones in large-scale data scenarios.},
+	booktitle={Proceedings of the 19th International Society for Music Information Retrieval Conference, ISMIR},
+	language = {en},
+	urldate = {2019-09-16},
+	author = {Pons, Jordi and Nieto, Oriol and Prockup, Matthew and Schmidt, Erik and Ehmann, Andreas and Serra, Xavier},
+	year = {2017},
+	keywords = {Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing},
+	annote = {Comment: Presented at the Workshop on Machine Learning for Audio Signal Processing (ML4Audio) at NIPS 2017, and in proceedings of the 19th International Society for Music Information Retrieval Conference (ISMIR2018). Code: https://github.com/jordipons/music-audio-tagging-at-scale-models. Demo: http://www.jordipons.me/apps/music-audio-tagging-at-scale-demo/},
+	file = {Pons et al. - 2017 - End-to-end learning for music audio tagging at sca.pdf:/Users/spijkervet/Zotero/storage/GDXJHRAA/Pons et al. - 2017 - End-to-end learning for music audio tagging at sca.pdf:application/pdf}
+}
+
+
+@inproceedings{bock_joint_2016,
+	title={Joint {Beat} and {Downbeat} {Tracking} with {Recurrent} {Neural} {Networks}},
+	abstract = {In this paper we present a novel method for jointly extracting beats and downbeats from audio signals. A recurrent neural network operating directly on magnitude spectrograms is used to model the metrical structure of the audio signals at multiple levels and provides an output feature that clearly distinguishes between beats and downbeats. A dynamic Bayesian network is then used to model bars of variable length and align the predicted beat and downbeat positions to the global best solution. We ﬁnd that the proposed model achieves state-of-the-art performance on a wide range of different musical genres and styles.},
+	author = {B{\"o}ck, Sebastian and Krebs, Florian and Widmer, Gerhard},
+	year = {2016},
+	booktitle={Proceedings of the 17th International Society for Music Information Retrieval Conference, ISMIR}
+}
+
+@article{wiskott_slow_2002,
+	title = {Slow {Feature} {Analysis}: {Unsupervised} {Learning} of {Invariances}},
+	volume = {14},
+	issn = {0899-7667, 1530-888X},
+	shorttitle = {Slow {Feature} {Analysis}},
+	url = {http://www.mitpressjournals.org/doi/10.1162/089976602317318938},
+	doi = {10.1162/089976602317318938},
+	language = {en},
+	number = {4},
+	urldate = {2020-03-09},
+	journal = {Neural Computation},
+	author = {Wiskott, Laurenz and Sejnowski, Terrence J.},
+	year = {2002},
+	pages = {715--770},
+	file = {Wiskott and Sejnowski - 2002 - Slow Feature Analysis Unsupervised Learning of In.pdf:/Users/spijkervet/Zotero/storage/W2B44KMK/Wiskott and Sejnowski - 2002 - Slow Feature Analysis Unsupervised Learning of In.pdf:application/pdf}
+}
+
+
+@article{hjelm_learning_2019,
+	title = {Learning deep representations by mutual information estimation and maximization},
+	url = {http://arxiv.org/abs/1808.06670},
+	abstract = {In this work, we perform unsupervised learning of representations by maximizing mutual information between an input and the output of a deep neural network encoder. Importantly, we show that structure matters: incorporating knowledge about locality of the input to the objective can greatly influence a representation's suitability for downstream tasks. We further control characteristics of the representation by matching to a prior distribution adversarially. Our method, which we call Deep InfoMax (DIM), outperforms a number of popular unsupervised learning methods and competes with fully-supervised learning on several classification tasks. DIM opens new avenues for unsupervised learning of representations and is an important step towards flexible formulations of representation-learning objectives for specific end-goals.},
+	urldate = {2019-11-21},
+	journal = {arXiv:1808.06670 [cs, stat]},
+	author = {Hjelm, R. Devon and Fedorov, Alex and Lavoie-Marchildon, Samuel and Grewal, Karan and Bachman, Phil and Trischler, Adam and Bengio, Yoshua},
+	year = {2019},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	annote = {Comment: Accepted as an oral presentation at the International Conference for Learning Representations (ICLR), 2019},
+	annote = {Extracted Annotations (21/11/2019, 21:05:48)
+"useful representations" (Hjelm et al 2019:1)},
+	file = {Hjelm et al_2019_Learning deep representations by mutual information estimation and maximization_annotated.pdf:/Users/spijkervet/Zotero/storage/IN2QC76U/Hjelm et al_2019_Learning deep representations by mutual information estimation and maximization.pdf:application/pdf;Hjelm et al_2019_Learning deep representations by mutual information estimation and maximization.pdf:/Users/spijkervet/Zotero/storage/RNE2NFH6/Hjelm et al_2019_Learning deep representations by mutual information estimation and maximization.pdf:application/pdf;arXiv.org Snapshot:/Users/spijkervet/Zotero/storage/UPR49BQT/1808.html:text/html}
+}
+
+
+@article{chen_simple_2020,
+	title = {A {Simple} {Framework} for {Contrastive} {Learning} of {Visual} {Representations}},
+	url = {http://arxiv.org/abs/2002.05709},
+	abstract = {This paper presents SimCLR: a simple framework for contrastive learning of visual representations. We simplify recently proposed contrastive self-supervised learning algorithms without requiring specialized architectures or a memory bank. In order to understand what enables the contrastive prediction tasks to learn useful representations, we systematically study the major components of our framework. We show that (1) composition of data augmentations plays a critical role in defining effective predictive tasks, (2) introducing a learnable nonlinear transformation between the representation and the contrastive loss substantially improves the quality of the learned representations, and (3) contrastive learning benefits from larger batch sizes and more training steps compared to supervised learning. By combining these findings, we are able to considerably outperform previous methods for self-supervised and semi-supervised learning on ImageNet. A linear classifier trained on self-supervised representations learned by SimCLR achieves 76.5\% top-1 accuracy, which is a 7\% relative improvement over previous state-of-the-art, matching the performance of a supervised ResNet-50. When fine-tuned on only 1\% of the labels, we achieve 85.8\% top-5 accuracy, outperforming AlexNet with 100X fewer labels.},
+	urldate = {2020-03-09},
+	journal = {arXiv:2002.05709 [cs, stat]},
+	author = {Chen, Ting and Kornblith, Simon and Norouzi, Mohammad and Hinton, Geoffrey},
+	year = {2020},
+	note = {arXiv: 2002.05709},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {arXiv Fulltext PDF:/Users/spijkervet/Zotero/storage/9VJWMNKM/Chen et al. - 2020 - A Simple Framework for Contrastive Learning of Vis.pdf:application/pdf;arXiv.org Snapshot:/Users/spijkervet/Zotero/storage/2IBDAI9H/2002.html:text/html}
+}
+
+@InProceedings{gutmann_noise-contrastive_nodate,
+  title = 	 {Noise-contrastive estimation: A new estimation principle for unnormalized statistical models},
+  author = 	 {Michael Gutmann and Aapo Hyvärinen},
+  booktitle = 	 {Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics},
+  pages = 	 {297--304},
+  year = 	 {2010},
+  volume = 	 {9},
+  series = 	 {Proceedings of Machine Learning Research},
+  publisher = 	 {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v9/gutmann10a/gutmann10a.pdf},
+  url = 	 {http://proceedings.mlr.press/v9/gutmann10a.html},
+  abstract = 	 {We present a new estimation principle for parameterized statistical models. The idea is to perform nonlinear logistic regression to discriminate between the observed data and some artificially generated noise, using the model log-density function in the regression nonlinearity.  We show that this leads to a consistent (convergent) estimator of the parameters, and analyze the asymptotic variance.  In particular, the method is shown to directly work for unnormalized models, i.e. models where the density function does not integrate to one. The normalization constant can be estimated just like any other parameter. For a tractable ICA model, we compare the method with other estimation methods that can be used to learn unnormalized models, including score matching, contrastive divergence, and maximum-likelihood where the normalization constant is estimated with importance sampling. Simulations show that noise-contrastive estimation offers the best trade-off between computational and statistical efficiency. The method is then applied to the modeling of natural images: We show that the method can successfully estimate a large-scale two-layer model and a Markov random field.}
+}
+
+
+
+@inproceedings{poole_variational_2019,
+  title = 	 {On {Variational} {Bounds} of {Mutual} {Information}},
+  author = 	 {Poole, Ben and Ozair, Sherjil and Van Den Oord, Aaron and Alemi, Alex and Tucker, George},
+  booktitle = 	 {Proceedings of the 36th International Conference on Machine Learning},
+  pages = 	 {5171--5180},
+  year = 	 {2019},
+  editor = 	 {Chaudhuri, Kamalika and Salakhutdinov, Ruslan},
+  volume = 	 {97},
+  series = 	 {Proceedings of Machine Learning Research},
+  address = 	 {Long Beach, California, USA},
+  publisher = 	 {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v97/poole19a/poole19a.pdf},
+  url = 	 {http://proceedings.mlr.press/v97/poole19a.html},
+  abstract = 	 {Estimating and optimizing Mutual Information (MI) is core to many problems in machine learning, but bounding MI in high dimensions is challenging. To establish tractable and scalable objectives, recent work has turned to variational bounds parameterized by neural networks. However, the relationships and tradeoffs between these bounds remains unclear. In this work, we unify these recent developments in a single framework. We find that the existing variational lower bounds degrade when the MI is large, exhibiting either high bias or high variance. To address this problem, we introduce a continuum of lower bounds that encompasses previous bounds and flexibly trades off bias and variance. On high-dimensional, controlled problems, we empirically characterize the bias and variance of the bounds and their gradients and demonstrate the effectiveness of these new bounds for estimation and representation learning.}
+}
+
+
+@inproceedings{spice, 
+	author={Gfeller, Beat and Frank, Christian and Roblek, Dominik and Sharifi, Matt and Tagliasacchi, Marco and Velimirović, Mihajlo},
+	booktitle={ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+	title={{Pitch} {Estimation} {Via} {Self}-{Supervision}},
+	year={2020},
+	volume={},
+	number={},
+	pages={3527-3531}
+}
+
+
+@article{doi:10.1080/09298215.2019.1613436,
+author = {Hendrik Vincent Koops and W. Bas de Haas and John Ashley Burgoyne and Jeroen Bransen and Anna Kent-Muller and Anja Volk},
+title = {Annotator subjectivity in harmony annotations of popular music},
+journal = {Journal of New Music Research},
+volume = {48},
+number = {3},
+pages = {232-252},
+year  = {2019},
+publisher = {Routledge},
+doi = {10.1080/09298215.2019.1613436},
+
+URL = { 
+        https://doi.org/10.1080/09298215.2019.1613436
+    
+},
+eprint = { 
+        https://doi.org/10.1080/09298215.2019.1613436
+    
+}
+
+}
+
+@inproceedings{zhang2016colorful,
+  title={Colorful {Image} {Colorization}},
+  author={Zhang, Richard and Isola, Phillip and Efros, Alexei A},
+  booktitle={European conference on computer vision},
+  pages={649--666},
+  year={2016},
+  organization={Springer}
+}
+
+@article{bengio2013representation,
+  title={Representation learning: A review and new perspectives},
+  author={Bengio, Yoshua and Courville, Aaron and Vincent, Pascal},
+  journal={IEEE transactions on pattern analysis and machine intelligence},
+  volume={35},
+  number={8},
+  pages={1798--1828},
+  year={2013},
+  publisher={IEEE}
+}
+
+@inproceedings{lattner2019learning,
+  title={Learning {Complex} {Basis} {Functions} for {Invariant} {Representations} of {Audio}},
+  author={Lattner, Stefan and D{\"o}rfler, Monika and Arzt, Andreas},
+  year={2019},
+  booktitle={Proceedings of the 20th International Society for Music Information Retrieval Conference, ISMIR}
+}
+
+@inproceedings{Tschannen2020OnMI,
+	title={On {Mutual} {Information} {Maximization} for {Representation} {Learning}},
+	author={Michael Tschannen and Josip Djolonga and Paul K. Rubenstein and Sylvain Gelly and Mario Lucic},
+	booktitle={International Conference on Learning Representations},
+	year={2020},
+	url={https://openreview.net/forum?id=rkxoh24FPH}
+}
+
+@article{lstm,
+author = {Hochreiter, Sepp and Schmidhuber, J\"{u}rgen},
+title = {Long Short-Term Memory},
+year = {1997},
+issue_date = {November 15, 1997},
+publisher = {MIT Press},
+address = {Cambridge, MA, USA},
+volume = {9},
+number = {8},
+issn = {0899-7667},
+url = {https://doi.org/10.1162/neco.1997.9.8.1735},
+doi = {10.1162/neco.1997.9.8.1735},
+journal = {Neural Comput.},
+month = nov,
+pages = {1735–1780},
+numpages = {46}
+}
+
+@article{sohn2020fixmatch,
+  title={Fix{Match}: {Simplifying} {Semi}-{Supervised} {Learning} with {Consistency} and {Confidence}},
+  author={Sohn, Kihyuk and Berthelot, David and Li, Chun-Liang and Zhang, Zizhao and Carlini, Nicholas and Cubuk, Ekin D and Kurakin, Alex and Zhang, Han and Raffel, Colin},
+  journal={arXiv preprint arXiv:2001.07685},
+  year={2020}
+}
+
+@article{lee2018samplecnn,
+  title={Sample{C}{N}{N}: {End}-to-{End} {Deep} {Convolutional} {Neural} {Networks} {Using} {Very} {Small} {Filters} for {Music} {Classification}},
+  author={Lee, Jongpil and Park, Jiyoung and Kim, Keunhyoung Luke and Nam, Juhan},
+  journal={Applied Sciences},
+  volume={8},
+  number={1},
+  pages={150},
+  year={2018},
+  publisher={Multidisciplinary Digital Publishing Institute}
+}
+
+@inproceedings{dieleman_feature_learning,
+  abstract     = {Content-based music information retrieval tasks are typically solved with a two-stage approach: features are extracted from music audio signals, and are then used as input to a regressor or classifier. These features can be engineered or learned from data. Although the former approach was dominant in the past, feature learning has started to receive more attention from the MIR community in recent years. Recent results in feature learning indicate that simple algorithms such as $k$-means can be very effective, sometimes surpassing more complicated approaches based on restricted Boltzmann machines, autoencoders or sparse coding. Furthermore, there has been increased interest in multiscale representations of music audio recently. Such representations are more versatile because music audio exhibits structure on multiple timescales, which are relevant for different MIR tasks to varying degrees. We develop and compare three approaches to multiscale audio feature learning using the spherical $k$-means algorithm. We evaluate them in an automatic tagging task and a similarity metric learning task on the Magnatagatune dataset.},
+  author       = {Dieleman, Sander and Schrauwen, Benjamin},
+  booktitle    = {Proceedings of the 14th International Society for Music Information Retrieval conference},
+  isbn         = {9780615900650},
+  keywords     = {music information retrieval,multiple timescales,feature learning,$k$-means},
+  pages        = {116--121},
+  title        = {Multiscale approaches to music audio feature learning},
+  year         = {2013},
+}
+
+@inproceedings{burgoyne_billboard,
+author = {Burgoyne, John Ashley and Wild, Jonathan and Fujinaga, Ichiro},
+year = {2011},
+title = {An {Expert} {Ground} {Truth} {Set} for {Audio} {Chord} {Recognition} and {Music} {Analysis}},
+booktitle={Proceedings of the 12th International Society for Music Information Retrieval Conference, ISMIR}
+}
+
+@inproceedings{law2009evaluation,
+  title={Evaluation of algorithms using games: {The} case of music tagging},
+  author={Law, Edith and West, Kris and Mandel, Michael I and Bay, Mert and Downie, J Stephen},
+  booktitle={Proceedings of the 10th International Society for Music Information Retrieval Conference},
+  year={2009}
+}
+
+@article{sturm2013gtzan,
+  title={The {G}{T}{Z}{A}{N} dataset: {Its} contents, its faults, their effects on evaluation, and its future use},
+  author={Sturm, Bob L},
+  journal={arXiv preprint arXiv:1306.1461},
+  year={2013}
+}
+
+@article{tzanetakis2002musical,
+  title={Musical {Genre} {Classification} of {Audio} {Signals}},
+  author={Tzanetakis, George and Cook, Perry},
+  journal={IEEE Transactions on speech and audio processing},
+  volume={10},
+  number={5},
+  pages={293--302},
+  year={2002},
+  publisher={IEEE}
+}
+
+@inproceedings{fma_dataset,
+  title = {FMA: A Dataset for Music Analysis},
+  author = {Defferrard, Micha\"el and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
+  booktitle = {18th International Society for Music Information Retrieval Conference, ISMIR},
+  year = {2017},
+  url = {https://arxiv.org/abs/1612.01840},
+}
+
+@article{henaff2019data,
+  title={Data-efficient image recognition with contrastive predictive coding},
+  author={H{\'e}naff, Olivier J and Razavi, Ali and Doersch, Carl and Eslami, S.M. Ali and Oord, Aaron van den},
+  journal={arXiv preprint arXiv:1905.09272},
+  year={2019}
+}
+
+@inproceedings{hamel2011temporal,
+	title={Temporal Pooling and Multiscale Learning for Automatic Annotation and Ranking of Music Audio.},
+	author={Hamel, Philippe and Lemieux, Simon and Bengio, Yoshua and Eck, Douglas},
+	booktitle={Proceedings of the 12th International Society for Music Information Retrieval Conference, ISMIR},
+	pages={729--734},
+	year={2011}
+}
+
+@inproceedings{dieleman2014end,
+  title={End-to-end learning for music audio},
+  author={Dieleman, Sander and Schrauwen, Benjamin},
+  booktitle={2014 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={6964--6968},
+  year={2014},
+  organization={IEEE}
+}
+
+@article{dosovitskiy2015discriminative,
+  title={Discriminative {Unsupervised} {Feature} {Learning} with {Exemplar} {Convolutional} {Neural} {Networks}},
+  author={Dosovitskiy, Alexey and Fischer, Philipp and Springenberg, Jost Tobias and Riedmiller, Martin and Brox, Thomas},
+  journal={IEEE transactions on pattern analysis and machine intelligence},
+  volume={38},
+  number={9},
+  pages={1734--1747},
+  year={2015},
+  publisher={IEEE}
+}
+
+@inproceedings{batch_normalisation,
+author = {Ioffe, Sergey and Szegedy, Christian},
+title = {{Batch} {Normalization}: {Accelerating} {Deep} {Network} {Training} by {Reducing} {Internal} {Covariate} {Shift}},
+year = {2015},
+booktitle = {Proceedings of the 32nd International Conference on International Conference on Machine Learning - Volume 37},
+pages = {448–456},
+numpages = {9},
+location = {Lille, France},
+series = {ICML’15}
+}
+
+@article{maaten2008visualizing,
+  title={Visualizing {Data} using t-{S}{N}{E}},
+  author={Maaten, Laurens van der and Hinton, Geoffrey},
+  journal={Journal of machine learning research},
+  volume={9},
+  pages={2579--2605},
+  year={2008}
+}
+
+@inproceedings{adam_optimizer,
+  author    = {Diederik P. Kingma and
+               Jimmy Ba},
+  title     = {Adam: {A} {Method} for {Stochastic} {Optimization}},
+  booktitle = {3rd International Conference on Learning Representations, {ICLR} 2015,
+               San Diego, CA, USA},
+  year      = {2015},
+  url       = {http://arxiv.org/abs/1412.6980},
+  biburl    = {https://dblp.org/rec/journals/corr/KingmaB14.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{goodfellow2014generative,
+  title={Generative {Adversarial} {Nets}},
+  author={Goodfellow, Ian and Pouget-Abadie, Jean and Mirza, Mehdi and Xu, Bing and Warde-Farley, David and Ozair, Sherjil and Courville, Aaron and Bengio, Yoshua},
+  booktitle={Advances in neural information processing systems},
+  pages={2672--2680},
+  year={2014}
+}
+
+@inproceedings{unsupervised_gan,
+  author    = {Alec Radford and
+               Luke Metz and
+               Soumith Chintala},
+  title     = {{Unsupervised} {Representation} {Learning} with {Deep} {Convolutional} {Generative} {Adversarial} {Networks}},
+  booktitle = {4th International Conference on Learning Representations, {ICLR} 2016,
+               San Juan, Puerto Rico, Conference Track Proceedings},
+  year      = {2016},
+  url       = {http://arxiv.org/abs/1511.06434}
+}
