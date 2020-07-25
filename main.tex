@@ -48,10 +48,11 @@
 \tableofcontents
 
 \chapter{Introduction}
-The field of music information retrieval has seen many successes since the emergence of deep learning. Supervised, end-to-end learning methods have been widely used in tasks like chord recognition \cite{korzeniowski_fully_2016, chen_harmony_2019}, key detection \cite{korzeniowski_end--end_2017}, beat tracking \cite{bock_joint_2016}, music audio tagging \cite{pons_end--end_2017} and music recommendation \cite{van_den_oord_deep_2013}. These methods use labeled corpora, which are hard\cite{doi:10.1080/09298215.2019.1613436}, expensive and time-consuming to create, while raw unlabeled musical data is available in vast amounts. Despite the importance of unsupervised learning in MIR for raw, high-dimensional signals of audio, it has yet to see breakthroughs similar to supervised learning. It has enjoyed successes with methods like PCA, PMSC's and spherical $k$-means that rely on a transformation pipeline\cite{hamel2011temporal, dieleman_feature_learning}, but learning effective representations of raw audio remains elusive. 
+The field of music information retrieval has seen many successes since the emergence of deep learning. Supervised, end-to-end learning methods have been widely used in tasks like chord recognition \cite{korzeniowski_fully_2016, chen_harmony_2019}, key detection \cite{korzeniowski_end--end_2017}, beat tracking \cite{bock_joint_2016}, music audio tagging \cite{pons_end--end_2017} and music recommendation \cite{van_den_oord_deep_2013}. These methods use labeled corpora, which are hard\cite{doi:10.1080/09298215.2019.1613436}, expensive and time-consuming to create, while raw unlabeled musical data is available in vast amounts. Despite the importance of unsupervised learning in MIR for raw, high-dimensional signals of audio, it has yet to see breakthroughs similar to supervised learning. It has enjoyed successes with methods like PCA, PMSC's and spherical $k$-means that rely on a transformation pipeline of the source signal to a spectogram representation\cite{hamel2011temporal, dieleman_feature_learning}, but learning effective representations of raw audio remains elusive. 
 
 \begin{figure}[t]
-    \includegraphics[width=\columnwidth]{figs/performance.png}
+    \centering
+    \includegraphics[width=.5\columnwidth]{figs/performance.png}
     \caption{Performance and model complexity comparison of supervised models (grey) and self-supervised models (ours) in music classification of raw audio waveforms on the MagnaTagATune dataset to evaluate musical representations. Supervised models were trained end-to-end, while CLMR and CPC are pre-trained without ground truth: their scores are obtained by training a linear, logistic regression classifier on their learned representations but nonetheless perform practically identically to the supervised models.}
     \label{fig:example}
 \end{figure}
@@ -76,41 +77,72 @@ The models are evaluated on a music tagging task, enabling us to evaluate their 
     \item The proposed models can learn from \emph{any} dataset of raw audio, requiring neither transformations nor fine-tuning on the input data; nor do the models require manually annotated labels for pre-training.
 \end{itemize}
 
+\section{Outline}
+Outline section
+
 
 
 \chapter{Background}
-The performance of machine learning models is heavily dependent on the choice of features and representations. These features are often engineered using human intuition and domain knowledge of the composition of the input data (i.e., feature engineering). While feature engineering can greatly help to improve model performance, it is time-consuming and highlights the inability of traditional learning algorithms to identify and disentangle explanatory factors hidden in high-dimensional signals. 
+In this chapter, we recapitulate the foundations which are used to build on in this work. In Section 2.1, we discuss the approaches to representation learning. In subsequent subsections, we discuss an upcoming learning paradigm, self-supervised learning, the intuition and theory behind Contrastive Predictve Coding \cite{oord_representation_2019} and elaborate on other contrastive learning techniques. In Section 2.2, we discuss convolutional neural networks for raw audio signals. In Section 2.3, we discuss the task of music auto tagging and their evaluation metrics.
+
 
 \section{Representation Learning}
 
-The goal of representation learning is to identify features that make  prediction tasks easier and more robust to the complex variations of natural data\cite{bengio2013representation}. Supervised techniques for representation learning have now been successfully applied to a variety of tasks \cite{korzeniowski_fully_2016, chen_harmony_2019, korzeniowski_end--end_2017, bock_joint_2016, pons_end--end_2017, van_den_oord_deep_2013}. 
-% In the unsupervised domain, generative modeling and likelihood-based models use reconstruction of the observations as the objective for learning useful representations of the data. 
+The goal of representation learning is to identify features that make  prediction tasks easier and more robust to the complex variations of natural data\cite{bengio2013representation}. Supervised techniques for representation learning have now been successfully applied to a variety of tasks \cite{korzeniowski_fully_2016, chen_harmony_2019, korzeniowski_end--end_2017, bock_joint_2016, pons_end--end_2017, van_den_oord_deep_2013}. The performance of machine learning models is heavily dependent on the choice of features and representations. These features are often engineered using human intuition and domain knowledge of the composition of the input data (i.e., feature engineering). While feature engineering can greatly help to improve model performance, it is time-consuming and highlights the inability of traditional learning algorithms to identify and disentangle explanatory factors hidden in high-dimensional signals. 
+
 In unsupervised representation learning, generative modeling and likelihood-based models typically find useful representations of the data by attempting to reconstruct the observations on the basis of their learned representations\cite{goodfellow2014generative, unsupervised_gan}.
-In contrast to these unsupervised approaches, \emph{self-supervised} contrastive representation learning aims to identify the explanatory factors of the data using an objective that is formulated with respect to the learned representations directly.
 
-Work on self-supervised learning in audio is still very limited. Contrastive predictive coding (CPC) as formulated by \cite{oord_representation_2019} is a universal approach to contrastive learning, and has been successful for speaker and phoneme classification, among other tasks. Recent advances have also been made in self-supervised pitch estimation\cite{spice}, closely matching supervised, state-of-the-art baselines despite being trained without ground truth labels. That work, however, relies on pre-processing with a CQT transform: to the best of our knowledge, we propose the first self-supervised learning framework for raw waveforms of musical audio. 
-
-\subsection{Invariance and Levels of Abstraction}
-Ideal feature representations should be invariant to local translations and noisy variations of the input signal while remaing sensitive to higher-level semantic information. Put differently, the main challenge is to learn representations that effectively encode \textit{slow features} \cite{wiskott_slow_2002}, i.e., the shared information between parts of a high-dimensional signal. Conversely, a good representation should disregard noisy, more local features. The idea of slow features is quite intuitive for music.
-We know that an audio fragment of a few seconds will share information with neighbouring fragments, e.g., the instrument(s) playing, the harmonic set of pitches or the identity of a vocalist.  But the further into the future a model is forced to predict these features, the less of this kind of shared information is available, thereby requiring the model to infer higher-level structure. Slow audio features span a longer temporal range (e.g., harmonic transitions or melodic contour) and are more interesting for use in downstream MIR tasks.
-
-Contrastive predictive coding exploits this idea by learning representations that maximise mutual information among temporally neighbouring patches of data\cite{oord_representation_2019, hjelm_learning_2019}. Recently, however, the contribution of mutual information to the success of CPC has been reconsidered: its performance seems to depend largely on an inductive bias in the choice of a specialised architecture and the parameterisation of the mutual information critic \cite{Tschannen2020OnMI}. SimCLR is an alternative contrastive learning technique for learning effective representations of images in a self-supervised manner without relying on specialised architectures and powerful autoregressive modeling \cite{chen_simple_2020}. Drawing inspiration from SimCLR, we have designed a contrastive learning framework optimised for high-dimensional, raw signals of audio: Contrastive Learning of Musical Representations (CLMR). This paper evaluates the performance of both CPC and CLMR relative to state-of-the-art supervised music classifiers.
+% In the unsupervised domain, generative modeling and likelihood-based models use reconstruction of the observations as the objective for learning useful representations of the data.
 
 
-\chapter{Method}
+PCA PMSCs spherecal k-means
 
-\section{Contrastive Predictive Coding}
+
+
+\subsection{Self-supervised Learning}
+In contrast to these unsupervised representation learning approaches, \emph{self-supervised} representation learning aims to identify the explanatory factors of the data using an objective that is formulated with respect to the learned representations directly.
+
+Work on self-supervised learning in audio is still very limited. Contrastive Predictive Coding (CPC) as formulated by \cite{oord_representation_2019} is a universal approach to contrastive learning, and has been successful for speaker and phoneme classification, among other tasks. Recent advances have also been made in self-supervised pitch estimation\cite{spice}, closely matching supervised, state-of-the-art baselines despite being trained without ground truth labels. That work, however, relies on pre-processing with a CQT transform: to the best of our knowledge, we propose the first self-supervised learning framework for raw waveforms of musical audio. 
+
+
+
+\subsection{Contrastive Predictive Coding}
 Contrastive predictive coding learns to predict representations of future observations from past observations. For audio, it predicts representations of segments of audio in the future. A sequential input signal $x_t$ is mapped by a non-linear encoder $g_{\mathrm{enc}}(\cdot)$ to a sequence of latent representations $h_t = g_{\mathrm{enc}}(x_t)$, while simultaneously an autoregressive model $g_{\mathrm{ar}}(\cdot)$ summarizes all encodings $h_{\leq t}$ in the latent space and maps them to a context latent representation $c_t = g_{\mathrm{enc}}(h_{\leq t})$. The signals $h_t$ and $c_t$ are encoded so as to preserve maximal mutual information and to identify shared latent variables of the original signals: $g_{\mathrm{enc}}(\cdot)$ and $g_{\mathrm{ar}}(\cdot)$ jointly optimise InfoNCE, a contrastive loss based on noise-contrastive estimation\cite{gutmann_noise-contrastive_nodate}, and which has been widely used in previous work\cite{oord_representation_2019, sohn2020fixmatch, chen_simple_2020}. Given $N$ random samples from the set of encodings $X = \{h_{t+k}, h_{j_1}, h_{j_2} \hdots h_N\}$, $k$ being the number of timesteps the encoding occurs after $c_t$ and $X$ containing one positive sample $h_{t+k}$ and $N-1$ negative samples $h_{j_{n}}$ drawn from representations of other samples in the audio and dataset, the following objective is optimised:
 
 \begin{equation}
     \mathcal{L}_{N}=-\sum_{k} \underset{X}{\mathbb{E}}\left[\log \frac{f_{k}\left(h_{t+k}, c_{t}\right)}{\sum_{h_{j} \in X} f_{k}\left(h_{j}, c_{t}\right)}\right]
 \end{equation}
 
-Each encoding pair $(h_n, c_t)$ is evaluated using a scoring function $f(\cdot)$ to estimate how likely a given $h_n$ is the positive sample $h_{t+k}$. CPC's \cite{oord_representation_2019} formulation of the optimal solution for $f(\cdot)$ allows $-\mathcal{L}_n$ to be reformulated as a lower bound on the mutual information of representations $I(h_{t+k} | c_t)$, which also bounds the data $I(x_{t+k} | c_t)$, and is further proven by \cite{poole_variational_2019}. For downstream tasks, both $h_t$ and $c_t$ can be used as representations for new observations $x$, depending on whether context is helpful for solving it. We adjusted the original CPC encoder $g_{\mathrm{enc}}$ to a deeper architecture, as previous work\cite{lee2018samplecnn} shows more convolutions with smaller filter sizes helps to learn more useful representations of musical audio. The encoder $g_{\mathrm{enc}}$ consists of 7 layers with 512 filters each, and filter sizes $[10, 6, 4, 4, 4, 2, 2]$ and strides $[5, 3, 2, 2, 2, 2, 2]$. This results in a downsampling factor of $490$, which yields a feature vector for every $\approx$ 5~ms of audio for an input of 59\,049 samples. Instead of relying on max-pooling, the filter sizes and strides are adjusted accordingly to parameterise and facilitate downsampling. We also increased the number of prediction steps $k$ to 20, effectively asking the network to predict 100~ms of audio into the future. The mini-batch size, i.e., the number of training examples the model is exposed to at once, is set to 64 from which 15 negative samples in the contrastive loss are drawn.
+Each encoding pair $(h_n, c_t)$ is evaluated using a scoring function $f(\cdot)$ to estimate how likely a given $h_n$ is the positive sample $h_{t+k}$. CPC's \cite{oord_representation_2019} formulation of the optimal solution for $f(\cdot)$ allows $-\mathcal{L}_n$ to be reformulated as a lower bound on the mutual information of representations $I(h_{t+k} | c_t)$, which also bounds the data $I(x_{t+k} | c_t)$, and is further proven by \cite{poole_variational_2019}. For downstream tasks, both $h_t$ and $c_t$ can be used as representations for new observations $x$, depending on whether context is helpful for solving it. 
 
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=.75\columnwidth]{figs/cpc_model.png}
+    \caption{Contrastive Predictive Coding model}
+    \label{fig:cpc_model}
+\end{figure}
+
+\subsection{SimCLR}
+
+\subsection{Contrastive Learning}
+Ideal feature representations should be invariant to local translations and noisy variations of the input signal while remaining sensitive to higher-level semantic information. Put differently, the main challenge is to learn representations that effectively encode \textit{slow features} \cite{wiskott_slow_2002}, i.e., the shared information between parts of a high-dimensional signal. Conversely, a good representation should disregard noisy, more local features. The idea of slow features is quite intuitive for music.
+We know that an audio fragment of a few seconds will share information with neighbouring fragments, e.g., the instrument(s) playing, the harmonic set of pitches or the identity of a vocalist.  But the further into the future a model is forced to predict these features, the less of this kind of shared information is available, thereby requiring the model to infer higher-level structure. Slow audio features span a longer temporal range (e.g., harmonic transitions or melodic contour) and are more interesting for use in downstream MIR tasks.
+
+Contrastive predictive coding exploits this idea by learning representations that maximise mutual information among temporally neighbouring patches of data\cite{oord_representation_2019, hjelm_learning_2019}. Recently, however, the contribution of mutual information to the success of CPC has been reconsidered: its performance seems to depend largely on an inductive bias in the choice of a specialised architecture and the parameterisation of the mutual information critic \cite{Tschannen2020OnMI}. SimCLR is an alternative contrastive learning technique for learning effective representations of images in a self-supervised manner without relying on specialised architectures and powerful autoregressive modeling \cite{chen_simple_2020}. Drawing inspiration from SimCLR, we have designed a contrastive learning framework optimised for high-dimensional, raw signals of audio: Contrastive Learning of Musical Representations (CLMR). This paper evaluates the performance of both CPC and CLMR relative to state-of-the-art supervised classifiers of raw audio.
+
+\section{CNN's for Audio}
+\subsection{SampleCNN}
+
+\section{Music Tagging}
+
+\subsection{Evaluation Metrics}
+
+
+\chapter{Method}
 
 \section{Contrastive Learning Framework}
-Our CLMR framework consists of four core components:
+Similar to SimCLR, our CLMR framework consists of four core components and each have unique challenges compared to a visual contrastive learning framework.
 \begin{itemize}
     \item A stochastic composition of data augmentations that produces two correlated, augmented examples of the same audio segment, which we call the `positive pair', denoted as $x_i$ and $x_j$. This is done for all segments in the mini-batch, resulting in $2N$ augmented examples per mini-batch.
     \item An encoder neural network $g_{\mathrm{enc}}(\cdot)$ that encodes the augmented examples to their latent representations.
@@ -121,21 +153,53 @@ Our CLMR framework consists of four core components:
 The complete framework is visualised in Figure \ref{fig:clmr_model}.
 
 \begin{figure}[t]
-    \includegraphics[width=\columnwidth]{figs/clmr_model.png}
+    \centering
+    \includegraphics[width=.75\columnwidth]{figs/clmr_model.png}
     \caption{The proposed contrastive learning framework for audio, in which the contrastive learning objective is directly formulated in the latent space of correlated, augmented examples of the same raw audio waveforms.}
     \label{fig:clmr_model}
 \end{figure}
 
 
 \section{Data Augmentations}
-We designed a chain of common augmentations for audio to make it harder for the model to identify the correct pair of examples. The following augmentations were applied on ${x_i}$ and ${x_j}$ independently:
-\begin{enumerate}
-    \item A random segment of size $N$ is selected from a full piece of audio, without trimming silence (e.g., the intro or outro of a song). The independently chosen segments for $x_i$ and $x_j$ could overlap or be very disjoint, allowing the model to infer both local and global structures.
-    \item The polarity is inverted with probability $p_{\mathrm{invert}}$.
-    \item Noise is added with probability $p_{\mathrm{noise}}$.
-    \item The gain is reduced between $[-6, 0]$ decibels with probability $p_{\mathrm{gain}}$.
-    \item A filter is applied with probability $p_{\mathrm{filter}}$. A coin flip determines whether it is a low-pass ($3500$~Hz) or high-pass ($800$~Hz) filter.
-\end{enumerate}
+We designed a chain of common augmentations for audio to make it less trivial for the model to identify the correct pair of examples and find a solution to the objective. The following augmentations were applied on ${x_i}$ and ${x_j}$ independently.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.25\columnwidth]{figs/data_augmentations.png}
+    \caption{Chain and order of data augmentations designed for CLMR, which takes as input the raw audio waveform and outputs a correlated, augmented example.}
+    \label{fig:data_augmentations}
+\end{figure}
+
+
+\subsubsection*{Random cropping}
+A random segment of size $N$ is selected from a full piece of audio, without trimming silence (e.g., the intro or outro of a song). The independently chosen segments for $x_i$ and $x_j$ could overlap or be very disjoint, allowing the model to infer both local and global structures.
+
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=.5\columnwidth]{figs/clmr_local_global.png}
+    \caption{Local and global cropping}
+    \label{fig:clmr_local_global}
+\end{figure}
+
+
+\subsubsection*{Polarity inversion}
+The polarity of the audio signal is inverted with probability $p_{\mathrm{invert}}$, i.e. the amplitude is multiplied by $-1$. The model should become invariant to transformations in the polarity of the signal, since a change in polarity does not make audio sound different.
+
+\subsubsection*{Noise addition}
+Noise is added with probability $p_{\mathrm{noise}}$, i.e. a segment of the same length as the source audio is filled with samples drawn from a Gaussian distribution and subsequently added to the source with noise factor $F$, controlling the signal-to-noise ratio. Since many recordings contain `noise'
+
+\subsubsection*{Gain reduction}
+The gain of the audio signal is reduced with $d$ decibels, drawn uniformly from the distribution $[-6, 0]$, with probability $p_{\mathrm{gain}}$, 
+
+\subsubsection*{Filtering}
+A filter is applied with probability $p_{\mathrm{filter}}$. A coin flip determines whether it is a low-pass or a high-pass filter, with cut-off frequencies drawn from a uniform distribution between $2200-4000$~Hz and $200-1200$~Hz respectively.
+
+\subsubsection*{Delay}
+The audio signal is delayed with $s$ samples by duplicating the original signal, add a silence of $x$ samples and adjust its volume with $d$ decibels.
+
+
 The space of augmentations is not limited to these operations and could easily be extended to, e.g., randomly applying pitch shifts, reverberation, delay, chorus and other modulations. When designing a chain of augmentations, however, one must be cautious not to let the model become invariant to potentially important features. \
 % \diffword{rephrase example}
 For example, when randomly shifting the pitch of the audio, creating two augmented examples of the same segment, 
@@ -154,9 +218,8 @@ Batch normalisation\cite{batch_normalisation} is used in the encoder to stabilis
 \section{Encoder}
 Raw audio waveforms are very high-dimensional: a segment of 3~s already has 66\,150 samples when sampled at 22\,050~Hz, and they convey a lot of information at different time-scales. Architectures with many convolutional layers with small filter sizes have been shown to capture these complexities very well (e.g., SampleCNN \cite{lee2018samplecnn}), generating a feature vector for every sample of audio. Similarly to previous work on music classification of raw waveforms, we use an audio input of $\approx$~2.5 seconds\cite{dieleman2014end,lee2018samplecnn,pons_end--end_2017} and adjust the encoder accordingly when training on audio sampled at different sampling rates (22\,050, 12\,000 and 8\,000~Hz). For a segment length of 59\,049 samples, the encoder $g_{\mathrm{enc}}$ consists of 11 blocks, each with a convolutional layer with a filter size of 3, batch normalisation, ReLU activation and max pooling with pool size 3. The fully connected and dropout layers are removed, yielding a 512-dimensional feature vector for every sample. This feature vector is subsequently mapped to a different latent space by the projector network $g_{\mathrm{proj}}$ where the contrastive loss function is defined.
 
-\subsection{Projector}
+\section{Projector}
 The feature vectors from the encoder can be directly used in the learning objective, but SimCLR\cite{chen_simple_2020} shows that formulating the objective on encodings mapped to a different latent space by a parameterised function helps the effectiveness of the representations. We evaluate the performance improvement when using a linear layer $z_i = Wh_i$, non-linear layer $z_i = W^{(2)}\operatorname{ReLU}(W^{(1)}h_i)$ and an identity function $z_i = \mathbbm{1}h_i$ as the projector.
-% \diffword{Layer2 is data augment in \ref{clmr}}.
 
 
 \section{Contrastive Loss Function}
@@ -189,7 +252,29 @@ The evaluation of representations learned by self-supervised models is commonly 
 To test the generalisability of the learned representations, we also pre-trained CLMR and CPC on different datasets than those we use for evaluation. There are no overlapping songs between datasets. All datapoints $X$ from the evaluation dataset were processed through a frozen, converged network to obtain representations $h$, on which we perform the same linear evaluation procedure outlined in the previous paragraph. 
 
 
+\section{CPC}
+We adjusted the original CPC encoder $g_{\mathrm{enc}}$ to a deeper architecture, as previous work\cite{lee2018samplecnn} shows more convolutions with smaller filter sizes helps to learn more useful representations of musical audio. The encoder $g_{\mathrm{enc}}$ consists of 7 layers with 512 filters each, and filter sizes $[10, 6, 4, 4, 4, 2, 2]$ and strides $[5, 3, 2, 2, 2, 2, 2]$. This results in a downsampling factor of $490$, which yields a feature vector for every $\approx$ 5~ms of audio for an input of 59\,049 samples. Instead of relying on max-pooling, the filter sizes and strides are adjusted accordingly to parameterise and facilitate downsampling. We also increased the number of prediction steps $k$ to 20, effectively asking the network to predict 100~ms of audio into the future. The mini-batch size, i.e., the number of training examples the model is exposed to at once, is set to 64 from which 15 negative samples in the contrastive loss are drawn.
+
+\chapter{Implementation}
+
+\chapter{Datasets}
+We evaluated the quality of our models' representations with music classification experiments. We used the MagnaTagATune\cite{law2009evaluation} dataset for training and evaluation, and additionally used the fault-filtered GTZAN\cite{tzanetakis2002musical,sturm2013gtzan}, McGill Billboard\cite{burgoyne_billboard} and Free Music Archive\cite{fma_dataset} datasets to perform pre-training for transfer learning. 
+
+Predicting the top~50 tags in the Magna\-Tag\-A\-Tune dataset is a popular benchmark for music classification. It is a multi-label classification task: each track can have multiple tags from a set of 188 in total, of which we use the 50 most frequently occuring to compare our performance against supervised benchmarks. 
+We used the original, MIREX 2009 version of the dataset, consisting of 25\,863 songs, and the same dataset split, so that we can compare our results with previous work\cite{pons_end--end_2017, lee2018samplecnn, dieleman_feature_learning} easily. It should be noted that this original version contains tag labels that are synonymous, e.g., `female', `woman', `no vocal', `no voice' and also contains tracks with no labels.
+Like other studies, we use average tag-wise ROC-AUC and PR-AUC scores as evaluation metrics, global measures indicating how well the classifier ranks segments given a tag. PR-AUC is calculated in addition to ROC-AUC because ROC-AUC scores can be over-optimistic for imbalanced datasets like MagnaTagATune\cite{pons_end--end_2017}. 
+
+From the McGill Billboard dataset, we use 461 audio files of contemporary pop songs for training. While this dataset is most often used for evaluating chord recognition algorithms, we use it solely for self-supervised pre-training.
+Similarly, we use the Free Music Archive dataset, consisting of 22\,413 unique songs for the `medium' version, also for self-supervised pre-training only. The fault-filtered GTZAN dataset contains 930 songs of 30 seconds, each having a single label denoting the segment's genre.
+
+
+
 \chapter{Experimental Results}
+\begin{enumerate}
+    \item Add Million Song Dataset
+    \item Add sonification
+\end{enumerate}
+
 \begin{table}[t]
     \centering
     \ra{1.3}
@@ -218,21 +303,35 @@ To test the generalisability of the learned representations, we also pre-trained
 
 
 
-\section{Datasets}
-We evaluated the quality of our models' representations with music classification experiments. We used the MagnaTagATune\cite{law2009evaluation} dataset for training and evaluation, and additionally used the fault-filtered GTZAN\cite{tzanetakis2002musical,sturm2013gtzan}, McGill Billboard\cite{burgoyne_billboard} and Free Music Archive\cite{fma_dataset} datasets to perform pre-training for transfer learning. 
+\begin{table}[t]
+    \centering
+    \ra{1.3}
+    \resizebox{\columnwidth}{!}{
+    \begin{tabular}{@{}llcc@{}}\toprule
+        Model & Train Dataset & ROC-AUC & PR-AUC \\ \midrule
+        \multicolumn{4}{c}{Million Song Dataset}\\\addlinespace
+        Pons et al.$^\dagger$ & MSD & 87.41 & \textit{34.92} \\
+        SampleCNN$^\dagger$ & MSD & \textit{88.12} & \_ \\
+        CLMR (ours) & MSD & \_ & \_ \\
+        CPC (ours) & MSD & \_ & \_ \\
+        Supervised baseline$^\dagger$ & MSD & 86.27 & 25.15 \\
+        \bottomrule
+        \end{tabular}
+    }
+    \caption{Tag prediction performance on the Million Song Dataset (MSD), compared with fully supervised models$^\dagger$ trained on raw audio waveforms. The ROC-AUC and PR-AUC scores are tag-wise scores obtained by end-to-end training for the supervised models. For the self-supervised models, the scores are obtained by training a \emph{linear}, logistic regression classifier on the MSD dataset using the representations from self-supervised pre-training. Scores in parenthesis show performance when adding one hidden layer to the logistic regression classifier, making it a simple multi-layer perceptron.}
+    \label{tab:msd_results}
+\end{table}
 
-Predicting the top~50 tags in the Magna\-Tag\-A\-Tune dataset is a popular benchmark for music classification. It is a multi-label classification task: each track can have multiple tags from a set of 188 in total, of which we use the 50 most frequently occuring to compare our performance against supervised benchmarks. 
-We used the original, MIREX 2009 version of the dataset, consisting of 25\,863 songs, and the same dataset split, so that we can compare our results with previous work\cite{pons_end--end_2017, lee2018samplecnn, dieleman_feature_learning} easily. It should be noted that this original version contains tag labels that are synonymous, e.g., `female', `woman', `no vocal', `no voice' and also contains tracks with no labels.
-Like other studies, we use average tag-wise ROC-AUC and PR-AUC scores as evaluation metrics, global measures indicating how well the classifier ranks segments given a tag. PR-AUC is calculated in addition to ROC-AUC because ROC-AUC scores can be over-optimistic for imbalanced datasets like MagnaTagATune\cite{pons_end--end_2017}. 
 
-From the McGill Billboard dataset, we use 461 audio files of contemporary pop songs for training. While this dataset is most often used for evaluating chord recognition algorithms, we use it solely for self-supervised pre-training.
-Similarly, we use the Free Music Archive dataset, consisting of 22\,413 unique songs for the `medium' version, also for self-supervised pre-training only. The fault-filtered GTZAN dataset contains 930 songs of 30 seconds, each having a single label denoting the segment's genre.
 
-\section{Quantitative and Qualitative Evaluation}
+\section{Quantitative Evaluation}
 The evaluation metrics for the best-performing models are shown in Table \ref{tab:magnatagatune_results}. Both CPC and CLMR show competitive performance with fully supervised models in the music classification task, despite being pre-trained without ground truth and using a simple, linear classifier for evaluation. A non-linear projector network positively impacts the performance of the model. Adding only one extra hidden layer to the classifier increases the results by $4\%$, making the gap between supervised end-to-end baselines even smaller.
 % It is clear from these results that useful representations can be learned from high-dimensional signals of raw audio even without access to ground truth labels. 
 
 For a qualitative view of the representations, we show how cleanly they are  separable using a $t$-SNE manifold in Figure \ref{fig:tsne_manifold}. Figure \ref{fig:tag_scores} shows in more detail that the difference in performance between self-supervised and supervised models is marginal: there is no single tag performance difference larger than 4\% ROC-AUC, and for practical purposes, CLMR and CPC retrieve tags practically identically to supervised models.
+
+
+\section{Qualitative Evaluation}
 
 \begin{figure}[t]
     \centering
@@ -283,12 +382,27 @@ The results of the transfer learning experiments are shown in Table \ref{tab:mag
 Figure \ref{fig:filter_visualisation} shows the magnitude spectrum of the learned filters of the sample-level convolutional layers (layers 1, 4 and 6) for CLMR and CPC, pre-trained on the MTAT and Billboard dataset. In CLMR, the first layer is sensitive to a single, very small band of frequencies around 7500~Hz, while in higher layers, the filters spread themselves first linearly and then non-linearly across the full range. CPC shows a similar pattern in the lowest layer, but shows a strong activation of two frequencies that span an octave. Interestingly, CLMR shows a similar filter structure for the Billboard data set as fully supervised models that were trained on the MTAT dataset \cite{dieleman2014end,lee2018samplecnn}. The Billboard dataset is significantly less diverse in genre, suggesting the self-supervised model focuses more on such frequency-band related differences than it does for the more diverse Magna\-Tag\-A\-Tune.
 
 
+\chapter{Interpretability}
+
+
+\chapter{Limitations and Discussion}
+Limitations of the model
 
 
 \chapter{Conclusion}
-In this paper, we presented CLMR, a self-supervised contrastive learning framework that learns useful and compact representations of raw waveforms of musical audio. The framework requires no preprocessing of the input and is trained without ground truth, which enables simple and straightforward pre-training on datasets of unprecedented scale. We tested the representations in the music classification task on the MagnaTagATune dataset, achieving competitive performance with state-of-the-art supervised models, exceeding previous supervised benchmarks, and demonstrated the transferability of representations learned from pre-training on different datasets. The simplicity of training the model without a direct supervised signal and without preprocessing inputs, together with encouraging results obtained with a single linear layer optimised for a challenging downstream task, are exciting developments towards unsupervised learning on raw musical signals.
+In this thesis, we presented CLMR, a self-supervised contrastive learning framework that learns useful and compact representations of raw waveforms of musical audio. The framework requires no preprocessing of the input and is trained without ground truth, which enables simple and straightforward pre-training on datasets of unprecedented scale. We tested the representations in the music classification task on the MagnaTagATune dataset, achieving competitive performance with state-of-the-art supervised models, exceeding previous supervised benchmarks, and demonstrated the transferability of representations learned from pre-training on different datasets. The simplicity of training the model without a direct supervised signal and without preprocessing inputs, together with encouraging results obtained with a single linear layer optimised for a challenging downstream task, are exciting developments towards unsupervised learning on raw musical signals.
 
+\section{Broader Impact}
+```
+Our benchmark is likely to increase progress of NLP applications and, like GLUE, drive the development of general-purpose language systems. Such systems may be able to complete a wide range of tasks: from question-answering and sentiment analysis to poetry and role-playing games.
 
+The NLP systems whose development is spurred and supported by our benchmark may contribute to a large range of uses, including customer services, helpdesks, retail and sales, healthcare services, financial and legal services, and marketing. Each of these uses may have a broad range of societal implications: The use of dialogue systems in place of help-desks could bring benefits such as cost savings and removing repetitive tasks, but could also result in job losses. Personal assistants in smart home devices could increase autonomy for the elderly, while also raising questions about the reinforcement of gender norms, the collection of personal data, and the risk of hackers accessing private information. Of particular concern is the use of NLP models by those wishing to spread misinformation or create an information environment of uncertainty and mistrust (see discussions around the staged release of GPT-2).
+
+There are also important considerations relating to benchmarks themselves. Any widely used benchmark may skew research in a certain direction. For example, our benchmark may bias research in favour of approaches that work particularly well for English. Models trained on biased datasets may inherit those biases. For example, gender bias may be one such concern. To mitigate this risk, we included the analysis tool Winogender to give some indication of whether the models display gender bias.
+
+We would encourage further work to understand the biases and limitations of the datasets used in SuperGLUE. We would also suggest that other benchmarks follow suit by including analysis tools to detect gender bias and other limitations. We encourage researchers to develop NLP systems for tasks we can expect to be particularly beneficial, such as text-based counselling.
+
+We also encourage research to understand and mitigate the risks arising from NLP applications. With regards to the risks of machine-generated misinformation, a short-term solution may be developing detection systems. However, we expect such detection systems to become ineffectual as NLP improves. Therefore, we recommend researchers and policymakers look into how platforms can detect and stop the spread of harmful content, as opposed to machine-generated content.```
 
 \bibliographystyle{unsrt}
 \bibliography{bibliography}
@@ -299,7 +413,7 @@ In this paper, we presented CLMR, a self-supervised contrastive learning framewo
 
 \begin{table*}[h]
     \centering
-    \resizebox{\textwidth}{!}{
+    \resizebox{.25\textwidth}{!}{
         \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c}
         batch size & audio length & sample rate & projector dim. & temperature & $p_{\mathrm{invert}}$ & $p_{\mathrm{noise}}$ & $p_{\mathrm{gain}}$ & $p_{\mathrm{filter}}$ & ROC-AUC$^{(\mathrm{MLP})}$ & PR-AUC$^{(\mathrm{MLP})}$ \\ \hline
         48 & 59049 & 22050 & 128 & 0.1 & 0.8 & 0.5 & 0.1 & 0.4 & \textbf{87.56} & 32.25 \\
