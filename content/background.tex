@@ -1,0 +1,44 @@
+
+\chapter{Background}\label{sec:background}
+In this chapter, we recapitulate the foundations which are used to build on in this work. In Section 2.1, we discuss the approaches to representation learning. In subsequent subsections, we discuss an upcoming learning paradigm, self-supervised learning, the intuition and theory behind Contrastive Predictve Coding \cite{oord_representation_2019} and elaborate on other contrastive learning techniques. In Section 2.2, we discuss convolutional neural networks for raw audio signals. In Section 2.3, we discuss the task of music auto tagging and their evaluation metrics.
+
+
+The performance of machine learning models is heavily dependent on the choice of features and representations. These features are often engineered using human intuition and domain knowledge of the composition of the input data (i.e., feature engineering). While feature engineering can greatly help to improve model performance, it is time-consuming and highlights the inability of traditional learning algorithms to identify and disentangle explanatory factors hidden in high-dimensional signals. 
+
+\section{Representation Learning}
+
+The goal of representation learning is to identify features that make  prediction tasks easier and more robust to the complex variations of natural data \cite{bengio2013representation}. Supervised techniques for representation learning have now been successfully applied to a variety of tasks \cite{korzeniowski_fully_2016, chen_harmony_2019, korzeniowski_end--end_2017, bock_joint_2016, pons_end--end_2017, van_den_oord_deep_2013}. 
+% In the unsupervised domain, generative modeling and likelihood-based models use reconstruction of the observations as the objective for learning useful representations of the data. 
+In unsupervised representation learning, generative modeling and likelihood-based models typically find useful representations of the data by attempting to reconstruct the observations on the basis of their learned representations \cite{goodfellow2014generative, unsupervised_gan}.
+In contrast to these unsupervised approaches, \emph{self-supervised} contrastive representation learning aims to identify the explanatory factors of the data using an objective that is formulated with respect to the learned representations directly.
+
+Work on self-supervised learning in audio is still very limited. Contrastive predictive coding (CPC) is a universal approach to contrastive learning, and has been successful for speaker and phoneme classification using raw audio, among other tasks \cite{oord_representation_2019}. Recent advances have also been made in self-supervised pitch estimation \cite{spice}, closely matching supervised, state-of-the-art baselines despite being trained without ground truth labels. That work, however, relies on pre-processing with a CQT transform: to the best of our knowledge, we are the first to perform self-supervised learning on raw audio waveforms of musical audio and evaluate them in a musical, downstream task.
+
+% \subsection{Invariance and Levels of Abstraction}
+% Ideal feature representations should be invariant to local translations and noisy variations of the input signal while remaing sensitive to higher-level semantic information. Put differently, the main challenge is to learn representations that effectively encode \textit{slow features} \cite{wiskott_slow_2002}, i.e., the shared information between parts of a high-dimensional signal. Conversely, a good representation should disregard noisy, more local features. The idea of slow features is quite intuitive for music.
+% We know that an audio fragment of a few seconds will share information with neighbouring fragments, e.g., the instrument(s) playing, the harmonic set of pitches or the identity of a vocalist.  But the further into the future a model is forced to predict these features, the less of this kind of shared information is available, thereby requiring the model to infer higher-level structure. Slow audio features span a longer temporal range (e.g., harmonic transitions or melodic contour) and are more interesting for use in downstream MIR tasks.
+
+
+\section{Contrastive Predictive Coding}
+Contrastive predictive coding learns to predict representations of future observations from past observations. For audio, it predicts representations of segments of audio in the future. A sequential input signal $x_t$ is mapped by a non-linear encoder $g_{\mathrm{enc}}(\cdot)$ to a sequence of latent representations $h_t = g_{\mathrm{enc}}(x_t)$, while simultaneously an autoregressive model $g_{\mathrm{ar}}(\cdot)$ summarizes all encodings $h_{\leq t}$ in the latent space and maps them to a context latent representation $c_t = g_{\mathrm{enc}}(h_{\leq t})$. The vectors $h_t$ and $c_t$ are encoded so as to preserve maximal mutual information and to identify shared latent variables of the original signals: $g_{\mathrm{enc}}(\cdot)$ and $g_{\mathrm{ar}}(\cdot)$ jointly optimise InfoNCE, a contrastive loss based on noise-contrastive estimation \cite{gutmann_noise-contrastive_nodate}, and which has been widely used in previous work \cite{oord_representation_2019, sohn2020fixmatch, chen_simple_2020}. Given $N$ random samples from the set of encodings $X = \{h_{t+k}, h_{j_1}, h_{j_2} \hdots h_N\}$, $k$ being the number of timesteps the encoding occurs after $c_t$ and $X$ containing one positive sample $h_{t+k}$ and $N-1$ negative samples $h_{j_{n}}$ drawn from representations of other samples in the audio and dataset, the following objective is optimised:
+
+\begin{equation}
+    \mathcal{L}_{N}=-\sum_{k} \underset{X}{\mathbb{E}}\left[\log \frac{f_{k}\left(h_{t+k}, c_{t}\right)}{\sum_{h_{j} \in X} f_{k}\left(h_{j}, c_{t}\right)}\right]
+\end{equation}
+
+Each encoding pair $(h_n, c_t)$ is evaluated using a scoring function $f(\cdot)$ to estimate how likely a given $h_n$ is the positive sample $h_{t+k}$. CPC's formulation of the optimal solution for $f(\cdot)$ allows $-\mathcal{L}_n$ to be reformulated as a lower bound on the mutual information of representations $I(h_{t+k} | c_t)$, which also bounds the data $I(x_{t+k} | c_t)$, and is further proven by \cite{poole_variational_2019}. For downstream tasks, both $h_t$ and $c_t$ can be used as representations for new observations $x$, depending on whether context is helpful for solving it. Recently, the contribution of mutual information to the success of CPC has been reconsidered: its performance seems to depend largely on an inductive bias in the choice of a specialised architecture and the parameterisation of the mutual information critic \cite{Tschannen2020OnMI}.
+
+% Contrastive predictive coding exploits this idea by learning representations that maximise mutual information among temporally neighbouring patches of data\cite{oord_representation_2019, hjelm_learning_2019}. 
+
+
+\section{SimCLR}
+SimCLR is a recently proposed contrastive learning technique for learning effective representations of images in a self-supervised manner without relying on specialised architectures and powerful autoregressive modeling \cite{chen_simple_2020}. The framework has four core components: 1) a composition of stochastic data augmentations that augment every image into two, correlated versions, 2) a ResNet encoder neural network, 3) a projector neural network and 4) a contrastive loss function, normalized temperature-scaled cross-entropy loss \cite{chen_simple_2020}. Every component is elaborated further in the following section, but adapted to the raw audio domain. For details on their workings in the visual domain, we refer the reader to the original paper \cite{chen_simple_2020}.
+
+
+\section{CNN's for Audio}
+\subsection{SampleCNN}
+
+\section{Music Tagging}
+
+\subsection{Evaluation Metrics}
+
