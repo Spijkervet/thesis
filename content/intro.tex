@@ -2,7 +2,8 @@
 The field of music information retrieval has seen many successes since the emergence of deep learning. Supervised, end-to-end learning methods have been widely used in tasks like chord recognition \cite{korzeniowski_fully_2016, chen_harmony_2019}, key detection \cite{korzeniowski_end--end_2017}, beat tracking \cite{bock_joint_2016}, music audio tagging \cite{pons_end--end_2017} and music recommendation \cite{van_den_oord_deep_2013}. These methods use labeled corpora, which are hard \cite{doi:10.1080/09298215.2019.1613436}, expensive and time-consuming to create, while raw unlabeled musical data is available in vast amounts. Despite the importance of unsupervised learning in MIR for raw, high-dimensional signals of audio, it has yet to see breakthroughs similar to supervised learning. It has enjoyed successes with methods like PCA, PMSC's and spherical $k$-means that rely on a transformation pipeline \cite{hamel2011temporal, dieleman_feature_learning}, but learning effective representations of raw audio remains elusive. 
 
 \begin{figure}[t]
-    \includegraphics[width=\columnwidth]{figs/performance.png}
+    \centering
+    \includegraphics[width=0.75\columnwidth]{figs/performance.png}
     \caption{Performance and model complexity comparison of supervised models (grey) and self-supervised models (ours) in music classification of raw audio waveforms on the MagnaTagATune dataset to evaluate musical representations. Supervised models were trained end-to-end, while CLMR and CPC are pre-trained without ground truth: their scores are obtained by training a linear classifier on their learned representations but nonetheless perform practically identically to the supervised models.}
     \label{fig:example}
 \end{figure}
@@ -29,7 +30,7 @@ In this paper, we transfer the SimCLR framework \cite{chen_simple_2020} to the r
 
 
 \section{Outline}
-In the following chapter, a comprehensive background of the field of self-supervised learning is be presented, along with its application in the domain of raw audio utilizing the latest findings in convolutional neural networks. Subsequently, the main downstream task and application of this thesis will be elaborated upon, along with its evaluation metrics.
+In the following chapter, a comprehensive background of the field of self-supervised learning is be presented, as well as common neural network architectures in the raw audio domain. Subsequently, the main downstream task and application of this thesis will be elaborated upon, along with its evaluation metrics.
 
 In chapter 3, the method of this thesis is presented, outlining the details of the architecture of the model, its intuition, the objective function and the evaluation of the performance of the model. In chapter 4, the implementation of the framework is discussed. In chapter 5, the datasets are outlined, both for the main and transfer learning experiments. In chapter 6, the results of this thesis are presented [...]. In chapter 8, the limitations. Lastly, the conclusions of this thesis are presented in chapter 9.
 
