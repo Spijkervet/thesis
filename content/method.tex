@@ -12,11 +12,13 @@ CLMR also consists of four core components, which will be elaborated further in 
 
 The complete framework is visualised in Figure \ref{fig:clmr_model}.
 
-\begin{figure}[t]
-    \includegraphics[width=\columnwidth]{figs/clmr_model.png}
-    \caption{The framework on raw audio, in which the contrastive learning objective is directly formulated in the latent space of correlated, augmented examples of the same raw audio waveforms.}
-    \label{fig:clmr_model}
-\end{figure}
+\begin{fullwidth}
+    \begin{figure*}[h]
+        \includegraphics[width=\columnwidth]{figs/clmr_model.png}
+        \caption{The CLMR framework operating raw audio, in which the contrastive learning objective is directly formulated in the latent space of correlated, augmented examples of pairs of raw audio waveforms.}
+        \label{fig:clmr_model}
+    \end{figure*}
+\end{fullwidth}
 
 
 \section{Data Augmentations}
@@ -29,15 +31,9 @@ We designed a chain of augmentations for raw audio waveforms to make it harder f
     \item A filter is applied with probability $p_{\mathrm{filter}}$. A coin flip determines whether it is a low-pass ($3500$~Hz) or high-pass ($800$~Hz) filter.
     \item The signal is delayed with probability $p_{\mathrm{delay}}$. The delay time is randomly chosen from values between 200-500ms, with 50ms increments. The volume factor of the delayed signal that is added to the original signal is 0.5.
     \item The signal is pitch shifted with probability $p_{\mathrm{pitch}}$. The pitch transposition interval is drawn from a uniform distribution consisting of intervals ranging from a fifth below to a fifth above the original signal's scale.
+    \item Reverb is added to the signal with probability $p_{\mathrm{reverb}}$. The impulse response's room size, reverbation and damping factor is randomly chosen from a uniform distribution of values between $[0-100]$.
 \end{enumerate}
-The space of augmentations is not limited to these operations and could easily be extended to, e.g., randomly applying reverberation, chorus, distortion and other modulations.
-% When designing a chain of augmentations, however, one must be cautious not to let the model become invariant to potentially important features. \
-% \diffword{rephrase example}
-% For example, when randomly shifting the pitch of the audio, creating two augmented examples of the same segment, 
-% with in mind the model's objective is to identify the pair from all the negative examples, 
-% the model could become invariant to frequency differences.
-% which may negatively impact model performance. 
-% \diffword{Layer2 is data augment in \ref{clmr}}.
+The space of augmentations is not limited to these operations and could easily be extended to, e.g., randomly applying chorus, distortion and other modulations.
 
 
 \section{Mini-Batch Composition} % Negative examples

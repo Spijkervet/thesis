@@ -1,5 +1,5 @@
 \chapter{Experimental Results}\label{sec:results}
-\begin{table}[t]
+\begin{table}
     \centering
     \begin{tabular}{@{}llcc@{}}\toprule
         Model & Dataset & $\text{ROC-AUC}_\text{TAG}$ & $\text{PR-AUC}_\text{TAG}$ \\ \midrule
@@ -18,7 +18,8 @@
     \label{tab:magnatagatune_results}
 \end{table}
 
-\begin{table}[t]
+\begin{fullwidth}
+\begin{table*}
     \centering
     \begin{tabular}{lllll}\toprule
     Temperature & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
@@ -29,20 +30,23 @@
     \end{tabular}
     \caption{Ablation study of the temperature parameter in the NT-Xent loss objective function.}
     \label{tab:temperature_ablation}
-\end{table}
+\end{table*}
+\end{fullwidth}
 
-\begin{table}[t]
-    \centering
-        \begin{tabular}{lllll}\toprule
-        Sample rate & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
-        8000 & 84.78 & 29.77 & 90.60 & 62.94 \\
-        16000 & 85.46 & 30.42 & 90.97 & 64.08 \\
-        22050 & 85.82 & 30.49 & 91.25 & 64.78 \\                       
-        \bottomrule
-        \end{tabular}
-    \caption{Effect of the sample rate on tag prediction performance.}
-    \label{tab:temperature_ablation}
-\end{table}
+\begin{fullwidth}
+    \begin{table*}
+        \centering
+            \begin{tabular}{lllll}\toprule
+            Sample rate & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
+            8000 & 84.78 & 29.77 & 90.60 & 62.94 \\
+            16000 & 85.46 & 30.42 & 90.97 & 64.08 \\
+            22050 & 85.82 & 30.49 & 91.25 & 64.78 \\                       
+            \bottomrule
+            \end{tabular}
+        \caption{Effect of the sample rate on tag prediction performance.}
+        \label{tab:temperature_ablation}
+    \end{table*}
+\end{fullwidth}
 
 \begin{figure}[t]
     \centering
