@@ -1,13 +1,23 @@
 \chapter{Datasets}
 
 
-We evaluated the quality of our models' representations with music classification experiments. We used the MagnaTagATune \cite{law2009evaluation} dataset and Million Song Dataset \cite{Bertin-Mahieux2011} for pre-training and evaluation. For the transfer learning experiments, we pre-train on the Million Song, fault-filtered GTZAN \cite{tzanetakis2002musical,sturm2013gtzan}, McGill Billboard \cite{burgoyne_billboard} and Free Music Archive \cite{fma_dataset} datasets and subsequently perform evaluation on the MagnaTagATune dataset. 
+We evaluated the quality of our models' representations with music classification experiments.
+We used the MagnaTagATune \cite{law2009evaluation} dataset and Million Song Dataset \cite{Bertin-Mahieux2011} for pre-training and evaluation.
+For the transfer learning experiments, we pre-train on the Million Song, fault-filtered GTZAN \cite{tzanetakis2002musical,sturm2013gtzan}, McGill Billboard \cite{burgoyne_billboard} and Free Music Archive \cite{fma_dataset} datasets and subsequently perform evaluation on the MagnaTagATune dataset.
 
-Predicting the top~50 tags in the Magna\-Tag\-A\-Tune and Million Song datasets are a popular benchmark for music classification. It is a multi-label classification task: each track can have multiple tags, of which we use the 50 most frequently occuring to compare our performance against supervised benchmarks. 
-For the Magna\-Tag\-A\-Tune dataset, we used the original, MIREX 2009 version, consisting of 25\,863 songs, and the same dataset split, so that we can compare our results with previous work easily \cite{pons_end--end_2017, lee2018samplecnn, dieleman_feature_learning}. It should be noted that this original version contains tag labels that are synonymous, e.g., `female', `woman', `no vocal', `no voice' and also contains tracks with no labels. The tags for the Million Song Dataset are less overlapping, and contain more semantic tags, e.g., `beautiful', `happy' and `sad' which are arguably harder to linearly separate during the linear evaluation phase.
-Like other studies, we use average tag-wise ROC-AUC and PR-AUC scores as evaluation metrics, which are global measures indicating how well the classifier ranks segments given a tag. PR-AUC is calculated in addition to ROC-AUC because ROC-AUC scores can be over-optimistic for imbalanced datasets like Magna\-Tag\-A\-Tune\cite{pons_end--end_2017}. 
 
-From the McGill Billboard dataset, we use 461 audio files of contemporary pop songs for training. While this dataset is most often used for evaluating chord recognition algorithms, we use it solely for self-supervised pre-training.
+Predicting the top~50 tags in the Magna\-Tag\-A\-Tune and Million Song datasets are a popular benchmark for music classification.
+It is a multi-label classification task: each track can have multiple tags, of which we use the 50 most frequently occuring to compare our performance against supervised benchmarks.
+
+For the Magna\-Tag\-A\-Tune dataset, we used the original, MIREX 2009 version, consisting of 25\,863 songs, and the same dataset split, so that we can compare our results with previous work easily \cite{pons_end--end_2017, lee2018samplecnn, dieleman_feature_learning}.
+It should be noted that this original version contains tag labels that are synonymous, e.g., `female', `woman', `no vocal', `no voice' and also contains tracks with no labels.
+The tags for the Million Song Dataset are less overlapping, and contain more semantic tags, e.g., `beautiful', `happy' and `sad' which are arguably harder to linearly separate during the linear evaluation phase.
+Like other studies, we use average tag-wise ROC-AUC and PR-AUC scores as evaluation metrics, which are global measures indicating how well the classifier ranks segments given a tag.
+PR-AUC is calculated in addition to ROC-AUC because ROC-AUC scores can be over-optimistic for imbalanced datasets like Magna\-Tag\-A\-Tune\cite{pons_end--end_2017}.
+
+
+From the McGill Billboard dataset, we use 461 audio files of contemporary pop songs for training.
+While this dataset is most often used for evaluating chord recognition algorithms, we use it solely for self-supervised pre-training.
 Similarly, we use the Free Music Archive dataset, consisting of 22\,413 unique multi-labeled songs for the `medium' version, and the fault-filtered GTZAN dataset containing 930 segments of 30 seconds, each having a single label denoting its genre.
 
 
