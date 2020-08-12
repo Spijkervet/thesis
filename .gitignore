@@ -9,3 +9,5 @@
 *.pdf
 *.toc
 __latexindent_temp.tex
+*.out
+*.bib.info

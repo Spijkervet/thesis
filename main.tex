@@ -1,88 +1,193 @@
-\documentclass{report}
-\usepackage{graphicx, color}
-\usepackage[a4paper,margin=2cm]{geometry}
-\usepackage{lipsum}
+% -*- Mode:TeX -*-
 
-\newcommand{\red}[1]{{\color{red}{#1}}}
+%% IMPORTANT: The official thesis specifications are available at:
+%%            http://libraries.mit.edu/archives/thesis-specs/
+%%
+%%            Please verify your thesis' formatting and copyright
+%%            assignment before submission.  If you notice any
+%%            discrepancies between these templates and the 
+%%            MIT Libraries' specs, please let us know
+%%            by e-mailing thesis@mit.edu
 
-\usepackage{amsmath,cite,url}
+%% The documentclass options along with the pagestyle can be used to generate
+%% a technical report, a draft copy, or a regular thesis.  You may need to
+%% re-specify the pagestyle after you \include  cover.tex.  For more
+%% information, see the first few lines of mitthesis.cls. 
+
+%\documentclass[12pt,vi,twoside]{mitthesis}o
+%%
+%%  If you want your thesis copyright to you instead of MIT, use the
+%%  ``vi'' option, as above.
+%%
+%\documentclass[12pt,twoside,leftblank]{mitthesis}
+%%
+%% If you want blank pages before new chapters to be labelled ``This
+%% Page Intentionally Left Blank'', use the ``leftblank'' option, as
+%% above. 
+
+\documentclass[a4paper,nobib,justified,notoc,openany]{tufte-book}
+\usepackage{lgrind}
 \usepackage{graphicx}
-\usepackage{color,soul}
-
-% packages
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{moreverb}
+\usepackage{alltt}
+%\usepackage{parskip}
+\usepackage{url}
+\usepackage{array}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
+\usepackage{geometry}
+\usepackage{afterpage}
+\usepackage{capt-of}
+\usepackage{pdflscape}
+% \usepackage[authoryear]{natbib}
+\usepackage{longtable}
+\usepackage[natbibapa]{apacite}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bbm}
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-\usepackage{subcaption}
-\usepackage{booktabs}
-\usepackage{float}
-% TODO [JAB]: If you don't like Times Math, take this out. It does look a little funny for equations (although it matches Microsoft Word better), but it also makes in-text math look *much* more consistent.
-% \usepackage{newtxmath}
+\usepackage{xcolor}
 
-% custom commands
-\DeclareRobustCommand{\diffword}[1]{{\sethlcolor{orange}\hl{#1}}}
-% \DeclareRobustCommand{\diffword}[1]{#1}}
-\newcommand{\beginsupplement}{%
-    \setcounter{table}{0}
-    \renewcommand{\thetable}{S\arabic{table}}%
-    \setcounter{figure}{0}
-    \renewcommand{\thefigure}{S\arabic{figure}}%
+% \usepackage[natbibapa]{apacite}
+% \bibliographystyle{apacite}
+
+\setcitestyle{citestyle=authoryear,brackets=square, maxcitenames=3}
+
+\titleformat{\chapter}%
+  {\color{darkgray}\Huge\rmfamily\itshape} % chapter title
+  {\color{darkgray}\itshape\HUGE\thechapter~} % chapter number
+  {0pt}% horizontal separation between label and title body
+  {}% before the title body
+\makeatother
+\setcounter{secnumdepth}{2} % include subsections
+
+\let\cite\citep
+
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+
+%% These have been added at the request of the MIT Libraries, because
+%% some PDF conversions mess up the ligatures.  -LB, 1/22/2014
+\usepackage{fancyvrb}
+
+%%
+% Prints argument within hanging parentheses (i.e., parentheses that take
+% up no horizontal space).  Useful in tabular environments.
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}}
+
+%%
+% Prints an asterisk that takes up no horizontal space.
+% Useful in tabular environments.
+\newcommand{\hangstar}{\makebox[0pt][l]{*}}
+
+
+%%
+% Prints a trailing space in a smart way.
+\usepackage{xspace}
+\usepackage{marginfix} % fixes long sidenotes
+
+
+% custom page numbering
+\fancypagestyle{plain}{
+	\fancyhead[LE]{\thepage\quad\smallcaps}% 
+	\fancyhead[RO]{\smallcaps\quad\thepage}%
 }
 
-\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\usepackage[parfill]{parskip}
+
+% remove paragraph indentation
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{%
+  \setlength{\RaggedRightParindent}{0.0pc}%
+  \setlength{\JustifyingParindent}{0pt}% % parindent
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{5pt}%
+}
+\@tufte@reset@par
+
+% Paragraph indentation and separation for marginal text
+\renewcommand{\@tufte@margin@par}{%
+  \setlength{\RaggedRightParindent}{0.0pc}%
+  \setlength{\JustifyingParindent}{0.0pc}%
+  \setlength{\parindent}{24pt}%
+  \setlength{\parskip}{10pt}%
+}
+\makeatother
 
 
+% \titlecontents{part}%
+%     [0pt]% distance from left margin
+%     {\addvspace{0.25\baselineskip}}% above (global formatting of entry)
+%     {\allcaps{Part~\thecontentslabel}\allcaps}% before w/ label (label = ``Part I'')
+%     {\allcaps{Part~\thecontentslabel}\allcaps}% before w/o label
+%     {}% filler and page (leaders and page num)
+%     [\vspace*{0.5\baselineskip}]% after
+
+% \titlecontents{chapter}%
+%     [4em]% distance from left margin
+%     {}% above (global formatting of entry)
+%     {\contentslabel{2em}\textit}% before w/ label (label = ``Chapter 1'')
+%     {\hspace{0em}\textit}% before w/o label
+%     {\qquad\thecontentspage}% filler and page (leaders and page num)
+%     [\vspace*{0.5\baselineskip}]% after
+% %%%% End additional code by Kevin Godby
+
+% \newcommand{\formatpart}[1]{%
+%     \centering%
+%     \begin{fullwidth}
+%     \centering%
+%     \hfil\partname~\thepart\hfil%%
+%     \newline%
+%     % \hfil\pgfornament[width=4cm]{84}\hfil%
+%     \newline%
+%     #1%
+%     \end{fullwidth}
+%     }
+
+% \titleformat% Formatting the part header
+%   {\part} % command
+%   [block] % shape
+%   {\bfseries\sc\Huge} % format
+%   {} % label
+%   {} % sep
+%   { \formatpart
+% }%
 
 \begin{document}
-
+\frontmatter
 \include{titlepage}
 
-\input{content/abstract}
+% abstract
+\begin{fullwidth}
+  \include{content/abstract}
+\end{fullwidth}
 
-\tableofcontents
+% table of contents
+\begin{fullwidth}
+  \tableofcontents
+\end{fullwidth}
 
-\input{content/intro}
+\mainmatter
+\thispagestyle{plain}
+\include{content/intro}
+\include{content/background}
+\include{content/method}
+\include{content/datasets}
+\include{content/implementation}
+\include{content/exp}
+\include{content/interpretability}
+\include{content/conclusion}
 
+\appendix
+% \include{content/appendix}
 
-\input{content/background}
-\input{content/method}
-\input{content/datasets}
-\chapter{Implementation}
-\input{content/exp}
-\chapter{Interpretability}
-\chapter{Limitations and Discussion}
-\input{content/conclusion}
-
-\bibliographystyle{unsrt}
-\bibliography{main.bib}
-
-
-\chapter*{Supplemental Material}
-
-
-\begin{table*}[h]
-    \centering
-    \resizebox{.25\textwidth}{!}{
-        \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c}
-        batch size & audio length & sample rate & projector dim. & temperature & $p_{\mathrm{invert}}$ & $p_{\mathrm{noise}}$ & $p_{\mathrm{gain}}$ & $p_{\mathrm{filter}}$ & ROC-AUC$^{(\mathrm{MLP})}$ & PR-AUC$^{(\mathrm{MLP})}$ \\ \hline
-        48 & 59049 & 22050 & 128 & 0.1 & 0.8 & 0.5 & 0.1 & 0.4 & \textbf{87.56} & 32.25 \\
-        48 & 59049 & 22050 & 128 & 0.5 & 0.8 & 0.5 & 0.1 & 0.4 & 87.55 & 32.66 \\
-        192	& 20736 & 8000 & 128 & 0.5 & 0.8 & 0.5 & 0.1 & 0.4 & 87.52 & 32.43 \\
-        48	& 20736 & 8000 & 128 & 0.5 & 0.8 & 0.5 & 0.1 & 0.4 & 87.49 & 32.38 \\
-        48 & 59049 & 22050 & 256 & 0.5 & 0.8 & 0.5 & 0.1 & 0.4 & 87.43 & 32.58 \\
-        48 & 59049 & 22050 & 64	& 0.5 & 0.8 & 0.5 & 0.1 & 0.4 & 87.43 & 32.49 \\
-        128 & 31104 & 12000	& 128 & 0.5 & 0.8 & 0.5 & 0.1	& 0.4 & 87.41 & \textbf{32.73} \\
-        48 & 31104 & 12000 & 128 & 0.5 & 0.8 & 0.5 & 0.1 & 0.4 & 87.37 & 32.69 \\
-        48 & 59049 & 22050 & 128 & 0.25 & 0.8 & 0.5 & 0.1 & 0.4 & 87.36 & 32.42 \\
-        48 & 59049 & 22050 & 128 & 0.5 & 0.8 & 0.5 & 0.1 & 0.4 & 87.00 & 31.93 \\
-        48 & 59049 & 22050 & 128 & 0.5 & 0.8 & 0.5 & 0.1 & 0 & 85.99 & 30.26 \\
-        48 & 59049 & 22050 & 128 & 0.5 & 0.8 & 0 & 0 & 0 & 85.79 & 30.55 \\
-        48 & 59049 & 22050 & 128 & 0.5 & 0.8 & 0.5 & 0 & 0 & 85.67 & 30.03 \\
-        48	& 59049	& 22050	& 128 & 0.5	& 0 & 0 & 0 & 0	& 85.54 & 29.84 \\
-        \end{tabular}
-    }
-    \caption{Ablation study of CLMR under different parameters, sampling rate and data augmentations. The ROC-AUC and PR-AUC scores are obtained with a logistic regression classifier with one hidden layer, and is trained only on the representations from a pre-trained, frozen CLMR network.}
-    \label{tab:1}
-  \end{table*}
+\begin{singlespace}
+  \bibliography{main.bib}
+  \bibliographystyle{apalike}
+\end{singlespace}
 
 \end{document}
+

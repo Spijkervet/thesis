@@ -1,8 +1,6 @@
 \chapter{Experimental Results}\label{sec:results}
 \begin{table}[t]
     \centering
-    \ra{1.3}
-    \resizebox{0.6\columnwidth}{!}{
     \begin{tabular}{@{}llcc@{}}\toprule
         Model & Dataset & $\text{ROC-AUC}_\text{TAG}$ & $\text{PR-AUC}_\text{TAG}$ \\ \midrule
         % \multicolumn{4}{c}{MTAT-Trained Experiments}\\\addlinespace
@@ -15,30 +13,26 @@
         SampleCNN$^\dagger$ & MSD & \textbf{88.42} & - \\
         CLMR (ours) & MSD & 85.66 & 24.98 \\
         \bottomrule
-        \end{tabular}
-    }
+    \end{tabular}
     \caption{Tag prediction performance on the MagnaTagATune (MTAT) dataset, compared with fully supervised models$^\dagger$ trained on raw audio waveforms. The ROC-AUC and PR-AUC scores are tag-wise scores obtained by end-to-end training for the supervisd models. For the self-supervised models, the scores are obtained by training a \emph{linear}, logistic regression classifier on the MTAT dataset using the representations from self-supervised pre-training. Scores in parenthesis show performance when adding one hidden layer to the logistic regression classifier, making it a simple multi-layer perceptron.}
     \label{tab:magnatagatune_results}
 \end{table}
 
 \begin{table}[t]
     \centering
-    \resizebox{0.8\columnwidth}{!}{
-        \begin{tabular}{lllll}\toprule
-        Temperature & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
-        0.1         & 85.82                         & 30.33                        & 91.18                          & 64.10                         \\
-        0.3         & 85.58                         & 30.35                        &                                &                               \\
-        0.5         & 85.82                         & 30.49                        & 91.25                          & 64.78 \\                       
-        \bottomrule
-        \end{tabular}
-    }
+    \begin{tabular}{lllll}\toprule
+    Temperature & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
+    0.1         & 85.82                         & 30.33                        & 91.18                          & 64.10                         \\
+    0.3         & 85.58                         & 30.35                        &                                &                               \\
+    0.5         & 85.82                         & 30.49                        & 91.25                          & 64.78 \\                       
+    \bottomrule
+    \end{tabular}
     \caption{Ablation study of the temperature parameter in the NT-Xent loss objective function.}
     \label{tab:temperature_ablation}
 \end{table}
 
 \begin{table}[t]
     \centering
-    \resizebox{0.8\columnwidth}{!}{
         \begin{tabular}{lllll}\toprule
         Sample rate & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
         8000 & 84.78 & 29.77 & 90.60 & 62.94 \\
@@ -46,7 +40,6 @@
         22050 & 85.82 & 30.49 & 91.25 & 64.78 \\                       
         \bottomrule
         \end{tabular}
-    }
     \caption{Effect of the sample rate on tag prediction performance.}
     \label{tab:temperature_ablation}
 \end{table}
@@ -98,8 +91,6 @@ The results of the transfer learning experiments are shown in Table \ref{tab:mag
 
 \begin{table}[t]
     \centering
-    \ra{1.3}
-    \resizebox{\columnwidth}{!}{
     \begin{tabular}{@{}lllcc@{}}\toprule
         Model & Train Dataset & Eval. Dataset &  ROC-AUC & PR-AUC \\ \midrule
         CLMR & MSD & MTAT &  \textbf{86.57} & \textbf{32.04} \\
@@ -110,8 +101,7 @@ The results of the transfer learning experiments are shown in Table \ref{tab:mag
         CLMR & Billboard & MTAT & 82.73 (84.22) & 26.86 (27.82) \\
         CLMR & GTZAN & MTAT & 81.88 (85.43) & 26.18 (29.49) \\
         \bottomrule
-        \end{tabular}
-    }
+    \end{tabular}
     \caption{Performance of the self-supervised models when pre-trained on datasets different from the evaluation dataset, again using a linear classifier to evaluate.}
     \label{tab:magnatagatune_results}
 \end{table}

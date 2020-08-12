@@ -1,3 +1,5 @@
+\chapter{Appendix A}
+
 \begin{table*}[h]
     \centering
     \resizebox{\textwidth}{!}{
@@ -33,22 +35,26 @@
 
 
 
-\begin{figure*}[h]
-    \centering
-    \subcaptionbox{CLMR$^{(1)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/clmr_spectrum/epoch1490_layer0.png}}\hfill
-    \subcaptionbox{CLMR$^{(4)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/clmr_spectrum/epoch1490_layer3.png}}\hfill
-    \subcaptionbox{CLMR$^{(6)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/clmr_spectrum/epoch1490_layer5.png}}\hfill
-    \subcaptionbox{CPC$^{(1)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer0.png}}\hfill
-    \subcaptionbox{CPC$^{(4)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer3.png}}\hfill
-    \subcaptionbox{CPC$^{(6)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer5.png}}
+% \begin{figure*}[h]
+%     \centering
+%     \subcaptionbox{CLMR$^{(1)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/clmr_spectrum/epoch1490_layer0.png}}\hfill
+%     \subcaptionbox{CLMR$^{(4)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/clmr_spectrum/epoch1490_layer3.png}}\hfill
+%     \subcaptionbox{CLMR$^{(6)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/clmr_spectrum/epoch1490_layer5.png}}\hfill
+%     \subcaptionbox{CPC$^{(1)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer0.png}}\hfill
+%     \subcaptionbox{CPC$^{(4)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer3.png}}\hfill
+%     \subcaptionbox{CPC$^{(6)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer5.png}}
 
-    \subcaptionbox{CLMR$^{(1)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/clmr_spectrum/epoch1490_layer0.png}}\hfill
-    \subcaptionbox{CLMR$^{(4)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/clmr_spectrum/epoch1490_layer3.png}}\hfill
-    \subcaptionbox{CLMR$^{(6)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/clmr_spectrum/epoch1490_layer5.png}}\hfill
-    \subcaptionbox{CPC$^{(1)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer0.png}}\hfill
-    \subcaptionbox{CPC$^{(4)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer3.png}}\hfill
-    \subcaptionbox{CPC$^{(6)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer5.png}}
+%     \subcaptionbox{CLMR$^{(1)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/clmr_spectrum/epoch1490_layer0.png}}\hfill
+%     \subcaptionbox{CLMR$^{(4)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/clmr_spectrum/epoch1490_layer3.png}}\hfill
+%     \subcaptionbox{CLMR$^{(6)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/clmr_spectrum/epoch1490_layer5.png}}\hfill
+%     \subcaptionbox{CPC$^{(1)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer0.png}}\hfill
+%     \subcaptionbox{CPC$^{(4)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer3.png}}\hfill
+%     \subcaptionbox{CPC$^{(6)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.16\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer5.png}}
 
-    \caption{Normalised magnitude spectrum of the filters of the self-supervised models in the sample-level convolution layers, sorted by the frequency of the peak magnitude. Gradient ascent is performed on a randomly initialised waveform of 729 samples (close to typical frame size) and its magnitude spectrum is calculated subsequently. Each vertical line in the graph represents the frequency spectrum of a different filter. The first three images are taken from a pre-trained, converged CLMR model, the last three from a CPC model, on the MTAT or Billboard datasets}
-    \label{fig:filter_visualisation}
-\end{figure*}
+%     \caption{Normalised magnitude spectrum of the filters of the self-supervised models in the sample-level convolution layers, sorted by the frequency of the peak magnitude. Gradient ascent is performed on a randomly initialised waveform of 729 samples (close to typical frame size) and its magnitude spectrum is calculated subsequently. Each vertical line in the graph represents the frequency spectrum of a different filter. The first three images are taken from a pre-trained, converged CLMR model, the last three from a CPC model, on the MTAT or Billboard datasets}
+%     \label{fig:filter_visualisation}
+% \end{figure*}
+
+\clearpage
+\newpage
+
