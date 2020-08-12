@@ -1,8 +1,10 @@
 
-\chapter{Method}\label{sec:method}
-% We adapt and optimise the SimCLR framework for high-dimensional, raw signals of audio: Contrastive Learning of Musical Representations (CLMR).
-\section{CLMR}
-CLMR also consists of four core components, which will be elaborated further in the following subsections:
+\chapter{CLMR}\label{sec:method}
+\begin{quote}
+    In this chapter, the core components of the CLMR framework are detailed. The data augmentation pipeline is outlined, as well as the evaluation procedure of the representations learned by CLMR. Concluding, the transfer learning experiments are explained.
+\end{quote}
+
+The following core components of the framework are outlined in the following sections:
 \begin{itemize}
     \item A stochastic composition of data augmentations that produces two correlated, augmented examples of the same audio segment, the `positive pair', denoted as $x_i$ and $x_j$.
     This is done for all segments in the mini-batch, resulting in $2N$ augmented examples per mini-batch.
@@ -41,7 +43,7 @@ The pitch transposition interval is drawn from a uniform distribution consisting
     \item Reverb is added to the signal with probability $p_{\mathrm{reverb}}$.
 The impulse response's room size, reverbation and damping factor is randomly chosen from a uniform distribution of values between $[0-100]$.
 \end{enumerate}
-The space of augmentations is not limited to these operations and could easily be extended to, e.g., randomly applying chorus, distortion and other modulations.
+The space of augmentations is not limited to these operations and could easily be extended to, e.g., randomly applying chorus, distortion and other modulations, as outlined in Section \ref{sec:audio_transformations}.
 
 
 \section{Mini-Batch Composition} % Negative examples

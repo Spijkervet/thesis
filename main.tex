@@ -50,15 +50,25 @@
 \usepackage{amssymb}
 \usepackage{bbm}
 \usepackage{xcolor}
+\usepackage{hyperref}
 
-% \usepackage[natbibapa]{apacite}
-% \bibliographystyle{apacite}
+
+\definecolor{highlightcolor}{RGB}{122,25,37}
+\definecolor{citecolor}{RGB}{78,81,101}
+
+\hypersetup{
+    colorlinks,
+    citecolor=citecolor,
+    linkcolor=black
+}
+
 
 \setcitestyle{citestyle=authoryear,brackets=square, maxcitenames=3}
 
+
 \titleformat{\chapter}%
-  {\color{darkgray}\Huge\rmfamily\itshape} % chapter title
-  {\color{darkgray}\itshape\HUGE\thechapter~} % chapter number
+  {\color{highlightcolor}\Huge\rmfamily\itshape} % chapter title
+  {\color{highlightcolor}\itshape\HUGE\thechapter~} % chapter number
   {0pt}% horizontal separation between label and title body
   {}% before the title body
 \makeatother
