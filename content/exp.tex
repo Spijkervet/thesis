@@ -21,57 +21,35 @@ Scores in parenthesis show performance when adding one hidden layer to the logis
     \label{tab:magnatagatune_results}
 \end{table}
 
-\begin{fullwidth}
-\begin{table*}
-    \centering
-    \begin{tabular}{lllll}\toprule
-    Temperature & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
-    0.1         & 85.82                         & 30.33                        & 91.18                          & 64.10                         \\
-    0.3         & 85.58                         & 30.35                        &                                &                               \\
-    0.5         & 85.82                         & 30.49                        & 91.25                          & 64.78 \\                       
-    \bottomrule
-    \end{tabular}
-    \caption{Ablation study of the temperature parameter in the NT-Xent loss objective function.}
-    \label{tab:temperature_ablation}
-\end{table*}
-\end{fullwidth}
-
-\begin{fullwidth}
-    \begin{table*}
-        \centering
-            \begin{tabular}{lllll}\toprule
-            Sample rate & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
-            8000 & 84.78 & 29.77 & 90.60 & 62.94 \\
-            16000 & 85.46 & 30.42 & 90.97 & 64.08 \\
-            22050 & 85.82 & 30.49 & 91.25 & 64.78 \\                       
-            \bottomrule
-            \end{tabular}
-        \caption{Effect of the sample rate on tag prediction performance.}
-        \label{tab:temperature_ablation}
-    \end{table*}
-\end{fullwidth}
-
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figs/transformation_study.png}
-    \caption{Transformation study}
+    \includegraphics[width=\columnwidth]{figs/transformation_study.pdf}
+    \caption{The achieved $\mathrm{PR-AUC}_{\mathrm{TAG}}$ score using a random crop transformation together with another TODO}
     \label{fig:transformation_study}
 \end{figure}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figs/transformation_probabilities.png}
-    \caption{Transformation study}
+    \includegraphics[width=\columnwidth]{figs/transformation_probabilities.pdf}
+    \caption{$\mathrm{PR-AUC}_{\mathrm{TAG}}$ for transformations under different, consecutive probabilities $p \in \{ 0.0, 0.4, 0.8 \}$}
     \label{fig:transformation_probabilities}
 \end{figure}
 
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figs/perc_train_data.png}
-    \caption{Percentage of train data}
-    \label{fig:perc_train_data}
+    \includegraphics[width=\columnwidth]{figs/perc_train_data_magnatagatune.pdf}
+    \caption{Percentage of labels used for training vs. the achieved $\mathrm{PR-AUC}_{\mathrm{TAG}}$ score on the MagnaTagATune dataset}
+    \label{fig:perc_train_data_magnatagatune}
 \end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/perc_train_data_msd.pdf}
+    \caption{Percentage of labels used for training vs. the achieved $\mathrm{PR-AUC}_{\mathrm{TAG}}$ score on the Million Song Dataset.}
+    \label{fig:perc_train_data_msd}
+\end{figure}
+
 
 
 \section{Quantitative and Qualitative Evaluation}
@@ -101,6 +79,34 @@ Using $p_{\mathrm{filter}}=0.4$ increases PR-AUC by $5.5\%$, and the performance
 When re-sampling the audio to 8\,000~Hz and 12\,000~Hz respectively, there is a marginal penalty to the final accuracy scores for the self-supervised models, which is in line with previous work\cite{lee2018samplecnn}.
 Increasing the batch size to 192 and 128 respectively also increases final evaluation scores.
 We refer the reader to the supplementary material for a complete overview of the results obtained with different augmentation and model parameters.
+
+
+\begin{table*}
+    \centering
+    \begin{tabular}{lllll}\toprule
+    Temperature & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
+    0.1         & 85.82                         & 30.33                        & 91.18                          & 64.10                         \\
+    0.3         & 85.58                         & 30.35                        &                                &                               \\
+    0.5         & 85.82                         & 30.49                        & 91.25                          & 64.78 \\                       
+    \bottomrule
+    \end{tabular}
+    \caption[][24pt]{Ablation study of the temperature parameter in the NT-Xent loss objective function.}
+    \label{tab:temperature_ablation}
+\end{table*}
+    
+\begin{table*}
+    \centering
+        \begin{tabular}{lllll}\toprule
+        Sample rate & $\text{ROC-AUC}_{\text{TAG}}$ & $\text{PR-AUC}_{\text{TAG}}$ & $\text{ROC-AUC}_{\text{CLIP}}$ & $\text{PR-AUC}_{\text{CLIP}}$ \\\midrule
+        8000 & 84.78 & 29.77 & 90.60 & 62.94 \\
+        16000 & 85.46 & 30.42 & 90.97 & 64.08 \\
+        22050 & 85.82 & 30.49 & 91.25 & 64.78 \\                       
+        \bottomrule
+        \end{tabular}
+    \caption[][24pt]{Effect of the sample rate on tag prediction performance.}
+    \label{tab:temperature_ablation}
+\end{table*}
+    
 
 \subsection{Transfer Learning}
 The results of the transfer learning experiments are shown in Table \ref{tab:magnatagatune_results}.

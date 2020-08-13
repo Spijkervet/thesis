@@ -2,7 +2,7 @@
 \begin{quote}
     In this chapter, we recapitulate the foundations which are used to build on in this work.
     In Section 2.1, we discuss the approaches to representation learning.
-    In subsequent sections, we discuss an upcoming learning paradigm, self-supervised learning, the intuition and theory behind contrastive learning methods.
+    In subsequent sections, we discuss an upcoming learning paradigm, self-supervised learning, and the intuition and theory behind contrastive learning methods.
     In Section 2.4, we discuss convolutional neural networks for raw audio signals.
     In Section 2.5, we discuss the task of music auto tagging and their evaluation metrics.
 \end{quote}
@@ -15,23 +15,35 @@
 
 
 The goal of representation learning is to identify features that make  prediction tasks easier and more robust to the complex variations of natural data \cite{bengio2013representation}.
-Supervised techniques for representation learning have now been successfully applied to a variety of tasks in the audio domain, e.g. rhythm detection, musical key recognition, chord recognition, music auto tagging, speaker identity recognition and phoneme recognition  \cite{korzeniowski_fully_2016, chen_harmony_2019, korzeniowski_end--end_2017, bock_joint_2016, pons_end--end_2017, van_den_oord_deep_2013}.
+Supervised techniques for representation learning have now been successfully applied to a variety of tasks in the audio domain, e.g. rhythm detection, musical key recognition, chord recognition, music auto tagging, speaker identity recognition and phoneme recognition  \cite{korzeniowski_fully_2016, chen_harmony_2019, korzeniowski_end--end_2017, bock_joint_2016, pons_end--end_2017, van_den_oord_deep_2013}. We give a brief overview of three main strategies of learning, and distinguish two learning methods that falls between supervised and unsupervised learning, or is part of the larger unsupervised learning paradigm.
 
 % In the unsupervised domain, generative modeling and likelihood-based models use reconstruction of the observations as the objective for learning useful representations of the data.
 
-In unsupervised representation learning, generative modeling and likelihood-based models typically find useful representations of the data by attempting to reconstruct the observations on the basis of their learned representations \cite{goodfellow2014generative, unsupervised_gan}.
+\begin{itemize}
+    \item Supervised learning uses often human-annotated labels as a guidance to learning an objective. This learning paradigm is limited to the amount of manually annotated data that is available for training.
+    \item Unsupervised learning is the set of algorithms that do not exploit pre-annotated labels.
+    \item Reinforcement learning uses agents that maximise their reward in an environment by performing sequences of actions to learn an objective. Learning is unguided in the sense that suboptimal actions are not explicitly corrected by a supervisory signal.
+    \item Semi-supervised learning is a learning paradigm that manifests itself between unsupervised and supervised learning. It uses few supervisory signals to guide training using many unlabeled data points. 
+    \item Self-supervised learning is a form of unsupervised learning that formulates the learning objective in such a way, that it retrieves a supervisory signal from (transformations of) the data itself.
+\end{itemize}
+
+The distinguishment between learning methods in the unsupervised learning domain can be daunting at first, e.g., generative modeling and likelihood-based models are considered unsupervised learning methods that typically find useful representations of the data by attempting to reconstruct the observations on the basis of their learned representations \cite{goodfellow2014generative, unsupervised_gan}.
 Broadly speaking, these approaches can also be considered as self-supervised representation learning: the objective is formulated in such a way that it gets supervision from the data itself.
 The difference between generative approaches and self-supervised learning we like to distinguish, is that self-supervised learning aims to identify the explanatory factors of the data using an objective that is formulated with respect to the representations directly, and its goal is not to generate a faithful reproduction of the data but rather to learn useful features for (multiple) downstream tasks.
-\\
+
+In this thesis, our focus will be on the \textit{self-supervised} learning paradigm. We will first give an overview of its usage in different domains, as to sketch a clear image of its broad application and the unique challenges in each domain.
+\sidenote{Yann LeCun, a strong advocate of unsupervised learning, famously introduced the `cake analogy' at NIPS 2016: \textit{``If intelligence is a cake, the bulk of the cake is unsupervised learning, the icing on the cake is supervised learning, and the cherry on the cake is reinforcement learning (RL).''}}
 
 \section{Self-supervised learning}
 This idea of self-supervised learning has seen widespread adoption in language modeling.
-Its most common task is to predict the next word, given a past sequence of words, but more auxiliary (pretext) tasks can be added to improve the language model.
+Its most common task is to predict the next word, given a past sequence of words, but more auxiliary (pretext) tasks can be added to improve the language model. Word2vec.
 For example, BERT \cite{Devlin2019BERTPO} adds two auxiliary tasks that both rely on self-generated labels to improve the bi-directional prediction of word tokens and sentence-level understanding: 1) a cloze test \cite{doi:10.1177/107769905303000401}, in which part of the tokens in each sequence is randomly masked and the model is asked to predict the missing tokens, and 2) optimizing a binary classifier on predicting whether one sequence is the next one of another sequence.
 The first pretext task encourages the model to better capture the syntactic and semantic meaning of the context around a word, and the second task improves the understanding of relationships between sentences.
 Building these tasks requires no manual labeling, and can therefore be scaled up to arbitrary size while there is plenty of free text available to use as training data.\\
 
 \subsection{Formulation of pretext tasks}
+Self-supervised learning relies on the formulation of pretext tasks. We first resort to the image domain that has enjoyed more attention than the field of audio research to give a more clear intuition of the types of pretext tasks that were devised to learn useful representations for downstream tasks.
+
 In the image domain, self-supervised learning manifests itself in a similar way: one or multiple pretext tasks are formulated on a set of unlabelled images and, subsequently, the pre-trained encoder or its intermediate layers are used to fine-tune on a downstream task like image classification.
 We give a short description of five different approaches.
 
@@ -81,9 +93,7 @@ The encoder and workers are jointly optimized using a loss function, which is fo
 
 
 Interestingly, the self-supervised learned features are also transferable: when trained on the LibriSpeech dataset, it achieves $74.1\%$ WER on the highly challenging CHiME-5 task \cite{barker2018fifth}.
-The series of transformations introduced in this paper will be further elaborated in Section \ref{sec:audio_transformations}.
-
-VQ-Wav2Vec
+The series of data augmentations for audio will be further elaborated in Section \ref{sec:audio_transformations}.
 
 Contrastive predictive coding (CPC) was introduced as a universal approach to self-supervised learning, and has been successful for speaker and phoneme classification using raw audio, among other tasks in different domains \cite{oord_representation_2019}.
 It will be further detailed in Section \ref{sec:cpc}.
@@ -145,6 +155,9 @@ In Chapter \ref{sec:method}, more audio augmentations will be discussed, which a
 \end{table}
 \end{fullwidth}
 
+HISTORY OF SIMON DIXON'S BALLROOM DATASET, ARTIFACTS
+MFCC derivatives; as a whole they tend to to decent job at this task, not interpretable. Some of them are known.
+
 
 \begin{table}
     \centering
@@ -171,7 +184,7 @@ In Chapter \ref{sec:method}, more audio augmentations will be discussed, which a
 \end{table}
 
 
-
+% \section{Mutual Information}
 
 \section{Contrastive Learning}
 In the following subsections, we highlight two frameworks for \textit{self-supervised} contrastive learning, currently regarded as a learning method in the self-supervised learning paradigm.
@@ -183,13 +196,14 @@ The initial form of the contrastive loss function, as introduced by \cite{contra
 While loss functions closely related to contrastive learning were introduced like metric, margin and triplet loss \cite{8014803, marginloss, chechik_large_2009}, their differences lie in the sampling strategy of positive and negative samples.
 In supervised metric learning, the positive samples are chosen from the same class, while negative samples are chosen from different classes utilising hard-negative mining \cite{8014803}.
 In a triplet loss function, an input sample is compared to one positive and one negative sample.
-The choice of positive and negative samples in these losses are guided by the samples' corresponding labels in a supervised setting.
+The choice of positive and negative samples in these losses is guided by the samples' corresponding labels in a supervised setting.
 
 
-Contrastive losses also rely on one positive pair, which can either be picked from neighbouring patches of the anchor sample\footnote{The anchor sample and the positive sample form a positive pair}, or an augmented version of the same data point.
+Contrastive losses also rely on one positive pair, which can either be picked from neighbouring patches of the anchor sample,\footnote{The anchor sample and the positive sample form a positive pair.} or an augmented version of the same data point.
 Different from the other loss functions, contrastive loss functions require many negative samples that are sampled from different data points.
-Inherently, it is assumed this reduces the probability of a false negative.Since the loss function operates on pairs of samples, the batch of samples is often made of $2N$ data points\footnote{Very recently, BYOL proposed an online and target network model to mitigate the use of many negative samples \cite{Grill2020BootstrapYO}.
-While they contributed interesting new findings, it goes beyond the scope of this thesis.}.
+Inherently, it is assumed this reduces the probability of a false negative.
+Since the loss function operates on pairs of samples, the batch of samples is often made of $2N$ data points.\footnote{Very recently, BYOL proposed an online and target network model to mitigate the use of many negative samples \cite{Grill2020BootstrapYO}.
+While they contributed interesting new findings, it goes beyond the scope of this thesis.}
 
 
 \begin{equation}
@@ -218,10 +232,9 @@ The temperature scaling parameter $\tau$ controls the penalty of hard-negative s
 
 
 \subsection{Contrastive Predictive Coding}\label{sec:cpc}
-
-Contrastive predictive coding learns to predict representations of future observations from past observations.
-For audio, it predicts representations of segments of audio in the future.
-A sequential input signal $x_t$ is mapped by a non-linear encoder $g_{\mathrm{enc}}(\cdot)$ to a sequence of latent representations $h_t = g_{\mathrm{enc}}(x_t)$, while simultaneously an autoregressive model $g_{\mathrm{ar}}(\cdot)$ summarizes all encodings $h_{\leq t}$ in the latent space and maps them to a context latent representation $c_t = g_{\mathrm{enc}}(h_{\leq t})$. An visual overview of CPC is shown in Figure \ref{fig:cpc_model}.
+Contrastive predictive coding learns useful representations by maximising mutual information among temporally neighbouring patches of data.
+For audio, it learns to predict representations of future observations from past observations, i.e., it predicts representations of segments of audio in the future, given representations from past sequences.
+A sequential input signal $x_t$ is mapped by a non-linear encoder $g_{\mathrm{enc}}(\cdot)$ to a sequence of latent representations $h_t = g_{\mathrm{enc}}(x_t)$, while simultaneously an autoregressive model $g_{\mathrm{ar}}(\cdot)$ summarizes all encodings $h_{\leq t}$ in the latent space and maps them to a context latent representation $c_t = g_{\mathrm{enc}}(h_{\leq t})$. A visual overview of CPC is shown in Figure \ref{fig:cpc_model}.
 
 
 \begin{marginfigure}[{-1cm}]
@@ -232,7 +245,7 @@ A sequential input signal $x_t$ is mapped by a non-linear encoder $g_{\mathrm{en
 
 The vectors $h_t$ and $c_t$ are encoded so as to preserve maximal mutual information and to identify the shared latent variables of the original signals. The neural networks $g_{\mathrm{enc}}(\cdot)$ and $g_{\mathrm{ar}}(\cdot)$ jointly optimise the InfoNCE loss, a contrastive loss that follows the principles of noise-contrastive estimation \cite{gutmann_noise-contrastive_nodate}. Their principles are widely used in the design of self-supervised loss functions \cite{oord_representation_2019, sohn2020fixmatch, chen_simple_2020}.
 
-Given $N$ random samples from the set of encodings $X = \{h_{t+k}, h_{j_1}, h_{j_2} \hdots h_N\}$, $k$ being the number of timesteps the encoding occurs after $c_t$ and $X$ containing one positive sample $h_{t+k}$ and $N-1$ negative samples $h_{j_{n}}$ drawn from representations of other samples in the audio and dataset, the following objective is optimised:
+Given $N$ random samples from the set of encodings $X = \{h_{t+k}, h_{j_1}, h_{j_2} \hdots h_N\}$, $k$ being the number of timesteps the encoding occurs after $c_t$ and $X$ containing one positive sample $h_{t+k}$ and $N-1$ negative samples $h_{j_{n}}$ drawn from representations of other samples in the same audio example and the dataset, the following objective is optimised:
 
 \begin{equation}
     \mathcal{L}_{N}=-\sum_{k} \underset{X}{\mathbb{E}}\left[\log \frac{f_{k}\left(h_{t+k}, c_{t}\right)}{\sum_{h_{j} \in X} f_{k}\left(h_{j}, c_{t}\right)}\right]
@@ -242,21 +255,29 @@ Each encoding pair $(h_n, c_t)$ is evaluated using a scoring function $f(\cdot)$
 CPC's formulation of the optimal solution for $f(\cdot)$ allows $-\mathcal{L}_n$ to be reformulated as a lower bound on the mutual information of representations $I(h_{t+k} | c_t)$, which also bounds the data $I(x_{t+k} | c_t)$, and is further proven by \cite{poole_variational_2019}.
 For downstream tasks, both $h_t$ and $c_t$ can be used as representations for new observations $x$, depending on whether context is helpful for solving it.
 
-Recently, the contribution of mutual information to the success of CPC has been reconsidered: its performance seems to depend largely on an inductive bias in the choice of a specialised architecture and the parameterisation of the mutual information critic \cite{Tschannen2020OnMI}.
-
-% Contrastive predictive coding exploits this idea by learning representations that maximise mutual information among temporally neighbouring patches of data\cite{oord_representation_2019, hjelm_learning_2019}.
-
+Recently, the contribution of mutual information to the success of CPC has been reconsidered: its performance depends on an inductive bias in the choice of a specialised architecture and the parameterisation of the mutual information critic \cite{Tschannen2020OnMI}.
 
 
 
 \subsection{SimCLR}
 SimCLR is a recently proposed contrastive learning technique for learning effective representations of images in a self-supervised manner without relying on specialised architectures and powerful autoregressive modeling \cite{chen_simple_2020}.
-The framework has four core components: 1) a composition of stochastic data augmentations that augment every image into two, correlated versions, 2) a ResNet encoder neural network, 3) a projector neural network and 4) a contrastive loss function, normalized temperature-scaled cross-entropy loss \cite{chen_simple_2020}.
+The key findings of SimCLR boils down to Yann LeCun's aforementioned `cake analogy': given a large enough neural network, a lot of unlabeled data and a self-supervised loss function, supervised learning really becomes the icing on the cake of intelligence.
+Contrary to prior contrastive learning methods, SimCLR does not require a specialised encoder architecture or powerful autoregressive modeling to learn useful representations.
+When finetuning a \textit{linear} classifier using the self-supervised learned representations from the pre-trained encoder, it achieved $76.5\%$ top-1 accuracy on ImageNet on the task of image classification.
+For comparison, the same encoder architecture (ResNet-50) in a standard supervised setting scores $76.6\%$ top-1 accuracy.
+While still under review, a next iteration of SimCLR surpassed this supervised benchmark: SimCLRv2 achieves $79.8\%$ top-1 accuracy \cite{chen2020big}\footnote{BYOL surpassed the supervised benchmark a few days before SimCLRv2 was published \cite{Grill2020BootstrapYO}, but SimCLRv2 exceeded their scores.}.
+
+The framework has four core components: 1) a composition of stochastic data augmentations that augment every image into two, correlated versions, 2) a non-linear neural network, 3) a linear or non-linear projection neural network and 4) a contrastive loss function.
+The series of data augmentations used in this paper are: random cropping, resizing, horizontal flipping, cutout, color distortion (jitter, hue, dropping), gaussian noise, gaussian blur and sobel filtering. As noted earlier, the first four augmentations are considered spatial transformations, the latter four are spectral transformations.
+For the sake of simplicity, they used standard ResNet encoders as the encoder neural network and feed forward neural networks for the projection layers.
+Normalized temperature-scaled cross entropy loss was used as the contrastive loss function, which is shown in equation \ref{eq:loss_function}.
 
 
 \section{CNN's for Audio}
+To learn an acoustic model from raw audio signals in the time-domain, deep convolutional neural networks are often used[CITE]. Large receptive fields are often used to mimic the behavior of bandpass filters, while subsequent layers control the model capacity. Auxillary layers, e.g., a batch normalisation layer that suppresses exploding and vanishing gradients, strong activation functions and residual connections are often deployed between convolution layers to help stabalise training for deep neural networks. Table \ref{tab:conv_block} displays a convolutional block incorporating such measures.
 
-\subsection{SampleCNN}
+
+% \href{https://arxiv.org/pdf/1610.00087.pdf}[paper]
 
 
 \begin{table}
@@ -274,47 +295,52 @@ The framework has four core components: 1) a composition of stochastic data augm
     \label{tab:conv_block}
 \end{table}
 
-\begin{fullwidth}
-    \begin{table*}[t]
-        \centering
-        \textbf{SampleCNN $3^9$ Model} \\
-        \begin{tabular}{ccccc}
-            \toprule Layer & Output Size & & Parameters & \\
-            & (Sequence Length $\times$ Channels) & Kernel & Stride & Padding \\\hline
-            Input & $59049 \times 1$ & 3 & 3 & 0 \\\hline
-            ConvBlock & $19683 \times 128$ & 3 & 1 & 1 \\
-            MaxPool & $6561 \times 128$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $6561 \times 128$ & 3 & 1 & 1 \\
-            MaxPool & $2187 \times 256$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $2187 \times 256$ & 3 & 1 & 1 \\
-            MaxPool & $729 \times 256$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $729 \times 256$ & 3 & 1 & 1 \\
-            MaxPool & $243 \times 256$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $243 \times 256$ & 3 & 1 & 1 \\
-            MaxPool & $81 \times 256$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $81 \times 256$ & 3 & 1 & 1 \\
-            MaxPool & $27 \times 256$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $27 \times 256$ & 3 & 1 & 1 \\
-            MaxPool & $9 \times 256$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $9 \times 512$ & 3 & 1 & 1 \\
-            MaxPool & $3 \times 512$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $3 \times 512$ & 3 & 1 & 1 \\
-            MaxPool & $1 \times 512$ & 3 & 3 & 1 \\\hline
-            ConvBlock & $1 \times 512$ & 3 & 1 & 1 \\
-            Dropout (0.5) & $1 \times 512$ & - & - & - \\\hline
-            FC & 50 & - & - & - \\
-            \bottomrule
-        \end{tabular}
-        \caption{SampleCNN $3^9$ Model, with 59049 samples (2678~ms) as input.
+
+\subsection{SampleCNN}
+SampleCNN is a model architecture optimised for the classification of raw audio signals. Depending on the sample rate of the input signal, it uses small receptive fields and aggressive pooling modules to obtain a sample-level representation of a signal \cite{lee2018samplecnn}. Its architecture if visualised in Table \ref{tab:samplecnn_model}.
+
+
+\begin{table*}[t]
+    \centering
+    \textbf{SampleCNN $3^9$ Model} \\
+    \begin{tabular}{ccccc}
+        \toprule Layer & Output Size & & Parameters & \\
+        & (Sequence Length $\times$ Channels) & Kernel & Stride & Padding \\\hline
+        Input & $59049 \times 1$ & 3 & 3 & 0 \\\hline
+        ConvBlock & $19683 \times 128$ & 3 & 1 & 1 \\
+        MaxPool & $6561 \times 128$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $6561 \times 128$ & 3 & 1 & 1 \\
+        MaxPool & $2187 \times 256$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $2187 \times 256$ & 3 & 1 & 1 \\
+        MaxPool & $729 \times 256$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $729 \times 256$ & 3 & 1 & 1 \\
+        MaxPool & $243 \times 256$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $243 \times 256$ & 3 & 1 & 1 \\
+        MaxPool & $81 \times 256$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $81 \times 256$ & 3 & 1 & 1 \\
+        MaxPool & $27 \times 256$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $27 \times 256$ & 3 & 1 & 1 \\
+        MaxPool & $9 \times 256$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $9 \times 512$ & 3 & 1 & 1 \\
+        MaxPool & $3 \times 512$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $3 \times 512$ & 3 & 1 & 1 \\
+        MaxPool & $1 \times 512$ & 3 & 3 & 1 \\\hline
+        ConvBlock & $1 \times 512$ & 3 & 1 & 1 \\
+        Dropout (0.5) & $1 \times 512$ & - & - & - \\\hline
+        FC & 50 & - & - & - \\
+        \bottomrule
+    \end{tabular}
+    \caption[][15pt]{SampleCNN $3^9$ Model, with 59049 samples (2678~ms) as input.
 Each ConvBlock consists of the modules presented in Table \ref{tab:conv_block}}
-        \label{tab:samplecnn_model}
-    \end{table*}
-\end{fullwidth}
+    \label{tab:samplecnn_model}
+\end{table*}
 
 
 \section{Music Tagging}
+Music tagging, or music auto tagging, music classification, is the task of automatically attributing metadata to a fragment of musical audio. The attribution can be a single genre or multiple `tags' that best describe the contents of the signal. 
 
 \subsection{Evaluation Metrics}
+PR-AUC, ROC-AUC, for tag-level and clip-level.
 
 \section*{Summary}
 Summary

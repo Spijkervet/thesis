@@ -15,26 +15,23 @@ The following core components of the framework are outlined in the following sec
 
 The complete framework is visualised in Figure \ref{fig:clmr_model}.
 
-\begin{fullwidth}
-    \begin{figure*}[h]
-        \includegraphics[width=\columnwidth]{figs/clmr_model.png}
-        \caption{The CLMR framework operating raw audio, in which the contrastive learning objective is directly formulated in the latent space of correlated, augmented examples of pairs of raw audio waveforms.}
-        \label{fig:clmr_model}
-    \end{figure*}
-\end{fullwidth}
-
+\begin{figure*}[h]
+    \includegraphics[width=\columnwidth]{figs/clmr_model.png}
+    \caption{The CLMR framework operating on raw audio, in which the contrastive learning objective is directly formulated in the latent space of correlated, augmented examples of pairs of raw audio waveforms.}
+    \label{fig:clmr_model}
+\end{figure*}
 
 \section{Data Augmentations}
 We designed a chain of augmentations for raw audio waveforms to make it harder for the model to identify the correct pair of examples.
 The following augmentations were applied on ${x_i}$ and ${x_j}$ independently:
 \begin{enumerate}
     \item A random segment of size $N$ is selected from a full piece of audio, without trimming silence (e.g., the intro or outro of a song).
-The independently chosen segments for $x_i$ and $x_j$ could overlap or be very disjoint, allowing the model to infer both local and global structures.
-    \item The polarity is inverted, i.e., the amplitude is multiplied by $-1$, with probability $p_{\mathrm{invert}}$.
+    The independently chosen segments for $x_i$ and $x_j$ could overlap or be very disjoint, allowing the model to infer both local and global structures. This intuition is visualised in Figure \ref{fig:global_local}.
+    \item The polarity of the audio signal is inverted, i.e., the amplitude is multiplied by $-1$, with probability $p_{\mathrm{invert}}$.
     \item Additive White Gaussian Noise is added with a high signal-to-noise ratio to the original signal with probability $p_{\mathrm{noise}}$.
     \item The gain is reduced between $[-6, 0]$ decibels with probability $p_{\mathrm{gain}}$.
     \item A filter is applied with probability $p_{\mathrm{filter}}$.
-A coin flip determines whether it is a low-pass ($3500$~Hz) or high-pass ($800$~Hz) filter.
+    A coin flip determines whether it is a low-pass or a high-pass filter. The cut-off frequencies are randomly drawn from the uniform distribution $[2200-4000]$ or $[200,1200]$ respectively.
     \item The signal is delayed with probability $p_{\mathrm{delay}}$.
 The delay time is randomly chosen from values between 200-500ms, with 50ms increments.
 The volume factor of the delayed signal that is added to the original signal is 0.5.
@@ -46,17 +43,26 @@ The impulse response's room size, reverbation and damping factor is randomly cho
 The space of augmentations is not limited to these operations and could easily be extended to, e.g., randomly applying chorus, distortion and other modulations, as outlined in Section \ref{sec:audio_transformations}.
 
 
+
+\begin{marginfigure}
+    \includegraphics[width=\textwidth]{figs/clmr_local_global.png}
+    \caption{...}
+    \label{fig:global_local}
+\end{marginfigure}
+
+
+
 \section{Mini-Batch Composition} % Negative examples
 We sample one song from the mini-batch, augment it into two examples, and treat them as the positive pair.
 We treated the remaining $2(N-1)$ examples in the mini-batch as negative examples, and did not sample the negative examples explicitly.
-A larger batch size makes the model's objective harder -- there are simply more negative samples -- but it can substantially improve model performance \cite{chen_simple_2020}.
+A larger batch size makes the model's objective harder -- there are simply more negative samples the anchor sample needs to identify the positve samle from -- but it can substantially improve model performance \cite{chen_simple_2020}.
 This introduces a practical problem for raw audio when training on a GPU, as the input dimensionality of a raw waveform is higher for high sample rates.
 The batch size can be increased more easily when audio is re-sampled at lower sampling rates: the number of examples the model is exposed to at once can be higher when the number of audio samples is lower.
 
 Alternatively, multiple GPU's can be used for training, but this introduces another practical problem: batch normalisation \cite{batch_normalisation} is used in the encoder to stabilise training.
 When training in a distributed, parallel manner, the batch normalisation statistics (mean/variance) are usually aggregated locally per device.
 Positive examples are sampled on the same device, leading to potential leakage of batch statistics which improves training loss, but counteracts learning of useful representations.
-We used global batch normalisation, which aggregates the batch statistics over all devices during parallel training, and leave the effect of different stabilisation strategies, e.g., layer normalisation \cite{henaff2019data}, for future work.
+We used global batch normalisation, which aggregates the batch statistics over all devices during parallel training, to alleviate this issue. We leave the effect of different stabilisation strategies, e.g., layer normalisation \cite{henaff2019data}, for future work.
 
 
 \section{Encoder}
