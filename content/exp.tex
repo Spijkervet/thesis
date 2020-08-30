@@ -73,7 +73,7 @@ Adding a filter to the pipeline increases the downstream performance significant
 \begin{figure*}[h]
     \centering
     \includegraphics[width=\columnwidth]{figs/transformation_study.pdf}
-    \caption{The achieved $\mathrm{PR-AUC}_{\mathrm{TAG}}$ score using a random crop transformation together with another TODO}
+    \caption{The achieved $\mathrm{PR-AUC}_{\mathrm{TAG}}$ score using a random crop together with one other transformation}
     \label{fig:transformation_study}
 \end{figure*}
 
@@ -172,8 +172,8 @@ When pre-training on smaller datasets, the autoregressive modelling in CPC can f
     \begin{tabular}{@{}lllcc@{}}\toprule
         Model & Train Dataset & Eval.
         Dataset &  ROC-AUC & PR-AUC \\ \midrule
-        CLMR & MSD & MTAT &  \textbf{86.57} & \textbf{32.04} \\
-        CPC & FMA & MTAT & 86.34 (\underline{87.79}) & 30.71 (\underline{32.47}) \\
+        CLMR & MSD & MTAT &  86.57 & 32.04 \\
+        CPC & FMA & MTAT & 86.34 (87.79) & 30.71 (32.47) \\
         CLMR & FMA & MTAT & 86.22 (86.63) & 30.58 (31.22) \\
         CPC & Billboard & MTAT & 85.78 (86.25) & 29.68 (30.15) \\
         CPC & GTZAN & MTAT & 83.44 (86.06) & 26.88 (29.72) \\

@@ -68,7 +68,7 @@ Its pretext task is to classify the corresponding class of each transformed imag
 An even more simple pretext task is formulated in RotNet \cite{gidaris2018unsupervised}, that proposes to use a random 2d rotation transformation as a supervisory signal to learn semantic features of an image.
 The image is randomly rotated and given a class label: no rotation, $90^\circ$, $180^\circ$ or $270^\circ$, making the pretext task a 4-class classification problem.
 Arguably, this forces the model to learn relationships in the semantic space of objects, i.e., to recognize the same image under different rotations, it has to learn more high-level, structural parts of the image, e.g., the relative position of a nose with respect to the eyes.
-RotNet drastically reduced the gap between unsupervised and supervised feature learning in the image domain using a simple pretext task [TODO: scores here].
+RotNet drastically reduced the gap between unsupervised and supervised feature learning in the image domain using a simple pretext task.
 
 Another common transformation is that of colorization \cite{zhang_colorful_2016}, in which they extracted the lighting channel \textit{L} from a colored image and subsequently asked the model to predict the corresponding $a$ and $b$ color channels in CIE \textit{Lab} colorspace.
 
@@ -82,7 +82,7 @@ While detailing more potential trivial solutions in the image domain is beyond t
 In this case, the trivial solution was mitigated by shifting the green and magenta color channels to gray.
 }
 
-To conclude self-supervised learning in the image domain, \cite{noroozi_unsupervised_2016} converted aforementioned pretext task into a full $3\times 3$-grid `jigsaw puzzle', asking the model to reconstruct a sampled patch of an image after randomly shuffling all 9 sub-patches [TODO add a bit more detail why we include this].
+To conclude self-supervised learning in the image domain, \cite{noroozi_unsupervised_2016} converted aforementioned pretext task into a full $3\times 3$-grid `jigsaw puzzle', asking the model to reconstruct a sampled patch of an image after randomly shuffling all 9 sub-patches.
 
 From these series of approaches to self-supervised learning, we like to distinguish two categories of pretext tasks throughout this thesis: those that involve distortions to learn \textbf{spectral relationships} and those that use patches to learn \textbf{spatial relationships} in data.
 \\
@@ -293,8 +293,9 @@ To stabalise optimization, they employ the LARS optimizer \cite{You2017LargeBT}.
 
 
 \section{CNN's for Audio}\label{sec:conv_audio}
-% Some distinct hand-engineered audio features used for the classification of music are Daubechies wavelet coefficent histograms \cite{wavelethist_musicgenre}, , 
-To learn an acoustic model from raw audio signals in the time-domain, deep convolutional neural networks have proven to be useful[CITE]. Large receptive fields are often used to mimic the behavior of bandpass filters, while subsequent layers control the model capacity. Auxillary layers, e.g., batch normalisation layers that suppress exploding and vanishing gradients, strong activation functions and residual connections are often deployed between convolution layers to help stabalise training for deep neural networks[CITE RESNET, BATCHNORM]. Table \ref{tab:conv_block} displays a convolution block incorporating such measures.
+Most papers in MIR utilise CNN's on audio in the time-frequency domain, i.e., they use CNN's on (mel-)spectograms, CQT's, etc., to learn representations of audio \cite{chen_harmony_2019,bock_joint_2016}.
+We omit describing common convolution architectures for these papers because they operate in the time-frequency domain, while our work resides in the time-domain.
+To learn an acoustic model from raw audio signals in the time-domain, deep convolutional neural networks have proven to be useful \cite{lee2018samplecnn,pons_end--end_2017}. Large receptive fields are often used to mimic the behavior of bandpass filters, while subsequent layers control the model capacity. Auxillary layers, e.g., batch normalisation layers that suppress exploding and vanishing gradients, strong activation functions and residual connections are often deployed between convolution layers to help stabalise training for deep neural networks \cite{,he2016deep, ioffe2015batch}. Table \ref{tab:conv_block} displays a convolution block incorporating such measures.
 
 % Musical signals are characterized well by note onsets and ensuing spectral patterns. We perform several steps of frontend processing to help learning algorithms effectively capture the features.
 
