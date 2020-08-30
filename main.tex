@@ -51,6 +51,9 @@
 \usepackage{bbm}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
 
 
 \definecolor{highlightcolor}{RGB}{122,25,37}
@@ -127,6 +130,9 @@
 }
 \makeatother
 
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH], \THEYEAR}
+
 
 % \titlecontents{part}%
 %     [0pt]% distance from left margin
@@ -171,14 +177,20 @@
 \include{titlepage}
 
 % abstract
-\begin{fullwidth}
-  \include{content/abstract}
-\end{fullwidth}
+\include{content/abstract}
+\include{content/acknowledgements}
+
+
+\null\vfill
+\noindent
+Copyright \textcopyright \, Janne Spijkervet \\
+{\LARGE\textit{\monthyeardate\today}}
+\newpage
 
 % table of contents
-\begin{fullwidth}
-  \tableofcontents
-\end{fullwidth}
+% \begin{fullwidth}
+\tableofcontents
+% \end{fullwidth}
 
 \mainmatter
 \thispagestyle{plain}

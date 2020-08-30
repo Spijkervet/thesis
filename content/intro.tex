@@ -1,5 +1,5 @@
 \chapter{Introduction}\label{sec:introduction}
-The field of music information retrieval has seen many successes since the emergence of deep learning.
+The field of music information retrieval (MIR) has seen many successes since the emergence of deep learning.
 Supervised, end-to-end learning methods have been widely used in tasks like chord recognition \cite{korzeniowski_fully_2016, chen_harmony_2019}, key detection \cite{korzeniowski_end--end_2017}, beat tracking \cite{bock_joint_2016}, music audio tagging \cite{pons_end--end_2017} and music recommendation \cite{van_den_oord_deep_2013}.
 These methods use labeled corpora, which are hard \cite{doi:10.1080/09298215.2019.1613436}, expensive and time-consuming to create, while raw unlabeled musical data is available in vast amounts.
 Despite the importance of unsupervised learning in MIR for raw, high-dimensional signals of audio, it has yet to see breakthroughs similar to supervised learning.
@@ -7,9 +7,9 @@ It has enjoyed successes with methods like PCA, PMSC's and spherical $k$-means t
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.75\columnwidth]{figs/roc_auc_magnatagatune.pdf}
+    \includegraphics[width=\textwidth]{figs/roc_auc_magnatagatune.pdf}
     \caption{Performance and model complexity comparison of supervised models (grey) and self-supervised models (ours) in music classification of raw audio waveforms on the MagnaTagATune dataset to evaluate musical representations.
-Supervised models were trained end-to-end, while CLMR and CPC are pre-trained without ground truth: their scores are obtained by training a linear classifier on their learned representations but nonetheless perform practically identically to the supervised models.}
+Supervised models were trained end-to-end, while CLMR and CPC are pre-trained without ground truth: their scores are obtained by training a linear classifier on their learned representations but nonetheless perform better than the supervised models.}
     \label{fig:example}
 \end{figure}
 
@@ -18,7 +18,7 @@ The general goal of representation learning is to train a function $g$ that maps
 In the absence of ground truth, there can be no ordinary loss function for training $g$; self-supervised learning trains by way of a proxy loss function instead, obtained by withholding or augmenting parts of the input data.
 One way to preserve the amount of useful information during self-supervised learning is to define the proxy loss function with respect to a relatively simple `pretext' task, with the idea that a representation that is good for the pretext task will also be useful for other tasks.
 Many approaches simply rely on heuristics to design pretext tasks \cite{doersch_unsupervised_2015,zhang2016colorful}, e.g., by defining pitch transformation as a pretext task \cite{spice}.
-Alternatively, \emph{contrastive representation learning} formulates the proxy loss directly on the learned representations and relies on comparing and contrasting multiple, slightly differing versions of any one example.
+Alternatively, \emph{contrastive representation learning} formulates the proxy loss directly on the learned representations and relies on comparing and contrasting multiple, differing versions or neighbouring patches of any one example.
 The rationale behind this contrastive strategy is \emph{predictive coding}, a theory that the human brain encodes causal structures and predicts future events at different levels of abstraction \cite{friston_predictive_2009}.
 
 
@@ -38,21 +38,23 @@ Our key contributions are summarized as follows.
     \item CLMR learns useful, compact representations from raw signals of musical audio.
     \item The learned representations are transferable across different musical corpora.
     \item CLMR can learn from \emph{any} dataset of raw audio, requiring neither transformations nor fine-tuning on the input data; nor do the models require manually annotated labels for pre-training.
-    \item We provide an ablation study on the effectiveness of the data augmentations of raw audio.
+    \item We provide a thorough ablation study on the effectiveness of the data augmentations of raw audio on the downstream performance of music tagging.
 \end{itemize}
 
 
 \section{Outline}
-In the following chapter, a comprehensive background of the field of self-supervised learning is be presented, as well as common neural network architectures in the raw audio domain.
+In the following chapter, a comprehensive background of the field of self-supervised learning is be presented, as well as neural network architectures commonly used in the raw audio domain.
 Subsequently, the main downstream task and application of this thesis will be elaborated upon, along with its evaluation metrics.
 
-In chapter 3, the method of this thesis is presented, outlining the details of the architecture of the model, its intuition, the objective function and the evaluation of the performance of the model.
+In chapter 3, the method of this thesis is presented, outlining the details and intuition of the architecture of the CLMR model.
 
-In chapter 4, the implementation of the framework is discussed.
+In chapter 4, the details of the implementation of the framework is discussed.
 
 In chapter 5, the datasets are outlined, both for the main and transfer learning experiments.
 
-In chapter 6, the results of this thesis are presented [...].
+In chapter 6, the results of this thesis are presented, along with the study on the effect of different batch sizes, parameters, data augmentations on the performance of the downstream task.
 
-Lastly, the conclusions of this thesis are presented in chapter 9.
+In chapter 7, we give a thorough qualitative analysis of the learned representations of the CLMR model. Rather than looking at hard numbers, we perform a listening experiment to gain insights.
+
+Lastly, the conclusions of this thesis are presented in chapter 8.
 

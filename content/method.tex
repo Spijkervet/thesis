@@ -66,9 +66,7 @@ We used global batch normalisation, which aggregates the batch statistics over a
 
 
 \section{Encoder}
-Raw audio waveforms are very high-dimensional: a segment of 3 seconds already has 66\,150 samples when sampled at 22\,050~Hz, and they convey a lot of information at different time-scales.
-The SampleCNN architecture, with its many convolutional layers with small filter sizes, has shown to capture these complexities very well for the task of music classification \cite{lee2018samplecnn}.
-To directly compare an end-to-end supervised objective against a self-supervised objective, we use the SampleCNN model as our encoder.
+To directly compare a state-of-the-art end-to-end supervised model against a self-supervised model operating on raw waveforms, we use the SampleCNN model as our encoder \cite{lee2018samplecnn}.
 Similar to the supervised approaches, we use an audio input of 59\,049 samples for audio with a sample rate of 22\,050~Hz.
 In this configuration, the SampleCNN encoder $g_{\mathrm{enc}}$ consists of 11 blocks, each with a convolutional layer with a filter size of 3, batch normalisation, ReLU activation and max pooling with pool size 3.
 The fully connected and dropout layers are removed, yielding a 512-dimensional feature vector for every sample of audio.
@@ -76,7 +74,7 @@ This feature vector is subsequently mapped to a different latent space by the pr
 We adjust the audio input length and the encoder's blocks according to the configurations proposed in \cite{lee2018samplecnn} when training on audio sampled at different sampling rates (16\,000, 12\,000 and 8\,000~Hz).
 
 % There is a trade-off between the number of contrastive examples the model is exposed to at once, and model complexity: increasing both quickly results in hardware constraints for training (GPU memory).
-We found working with a batch size of 48 and a $3^9$-SampleCNN encoder to work well and easier to compare with against related work using supervised methods \cite{lee2018samplecnn, dieleman2014end,pons_end--end_2017}.
+We found working with a batch size of 48, i.e., 96 samples per batch since we use $2N$ samples for our negative sampling strategy, and the $3^9$-SampleCNN encoder configuration to work well and easier to compare with against related work using supervised methods \cite{lee2018samplecnn, dieleman2014end,pons_end--end_2017}.
 We leave model scaling for future work.
 
 
@@ -119,16 +117,5 @@ For CLMR, the representations $h$ from the encoder are used instead of the repre
 
 
 \section{Transfer Learning}
-To test the generalisability of the learned representations, we also pre-trained CLMR on different datasets than those we use for evaluation.
+To test the generalisability of the learned representations, we also pre-trained CLMR on different datasets than those we use for fine-tuning.
 We pre-train CLMR on the Million Song Dataset, freeze the weights of the network, and subsequently process all datapoints $X$ from the smaller MagnaTagATune dataset to obtain representations $h$, on which we perform the same linear evaluation procedure outlined in the previous paragraph.
-
-
-% \section{Implementation}
-
-% \subsection{Contrastive Predictive Coding}
-% We adjusted the original CPC encoder $g_{\mathrm{enc}}$ to a deeper architecture, as previous work \cite{lee2018samplecnn} shows more convolutions with smaller filter sizes helps to learn more useful representations of musical audio.
-The encoder $g_{\mathrm{enc}}$ consists of 7 layers with 512 filters each, and filter sizes $[10, 6, 4, 4, 4, 2, 2]$ and strides $[5, 3, 2, 2, 2, 2, 2]$.
-This results in a downsampling factor of $490$, which yields a feature vector for every $\approx$ 5~ms of audio for an input of 59\,049 samples.
-Instead of relying on max-pooling, the filter sizes and strides are adjusted accordingly to parameterise and facilitate downsampling.
-We also increased the number of prediction steps $k$ to 20, effectively asking the network to predict 100~ms of audio into the future.
-The mini-batch size, i.e., the number of training examples the model is exposed to at once, is set to 64 from which 15 negative samples in the contrastive loss are drawn.
