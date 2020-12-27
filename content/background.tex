@@ -119,7 +119,7 @@ To the best of our knowledge, SPICE \cite{spice} is the only (peer-reviewed) pap
 We are the first to perform self-supervised learning on raw audio waveforms of musical audio, without a transformation pipeline to the time-frequency domain, and evaluate the learned representations in a musical, downstream task.
 
 \subsection{Ideal Representations}
-Aforedescribed pretext tasks are designed in a way that they allow a model to learn representations that are not limited to solving the pretext task, but are also helpful in solving the downstream task when fine-tuning a classifier using the pre-trained intermediate layers as feature extractors.
+The aforedescribed pretext tasks are designed in a way that they allow a model to learn representations that are not limited to solving the pretext task, but are also helpful in solving the downstream task when fine-tuning a classifier using the pre-trained intermediate layers as feature extractors.
 Ideal feature representations should be invariant to local translations and noisy variations of the input signal while remaing sensitive to higher-level semantic information.
 
 Put differently, the main challenge is to learn representations that effectively encode \textit{slow features} \cite{wiskott_slow_2002}, i.e., the shared information between parts of a high-dimensional signal.
@@ -250,7 +250,7 @@ A sequential input signal $x_t$ is mapped by a non-linear encoder $g_{\mathrm{en
 
 The vectors $h_t$ and $c_t$ are encoded so as to preserve maximal mutual information and to identify the shared latent variables of the original signals. The neural networks $g_{\mathrm{enc}}(\cdot)$ and $g_{\mathrm{ar}}(\cdot)$ jointly optimise the InfoNCE loss, a contrastive loss that follows the principles of noise-contrastive estimation \cite{gutmann_noise-contrastive_nodate}. Their principles are widely used in the design of self-supervised loss functions \cite{oord_representation_2019, sohn2020fixmatch, chen_simple_2020}.
 
-Given $N$ random samples from the set of encodings $X = \{h_{t+k}, h_{j_1}, h_{j_2} \hdots h_N\}$, $k$ being the number of timesteps the encoding occurs after $c_t$ and $X$ containing one positive sample $h_{t+k}$ and $N-1$ negative samples $h_{j_{n}}$ drawn from representations of other samples in the same audio example and the dataset, the following objective is optimised:
+Given $N$ random samples from the set of encodings\linebreak $X = \{h_{t+k}, h_{j_1}, h_{j_2} \hdots h_N\}$, $k$ being the number of timesteps the encoding occurs after $c_t$ and $X$ containing one positive sample $h_{t+k}$ and $N-1$ negative samples $h_{j_{n}}$ drawn from representations of other samples in the same audio example and the dataset, the following objective is optimised:
 
 \begin{equation}
     \mathcal{L}_{N}=-\sum_{k} \underset{X}{\mathbb{E}}\left[\log \frac{f_{k}\left(h_{t+k}, c_{t}\right)}{\sum_{h_{j} \in X} f_{k}\left(h_{j}, c_{t}\right)}\right]
@@ -266,7 +266,7 @@ Recently, the contribution of mutual information to the success of CPC has been 
 
 \subsection{SimCLR}
 SimCLR is a recently proposed contrastive learning technique for learning effective representations of images in a self-supervised manner without relying on specialised architectures and powerful autoregressive modeling \cite{chen_simple_2020}.
-The key findings of SimCLR boils down to Yann LeCun's aforementioned `cake analogy' (\ref{fig:cake_analogy}): given a large enough neural network, a lot of unlabeled data for pre-training with a pretext task, supervised learning really becomes the icing on the cake of intelligence.
+The key findings of SimCLR boils down to Yann LeCun's aforementioned `cake analogy' (\ref{fig:cake_analogy}): given a large enough neural network, a lot of unlabeled data for pre-training with a pretext task, supervised learning really becomes the icing on the cake of artificial intelligence.
 Contrary to prior contrastive learning methods \cite{oord_representation_2019,henaff2019data,hjelm_learning_2019}, SimCLR does not require a specialised encoder architecture or powerful autoregressive modeling to learn useful representations. Instead, it relies on strong data augmentations and very large batch sizes to make the learned representations more rubust and the contrastive task harder.
 When finetuning a \textit{linear} classifier using the self-supervised learned representations from the pre-trained encoder, it achieved $76.5\%$ top-1 accuracy on ImageNet on the task of image classification.
 For comparison, the same encoder architecture (ResNet-50) in a standard supervised setting scores $76.6\%$ top-1 accuracy.

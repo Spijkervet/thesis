@@ -16,7 +16,7 @@ This `exchange' was started as a platform to evaluate newly published algorithms
 The MIR tasks range from chord recognition, music key detection, audio fingerprinting to music classification.
 Along with the unification of evaluation procedures, it has also produced standard datasets to benchmark algorithms with.
 For the task of music classification, the MagnaTagATune dataset \cite{law2009evaluation} is often used.
-For chord recognition, the Billboard Dataset is regarded as a standard dataset \cite{burgoyne_billboard}.
+For chord recognition, the Billboard dataset is regarded as a standard dataset \cite{burgoyne_billboard}.
 
 
 \section{MagnaTagATune Dataset}
@@ -27,12 +27,12 @@ It should be noted that this original version contains tag labels that are synon
 The distribution of the number of fragments per class is skewed: there are more fragments containing guitar and classical tag attributes than `country' or `harp' attributes. A possible consequence of this class imbalance, is that CLMR learns representations that separate, e.g., `guitar' music and `flute' music well, but it is harder to learn representations that separate `country' music from `choral' music.
 
 
-\begin{marginfigure}
+\begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{figs/tag_stats_magnatagatune.png}
     \caption{Distribution of tags of the MagnaTagATune dataset}
     \label{fig:tag_stats_magnatagatune}
-\end{marginfigure}
+\end{figure}
 
 
 \begin{table}[t]
@@ -54,7 +54,7 @@ The distribution of the number of fragments per class is skewed: there are more 
         male voice & female vocal & beats \\
         harp & cello & no voice \\
         weird & country & metal \\
-        female voice & choral & - \\                 
+        female voice & choral & \\                 
         \bottomrule
     \end{tabular}
     \caption{50 most popular tags in the MagnaTagATune dataset}
@@ -83,12 +83,12 @@ The `rock' attribute is overrepresented in the dataset.
 While we did not correct for this imbalance, we reckon it has a similar effect on the learned representations as described earlier for the MagnaTagATune dataset.
 
 
-\begin{marginfigure}
+\begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{figs/tag_stats_msd.png}
     \caption{Distribution of tags of the Million Song Dataset}
     \label{fig:tag_stats_msd}
-\end{marginfigure}
+\end{figure}
 
 
 \begin{table}[t]
@@ -110,7 +110,7 @@ While we did not correct for this imbalance, we reckon it has a similar effect o
         catchy & funk & electro \\
         heavy metal & progressive rock & 60s \\
         rnb & indie pop & sad \\
-        house & happy & - \\
+        house & happy & \\
         \bottomrule
     \end{tabular}
     \caption{50 most popular tags in the Million Song Dataset}
@@ -124,7 +124,7 @@ While we did not correct for this imbalance, we reckon it has a similar effect o
 
 
 \section{Transfer Learning datasets}
-\subsection{McGill Billboard Dataset}
+\subsection{McGill Billboard dataset}
 From the McGill Billboard dataset, we use 461 audio files of contemporary pop songs for training.
 While this dataset is most often used for evaluating chord recognition algorithms, we use the audio solely for self-supervised pre-training. The audio is only used for self-supervised pre-training.
 

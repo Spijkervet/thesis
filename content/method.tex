@@ -31,7 +31,7 @@ The following augmentations were applied on ${x_i}$ and ${x_j}$ independently:
     \item Additive White Gaussian Noise is added with a high signal-to-noise ratio to the original signal with probability $p_{\mathrm{noise}}$.
     \item The gain is reduced between $[-6, 0]$ decibels with probability $p_{\mathrm{gain}}$.
     \item A filter is applied with probability $p_{\mathrm{filter}}$.
-    A coin flip determines whether it is a low-pass or a high-pass filter. The cut-off frequencies are randomly drawn from the uniform distribution $[2200-4000]$ or $[200,1200]$ respectively.
+    A coin flip determines whether it is a low-pass or a high-pass filter. The cut-off frequencies are randomly drawn from the uniform distribution $[2200, 4000]$ or $[200,1200]$ respectively.
     \item The signal is delayed with probability $p_{\mathrm{delay}}$.
 The delay time is randomly chosen from values between 200-500ms, with 50ms increments.
 The volume factor of the delayed signal that is added to the original signal is 0.5.

@@ -6,8 +6,8 @@
 *.swp
 *.bbl
 *.blg
-*.pdf
 *.toc
 __latexindent_temp.tex
 *.out
 *.bib.info
+main.pdf

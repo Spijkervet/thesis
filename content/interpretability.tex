@@ -24,7 +24,7 @@ The Billboard dataset is significantly less diverse in genre, suggesting the sel
     \subcaptionbox{CPC$^{(4)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.33\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer3.png}}\hfill
     \subcaptionbox{CPC$^{(6)}_{\mathrm{MTAT}}$\label{fig:1a}}{\includegraphics[width=.33\textwidth]{figs/magnatagatune/cpc_spectrum/epoch670_layer5.png}}
 
-    \caption{Normalised magnitude spectrum of the filters of the self-supervised models in the sample-level convolution layers, sorted by the frequency of the peak magnitude. Gradient ascent is performed on a randomly initialised waveform of 729 samples (close to typical frame size) and its magnitude spectrum is calculated subsequently. Each vertical line in the graph represents the frequency spectrum of a different filter. The first three images are taken from a pre-trained, converged CLMR model, the last three from a CPC model}
+    \caption[][-3cm]{Normalised magnitude spectrum of the filters of the self-supervised models in the sample-level convolution layers, sorted by the frequency of the peak magnitude. Gradient ascent is performed on a randomly initialised waveform of 729 samples (close to typical frame size) and its magnitude spectrum is calculated subsequently. Each vertical line in the graph represents the frequency spectrum of a different filter. The first three images are taken from a pre-trained, converged CLMR model, the last three from a CPC model. Both are trained on the MagnaTagATune dataset.}
     \label{fig:filter_visualisation}
 \end{figure}
 
@@ -37,7 +37,7 @@ The Billboard dataset is significantly less diverse in genre, suggesting the sel
     \subcaptionbox{CPC$^{(1)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.33\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer0.png}}\hfill
     \subcaptionbox{CPC$^{(4)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.33\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer3.png}}\hfill
     \subcaptionbox{CPC$^{(6)}_{\mathrm{Billboard}}$\label{fig:1a}}{\includegraphics[width=.33\textwidth]{figs/billboard/cpc_spectrum/epoch1490_layer5.png}}
-    \caption{}
+    \caption{Normalised magnitude spectra, generated using the method described in Figure \ref{fig:filter_visualisation}. These CLMR and CPC models were trained on the Billboard dataset}
     \label{fig:filter_visualisation_billboard}
 \end{figure}
 
@@ -84,7 +84,7 @@ We guide our listening experiment with factor analysis.
 \section{Factor Analysis}
 The following analysis is performed using a converged CLMR model that was pre-trained on the MagnaTagATune dataset.
 
-A factor analysis is used to describe correlated variables using a lower number of unobserved variables, i.e., whether variations of many variables reflect those of fewer variables. To guide our listening expeirment, we use varimax rotation on the fully connected 512-dimensional layer that is extracted from the linear (or MLP) head after fine-tuning has converged. We choose to use 3 components and subsequently sort each of the 512-dimensional feature vectors by their factor value per component. These are shown in Figure \ref{fig:varimax_rotation}. This gives us an indication which feature numbers are more closely related.
+A factor analysis is used to describe correlated variables using a lower number of unobserved variables, i.e., whether variations of many variables reflect those of fewer variables. To guide our listening experiment, we use varimax rotation on the fully connected 512-dimensional layer that is extracted from the linear (or MLP) head after fine-tuning has converged. We choose to use 3 components and subsequently sort each of the 512-dimensional feature vectors by their factor value per component. These are shown in Figure \ref{fig:varimax_rotation}. This gives us an indication which feature numbers are more closely related.
 
 \begin{figure}[h]
     \centering
@@ -109,7 +109,7 @@ A factor analysis is used to describe correlated variables using a lower number 
     \label{fig:varimax_rotation}
 \end{figure}
 
-After listening to segments that highly activate among the relating features obtained from sorting the factors for each component using varimax, we quickly found that it was biased toward grouping loud, techno/(hard-)rock music together for every single component (i.e., for components 1 - 3). To analyse a possible reason for this behavior, we analysed the frequency of the tags of the top-10 activating segments for every feature number in the 512-dimensional feature vector. This is shown in Figure \ref{fig:tag_frequency}. It shows the more dominantly present tags that are predicted for every feature number, e.g., `techno, `rock', `beat', `loud', `dance'. Most features respond highly to these tag attributes, while other tag attributes like `vocal' or `flute' occur less often. While there are differences in the frequency of those attributes in the dataset overall, it does not explain this behavior. The `guitar' and `classical' attributes are more often occuring in the dataset, but show less activations overall than `techno' or `rock'.
+After listening to segments that highly activate among the relating features obtained from sorting the factors for each component using varimax, we quickly found that it was biased toward grouping loud, techno/(hard-)rock music together for every single component (i.e., for components 1 - 3). To analyse a possible reason for this behavior, we plotted the number of tags in the top-10 activating segments for every feature number in the 512-dimensional feature vector. This is shown in Figure \ref{fig:tag_frequency}. It shows the more dominantly present tags that are predicted for every feature number, e.g., `techno, `rock', `beat', `loud', `dance'. Most features respond highly to these tags, while other tags like `vocal' or `flute' occur less often. These results do not simply translate to the overall tag frequency: the `guitar' and `classical' tags occur more in the dataset, but show less activations overall than `techno' or `rock'.
 
 \begin{figure*}[h]
     \centering
@@ -120,7 +120,7 @@ After listening to segments that highly activate among the relating features obt
 
 
 \section{Manual Interpretations}
-To evaluate whether certain features respond to similar spectral qualities, we process both the MagnaTagATune dataset, which the model was pre-trained on, and the Million Song Dataset through the encoder network. We extract a 512-dimensional feature vector for every segment, and evaluate whether the same feature numbers respond to the same kind of music segments. For example, we evaluate whether feature number $412$ highly activates on segments of classical music from both the MagnaTagATune and Million Song Dataset or not. We describe each feature using spectral qualities, e.g., in terms of the frequency spectrum but also ADSR qualities.\footnote{The attack, decay, sustain, release of the sound.}
+To evaluate whether certain features respond to similar spectral qualities, we process both the MagnaTagATune dataset, which the model was pre-trained on, and the Million Song Dataset through the encoder network. We extract a 512-dimensional feature vector for every segment, and evaluate whether the same feature numbers respond to the same kind of music segments. For example, we evaluate whether feature number $412$ highly activates on segments of classical music from both the MagnaTagATune and Million Song Dataset or not. We describe each feature using spectral qualities, e.g., in terms of the frequency spectrum, and ADSR qualities.\footnote{The attack, decay, sustain, release of the sound.}
 
 \begin{table}
     \centering
