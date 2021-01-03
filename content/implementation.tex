@@ -17,6 +17,7 @@ The data augmentation pipeline consists of functions from the following code lib
     torchaudio
     librosa
     sox
+    wavaugment
 \end{verbatim}
 We use large mini-batch sizes for training, and while every mini-batch must contain randomly augmented examples, it is of significant importance to optimise the runtime of a parallelised augmentation pipeline.
 Since audio transformations are CPU-intensive operations, most libraries have optimised their code by creating an interface between Python and languages that map their code more efficiently to machine instructions, e.g., the C language, to avoid a bottleneck on these augmentations.
@@ -37,14 +38,7 @@ As described earlier, batch normalisation is used in the convolution block to st
 Since information about batch statistics could leak to the learning objective, we utilise global batch normalisation.
 It aggregates the operation from the devices to a single GPU device, and subsequently distributes the results to the other devices.
 
-For multi-node training using DDP, the losses from all devices need to be aggregated in a similar way to avoid leakage of mini-batch information, i.e., the positive, anchor and negative samples. We use the following gather operation to aggregate losses from the NT-Xent function from all GPU devices:
-
-\begin{verbatim}
-    if self.world_size > 1:
-        output = [torch.zeros_like(z) \
-            for _ in range(dist.get_world_size())]
-        dist.all_gather(output, z)
-\end{verbatim}
+For multi-node training using DDP, the losses from all devices need to be aggregated in a similar way to avoid leakage of mini-batch information, i.e., the positive, anchor and negative samples. We used a gathering operation in PyTorch to aggregate losses from the NT-Xent function from all GPU devices.
 
 \subsection{Encoder}
 Our code implementation for CLMR allows for any encoder to be attached.
