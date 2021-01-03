@@ -111,14 +111,7 @@ A factor analysis is used to describe correlated variables using a lower number 
 
 After listening to segments that highly activate among the relating features obtained from sorting the factors for each component using varimax, we quickly found that it was biased toward grouping loud, techno/(hard-)rock music together for every single component (i.e., for components 1 - 3). To analyse a possible reason for this behavior, we plotted the number of tags in the top-10 activating segments for every feature number in the 512-dimensional feature vector. This is shown in Figure \ref{fig:tag_frequency}. It shows the more dominantly present tags that are predicted for every feature number, e.g., `techno, `rock', `beat', `loud', `dance'. Most features respond highly to these tags, while other tags like `vocal' or `flute' occur less often. These results do not simply translate to the overall tag frequency: the `guitar' and `classical' tags occur more in the dataset, but show less activations overall than `techno' or `rock'.
 
-While the Factor Analysis grouped together a single, dominant spectral feature, i.e., loudness, and while time is a constraint on the extensivity of this qualitative analysis, we resorted to an easier, but manual intepretation method using out-of-dataset data.
-
-\begin{figure*}[h]
-    \centering
-    \includegraphics[width=\textwidth]{figs/features_tags_frequency.pdf}
-    \caption{Occurrence of tags for the 100 most activating segments for each feature number. Purple indicates low, yellow indicates a high frequency.}
-    \label{fig:tag_frequency}
-\end{figure*}
+While the Factor Analysis grouped together a single, dominant spectral feature, i.e., loudness, and while time is a constraint on the extensivity of this qualitative analysis, we resorted to an easier, but manual intepretation method using \textit{out-of-domain} data.
 
 
 \section{Out-of-domain Generalisation}\label{sec:manual_interpretations}
@@ -178,12 +171,14 @@ All recordings contain one or more vocalists that are dominantly present in the 
 The recordings contain jazz, hip-hop, "old classics" and 60s music. Every recording contains at least one vocalist who is in the foreground of the mix. They are accompanied by a range of backing tracks, e.g., a strong beat to a softly playing string section.
 
 
-\subsection*{Filter \#80}
-\paragraph{MagnaTagATune}
-
-\paragraph{Million Song Dataset}
+\section{Listenable Explanations}
+Recently, a method based on Local Interpretable Model-agnostic Explanations was published that uses source separation to reconstruct the audio from a representation to produce a listenable explanation \cite{haunschmid2020audiolime}. The pre-trained encoder and fine-tuned (linear) head from the CLMR model are used in the audioLIME method to provide several examples to listen whether the model makes sensible predictions, i.e., what part of the fragment of audio it is focussing on when making a prediction. \footnote{URL}.
 
 
+\section*{Summary}
+In this chapter, we analysed the normalised magnitude spectrum of the filters of the self-supervised-based models, CLMR and CPC, and compared them with those that were obtained with fully supervised models. We concluded that the spectrum of the CLMR model that is pre-trained on the Billboard dataset shows a similar pattern to those obtained from fully supervised models. The fully supervised models are prone to fitting to "band-pass"-like filters \cite{lee2018samplecnn}. While the Billboard dataset is significantly less diverse in genre, the self-supervised model may focus more on such frequency-band related differences than it does for the more genre-diverse MagnaTagATune dataset.
+
+We also performed an out-of-domain generalisation listening experiment to determine the generalisability of the CLMR model. We found that the pre-trained CLMR model, without fine-tuned head, responds similarly to sound qualities present in music from different datasets, suggesting that it is able to (1) generalise to musical data from an entirely different music library and (2) is able to detect specific timbre, pitch and loudness features.
 
 \begin{figure*}[h]
     \centering
@@ -192,5 +187,10 @@ The recordings contain jazz, hip-hop, "old classics" and 60s music. Every record
     \label{fig:listening_experiment}
 \end{figure*}
 
-\section{Listenable Explanations}
-Recently, a method based on Local Interpretable Model-agnostic Explanations was published that uses source separation to reconstruct the audio from a representation to produce a listenable explanation \cite{haunschmid2020audiolime}. The pre-trained encoder and fine-tuned (linear) head from the CLMR model are used in the audioLIME method to provide several examples to listen whether the model makes sensible predictions, i.e., what part of the fragment of audio it is focussing on when making a prediction. \footnote{URL}.
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figs/features_tags_frequency.pdf}
+    \caption{Occurrence of tags for the 100 most activating segments for each feature number. Purple indicates low, yellow indicates a high frequency.}
+    \label{fig:tag_frequency}
+\end{figure*}

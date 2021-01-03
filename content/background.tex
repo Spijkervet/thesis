@@ -25,7 +25,6 @@ Supervised techniques for representation learning have now been successfully app
     \item \textbf{Unsupervised learning} is the set of algorithms that do not exploit pre-annotated labels.
     \item \textbf{Reinforcement learning} uses agents that maximise their reward in an environment by performing sequences of actions to learn an objective. Learning is unguided in the sense that suboptimal actions are not explicitly corrected by a supervisory signal.
 \end{itemize}
-Figure \ref{fig:cake_analogy}
 
 \noindent\rule{\textwidth}{0.5pt}
 
@@ -242,11 +241,11 @@ For audio, it learns to predict representations of future observations from past
 A sequential input signal $x_t$ is mapped by a non-linear encoder $g_{\mathrm{enc}}(\cdot)$ to a sequence of latent representations $h_t = g_{\mathrm{enc}}(x_t)$. Subsequently, the autoregressive model $g_{\mathrm{ar}}(\cdot)$ summarizes all encodings $h_{\leq t}$ in the latent space and maps them to a context latent representation $c_t = g_{\mathrm{enc}}(h_{\leq t})$. A visual overview of CPC is shown in Figure \ref{fig:cpc_model}.
 
 
-\begin{marginfigure}[{-1cm}]
+\begin{figure}
     \includegraphics[width=\textwidth]{figs/cpc_model.png}
     \caption{Contrastive Predictive Coding jointly optimises two neural networks: a non-linear encoder $g_{\mathrm{enc}}$ and an autoregressor $g_{\mathrm{ar}}$, by contrasting the embeddings of temporally neighbouring patches of data using the InfoNCE loss.}
     \label{fig:cpc_model}
-\end{marginfigure}
+\end{figure}
 
 The vectors $h_t$ and $c_t$ are encoded so as to preserve maximal mutual information and to identify the shared latent variables of the original signals. The neural networks $g_{\mathrm{enc}}(\cdot)$ and $g_{\mathrm{ar}}(\cdot)$ jointly optimise the InfoNCE loss, a contrastive loss that follows the principles of noise-contrastive estimation \cite{gutmann_noise-contrastive_nodate}. Their principles are widely used in the design of self-supervised loss functions \cite{oord_representation_2019, sohn2020fixmatch, chen_simple_2020}.
 
@@ -286,11 +285,7 @@ Normalized temperature-scaled cross entropy loss is used as the contrastive loss
 \end{equation}
 
 
-Batches of $2N$, i.e., every sample has a corresponding, augmented view, are used for pre-training. When training on larger batch sizes, they attribute the increased effectiveness of the learned representations to the increased complexity of the contrastive learning task. Simply put, it makes it harder for the model to infer the positive pair when increasing the pool of negative examples. With a batch size up to 8192 samples (that is 16384 samples in total during training), learning becomes instable for standard stochastic gradient descent.
-
-To stabalise optimization, they employ the LARS optimizer \cite{You2017LargeBT}.
-
-
+Batches of $2N$, i.e., every sample has a corresponding, augmented view, are used for pre-training. When training on larger batch sizes, they attribute the increased effectiveness of the learned representations to the increased complexity of the contrastive learning task. Simply put, it makes it harder for the model to infer the positive pair when increasing the pool of negative examples. With a batch size up to 8192 samples (that is 16384 samples in total during training), learning becomes instable for standard stochastic gradient descent. To stabalise training, they employ the LARS optimizer \cite{You2017LargeBT}.
 
 \section{CNN's for Audio}\label{sec:conv_audio}
 Most papers in MIR utilise CNN's on audio in the time-frequency domain, i.e., they use CNN's on (mel-)spectograms, CQT's, etc., to learn representations of audio \cite{chen_harmony_2019,bock_joint_2016}.
@@ -388,3 +383,4 @@ To directly compare the results of this thesis with prior work \cite{dieleman201
 As the subscripts in both metrics show, we measure the TAG performance on our task, but also measure the CLIP performance. The evaluation metrics are measured globally for the whole dataset, i.e., for the tag metric we measure the retrieval performance on the tag dimension (column-wise) and for the clip metric we measure the performance on the clip dimension (row-wise). Intuitively, the tag retrieval performance tells us how well the model is able to correctly retrieve all the music fragments (clips), given the tags, while the clip retrieval performance how well the model retrieves all tags given a clip.
 
 \section*{Summary}
+In this chapter, we recapitulated the foundations which are used to build on in this thesis. We gave a brief overview of the different strategies of representation learning to clarify self-supervised learning, i.e., a form of unsupervised learning that formulates the learning objective so that it retrieves a supervisory signal from (transformations of) the data itself. We gave a more extensive description of existing literature on self-supervised learning, important pretext tasks and their strengths, and made an important distinction between learning spectral and spatial relationships when only using a pretext task to learn on data. Subsequently, we addressed self-supervised learning techniques in the audio domain and detailed some of the audio transformation pipelines and augmentations used in the literature. We discussed the contrastive learning paradigm within self-supervised learning, detailing Contrastive Predictive Coding, SimCLR, and noise-contrastive estimatin losses. We discussed encoders used in the literature on deep learning on audio in the time domain, and described the SampleCNN model which is used in this thesis. Finally, we gave a description of the evalation metrics we used to evaluate the performance of our proposed self-supervised model on raw audio: CLMR.
