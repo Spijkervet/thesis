@@ -10,8 +10,8 @@ The following sections describe the experiments that were performed on the froze
 Figure \ref{fig:filter_visualisation} shows the magnitude spectrum of the learned filters of the sample-level convolutional layers (layers 1, 4 and 6) for CLMR and CPC, pre-trained on the MagnaTagATune and Billboard dataset.
 In CLMR, the first layer is sensitive to a single, very small band of frequencies around 7500~Hz, while in higher layers, the filters spread themselves first linearly and then non-linearly across the full range.
 CPC shows a similar pattern in the lowest layer, but shows a strong activation of two frequencies that span an octave.
-Interestingly, CLMR shows a similar filter structure for the Billboard data set as fully supervised models that were trained on the MagnaTagATune dataset \cite{dieleman2014end,lee2018samplecnn}. For comparison, these are shown in Figure \ref{fig:samplecnn_filters}.
-The Billboard dataset is significantly less diverse in genre, suggesting the self-supervised model focuses more on such frequency-band related differences than it does for the more diverse MagnaTagATune.
+Interestingly, CLMR pre-trained on the Billboard dataset shows a similar filter structure to fully supervised models that were trained on the MagnaTagATune dataset \cite{dieleman2014end,lee2018samplecnn}. For comparison, these are shown in Figure \ref{fig:samplecnn_filters}.
+The Billboard dataset is significantly less diverse in genre, suggesting the self-supervised model focuses more on such frequency-band related differences than it does for the more genre-diverse MagnaTagATune.
 
 
 \begin{figure}
@@ -50,7 +50,8 @@ The Billboard dataset is significantly less diverse in genre, suggesting the sel
 
 
 \section{Activations}
-Figure \ref{fig:magnatagatune_activations} and \ref{fig:msd_activations} show the mean activations of 512 features for every music segment in the test set for both the MagnaTagATune and Million Song Dataset respectively. In contrast to the MagnaTagATune activations, the last layer of the encoder from the Million Song Dataset activates more broadly for every track, indicating that the encoder responds more flatly.
+\label{sec:activations}
+Figure \ref{fig:magnatagatune_activations} and \ref{fig:msd_activations} show the mean activations\footnote{We use the term "activations" to describe the values that are obtained from the last convolutional layer of the SampleCNN encoder, i.e., from the 512 filters, when predicting a segment of musical audio.} of the last convolutional block of the SampleCNN encoder for every music segment in the test set, for both the MagnaTagATune and Million Song Dataset respectively. In contrast to the MagnaTagATune activations, the last layer of the encoder from the Million Song Dataset activates more broadly for every track, indicating that the encoder responds more flatly. It is important to note that the feature numbers on the x-axis in Figures \ref{fig:magnatagatune_activations} and \ref{fig:msd_activations} do not correspond to the actual mean activation value - they show how many features were used in the last layer of the SampleCNN encoder. In the following paragraph, we describe a qualitative analysis that uses these activations.
 
 \begin{marginfigure}
     \includegraphics[width=\textwidth]{figs/activations.pdf}
@@ -66,20 +67,19 @@ Figure \ref{fig:magnatagatune_activations} and \ref{fig:msd_activations} show th
 
 \section{Listening Experiment}
 We have devised an interface which makes it easy to listen to music segments that were run through the CLMR model.
-For any one of the 512 filters (i.e., features) in the last layer of the (SampleCNN) encoder, we calculate the activations for each music segment.
+For any one of the 512 filters (i.e., features) in the last layer of the pre-trained SampleCNN encoder, we calculate the activations for each music segment.
 This yields a table of 512 columns of features and $X$ sorted rows based on the activation value of filter.
 \footnote{$X$ being the number of data points in the dataset's test set.}
 
-In the following example, we illustrate the basic approach to qualitatively analyse the features by listening:
+We take the following, basic approach to qualitatively analyse the features learned by our self-supervised model:
 \begin{itemize}
-    \item We calculate the activations of the last convolution layer for all music segments in the test set, yielding a 512-dimensional feature vector for every segment.
-    \item We plot these values in a sortable table, including a listenable fragment of the music segment.
-    \item We choose a feature from any of the 512 available, and sort the activation values in a descending order.
-    \item We listen to each segment, and write down the spectral qualities of those in the upper level (i.e., the first 10), and those in the lower level (i.e., the last 10).
+    \item We calculate the filter activations of the last convolution layer for all music segments in the test set, yielding a 512-dimensional feature vector for every segment.
+    \item We plot these values in a sortable table and including the corresponding, listenable music segment.
+    \item We choose a single feature from any of the 512 available, and sort the activation values in a descending order.
+    \item We listen to the top-$N$ segments, and write down the sound qualities of those in the upper level (i.e., the first $N$).
 \end{itemize}
 
-A screenshot of the listening experiment interface is shown in Figure \ref{fig:listening_experiment}.
-We guide our listening experiment with factor analysis.
+A screenshot of the listening experiment interface is shown in Figure \ref{fig:listening_experiment}. We guided our listening experiment with factor analysis first. While this did not yield good results, we later used a manual approach described in paragraph \ref{sec:manual_interpretations}. We included the factor analysis paragraph for future improvement.
 
 \section{Factor Analysis}
 The following analysis is performed using a converged CLMR model that was pre-trained on the MagnaTagATune dataset.
@@ -111,6 +111,8 @@ A factor analysis is used to describe correlated variables using a lower number 
 
 After listening to segments that highly activate among the relating features obtained from sorting the factors for each component using varimax, we quickly found that it was biased toward grouping loud, techno/(hard-)rock music together for every single component (i.e., for components 1 - 3). To analyse a possible reason for this behavior, we plotted the number of tags in the top-10 activating segments for every feature number in the 512-dimensional feature vector. This is shown in Figure \ref{fig:tag_frequency}. It shows the more dominantly present tags that are predicted for every feature number, e.g., `techno, `rock', `beat', `loud', `dance'. Most features respond highly to these tags, while other tags like `vocal' or `flute' occur less often. These results do not simply translate to the overall tag frequency: the `guitar' and `classical' tags occur more in the dataset, but show less activations overall than `techno' or `rock'.
 
+While the Factor Analysis grouped together a single, dominant spectral feature, i.e., loudness, and while time is a constraint on the extensivity of this qualitative analysis, we resorted to an easier, but manual intepretation method using out-of-dataset data.
+
 \begin{figure*}[h]
     \centering
     \includegraphics[width=\textwidth]{figs/features_tags_frequency.pdf}
@@ -119,24 +121,68 @@ After listening to segments that highly activate among the relating features obt
 \end{figure*}
 
 
-\section{Manual Interpretations}
-To evaluate whether certain features respond to similar spectral qualities, we process both the MagnaTagATune dataset, which the model was pre-trained on, and the Million Song Dataset through the encoder network. We extract a 512-dimensional feature vector for every segment, and evaluate whether the same feature numbers respond to the same kind of music segments. For example, we evaluate whether feature number $412$ highly activates on segments of classical music from both the MagnaTagATune and Million Song Dataset or not. We describe each feature using spectral qualities, e.g., in terms of the frequency spectrum, and ADSR qualities.\footnote{The attack, decay, sustain, release of the sound.}
+\section{Out-of-domain Generalisation}\label{sec:manual_interpretations}
+To evaluate whether certain features respond to similar spectral qualities, we process both the MagnaTagATune dataset, which the model was pre-trained on, and the Million Song Dataset through the encoder network. In this way, we are able to determine the \textit{out-of-domain generalisation} of the self-supervised model, i.e., is it able to learn features that describe similar sonic qualities of music originating from an entirely different library of music. We extract a 512-dimensional feature vector from the last SampleCNN filters for every segment (as described in Section \ref{sec:activations}), and evaluate whether the same filters respond to the same sonic qualities present in the music segments.
 
-\begin{table}
-    \centering
-    \begin{tabular}{ll}
-        \toprule Feature Number & Spectral Quality \\\hline
-        23 & Bass, treble, full frequency spectrum, short and sharp attack.\\
-        & Techno, beat, heavy guitars. \\
-        22 & High frequencies are dominant, no attack, long release.\\
-        & Pads, strings, vocals, blended together.\\
-        98 & Loud, short attack, sharp high-pitched sounds.\\
-        & Drums, heavy guitars.\\
-        \bottomrule
-    \end{tabular}
-    \caption{}
-    \label{tab:manual_interpretation}
-\end{table}
+For example, we evaluate whether filter number $412$ highly activates on segments of slow-paced jazz music from both the MagnaTagATune and Million Song Dataset, or not. We describe each feature using sound qualities, e.g., in terms of the frequency spectrum, loudness, and ADSR qualities.\footnote{The attack, decay, sustain, release of the sound.} The filter numbers are pickled by manually listening to the most activating segments of the chosen filter and, when those musical pieces are sufficiently coherent, we listen to the most activating out-of-domain segments of the same filter.
+
+\subsection*{Filter \#51}
+\paragraph{MagnaTagATune}
+Slow, vocal, string and flute instruments, accompanied by either harpsichord or guitar.
+\paragraph{Million Song Dataset}
+Slow, vocal accompanied by guitar. Some segments are up-paced jazz, but those recordings contain a lot of noise.
+
+\subsection*{Filter \#61}
+\paragraph{MagnaTagATune}
+Loud, distorted guitars, vocals, heavy beat, snappy percussion and bass
+\paragraph{Million Song Dataset}
+Loud, heavy distorted guitars, hip-hop rapping vocals, percussive bass.
+
+\subsection*{Filter \#76}
+\paragraph{MagnaTagATune}
+Slow string music, vocal, classical, and solo flute, slow attack, not "plucky".
+
+\paragraph{Million Song Dataset}
+Jazz and blues music and some ambient music containing pad sounds (i.e., very slow attack, long decay/sustain/release). The jazz band's brass section plays less "stabby" - but more loose. There is some string music, but overall the sound quality is more slow-moving than fast and pluck-sounding.
+
+
+\subsection*{Filter \#80}
+\paragraph{MagnaTagATune}
+Very noisy, the full frequency spectrum can be heard, i.e., low bass notes to high notes. You can clearly hear the ambience of the room due to the "breathy" character of the recording.
+
+\paragraph{Million Song Dataset}
+More ambient, you can hear many textures in any register of the frequency spectrum. It is sometimes atonal. The sounds are often slowly moving, and again, the recording is very "breathy".
+
+
+\subsection*{Filter \#105}
+\paragraph{MagnaTagATune}
+Most recordings contain a plucked or strummed, solo acoustic guitar. Both low- and higher-pitched notes are strummed or plucked in the recordings, and some contain additional instruments like strings and vocals. The guitar is, however, the main instrument. There are two segments of techno music, but both have a very noisy character, i.e., it is a low quality recording. 
+
+\paragraph{Million Song Dataset}
+All recordings contain strummed or plucked acoustic guitars, which have a dominant presence in every mix. Most recordings also contain vocals and additional percussive instruments. There is a single ambient recording among all the guitar-heavy music segments.
+
+
+\subsection*{Filter \#130}
+\paragraph{MagnaTagATune}
+The recordings contain heavily distored guitars,  compressed singing and heavily processed drums. They have a loud character, e.g., rock, metal and heavy metal, and their frequency spectrum is mostly active in the low-mid range.
+
+\paragraph{Million Song Dataset}
+All recordings are either of punk, heavy metal or hard rock music. They are loud and the dominant frequencies are in the low- to mid-range. Again, all instruments are heavily processed in a similar fashion to aforedescribed distortion and compression mixing techniques.
+
+
+\subsection*{Filter \#400}
+\paragraph{MagnaTagATune}
+All recordings contain one or more vocalists that are dominantly present in the mix. Some recordings contain more reverb than others - but the vocals are always in the foreground of the mix. The singing style of these recordings are opera and non-western, featuring both male and female vocalists.
+
+\paragraph{Million Song Dataset}
+The recordings contain jazz, hip-hop, "old classics" and 60s music. Every recording contains at least one vocalist who is in the foreground of the mix. They are accompanied by a range of backing tracks, e.g., a strong beat to a softly playing string section.
+
+
+\subsection*{Filter \#80}
+\paragraph{MagnaTagATune}
+
+\paragraph{Million Song Dataset}
+
 
 
 \begin{figure*}[h]
