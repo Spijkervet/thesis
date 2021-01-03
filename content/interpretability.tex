@@ -1,10 +1,10 @@
 \chapter{Interpretability}
 
 \begin{quote}
-    In this chapter, we describe the experiments that were used to qualitatively analyse the features learned by the CLMR model, and get a deeper understanding of the model's learned representations. First, we visualise the filters of the convolutional layers to show what frequencies each filter is most sensitive to. Subsequently, we introduce a factor analysis that guides our qualitative analysis of every dimension in the fine-tuned head (linear layer or MLP). Lastly, we employ a recently published source separation technique to reconstruct the audio that the network is most confident of when predicting targets.
+    In this chapter, we describe the experiments that were used to qualitatively analyse the features learned by the CLMR model, and get a deeper understanding of the model's learned representations. First, we visualise the filters of the convolutional layers to show what frequencies each filter is most sensitive to. Subsequently, we introduce a factor analysis that guides our qualitative analysis of every dimension in the fine-tuned head. Lastly, we perform a listening experiment to evaluate the (out-of-domain) generalisability of the model.
 \end{quote}
 
-The following sections describe the experiments that were performed on the frozen, pre-trained feature extractor network \footnote{In our case, the SampleCNN encoder} in the CLMR framework. In other words, the representations analysed in this chapter are those that were learned in a task-agnostic, self-supervised manner, not those that were learned after the fine-tuning phase.
+The following sections describe the experiments that were performed on the frozen, pre-trained feature extractor network \footnote{In our case, the SampleCNN encoder} in the CLMR framework. In other words, the representations analysed in this chapter are those that were learned in a task-agnostic, self-supervised manner, not those that were learned with the fine-tuned, linear head after the fine-tuning phase.
 
 \section{Visualising Filters}
 Figure \ref{fig:filter_visualisation} shows the magnitude spectrum of the learned filters of the sample-level convolutional layers (layers 1, 4 and 6) for CLMR and CPC, pre-trained on the MagnaTagATune and Billboard dataset.
@@ -171,14 +171,16 @@ All recordings contain one or more vocalists that are dominantly present in the 
 The recordings contain jazz, hip-hop, "old classics" and 60s music. Every recording contains at least one vocalist who is in the foreground of the mix. They are accompanied by a range of backing tracks, e.g., a strong beat to a softly playing string section.
 
 
-\section{Listenable Explanations}
-Recently, a method based on Local Interpretable Model-agnostic Explanations was published that uses source separation to reconstruct the audio from a representation to produce a listenable explanation \cite{haunschmid2020audiolime}. The pre-trained encoder and fine-tuned (linear) head from the CLMR model are used in the audioLIME method to provide several examples to listen whether the model makes sensible predictions, i.e., what part of the fragment of audio it is focussing on when making a prediction. \footnote{URL}.
+% \section{Listenable Explanations}
+% Recently, a method based on Local Interpretable Model-agnostic Explanations was published that uses source separation to reconstruct the audio from a representation to produce a listenable explanation \cite{haunschmid2020audiolime}. The pre-trained encoder and fine-tuned (linear) head from the CLMR model are used in the audioLIME method to provide several examples to listen whether the model makes sensible predictions, i.e., what part of the fragment of audio it is focussing on when making a prediction. \footnote{URL}.
 
 
 \section*{Summary}
 In this chapter, we analysed the normalised magnitude spectrum of the filters of the self-supervised-based models, CLMR and CPC, and compared them with those that were obtained with fully supervised models. We concluded that the spectrum of the CLMR model that is pre-trained on the Billboard dataset shows a similar pattern to those obtained from fully supervised models. The fully supervised models are prone to fitting to "band-pass"-like filters \cite{lee2018samplecnn}. While the Billboard dataset is significantly less diverse in genre, the self-supervised model may focus more on such frequency-band related differences than it does for the more genre-diverse MagnaTagATune dataset.
 
 We also performed an out-of-domain generalisation listening experiment to determine the generalisability of the CLMR model. We found that the pre-trained CLMR model, without fine-tuned head, responds similarly to sound qualities present in music from different datasets, suggesting that it is able to (1) generalise to musical data from an entirely different music library and (2) is able to detect specific timbre, pitch and loudness features.
+
+\newpage
 
 \begin{figure*}[h]
     \centering
