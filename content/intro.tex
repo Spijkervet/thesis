@@ -36,7 +36,7 @@ Our key contributions are summarized as follows.
 \begin{itemize}
     \item CLMR achieves strong performance on the music classification task, despite self-supervised pre-training and fine-tuning on the downstream task using a linear classifier (see Figure~\ref{fig:example}).
     \item CLMR learns useful, compact representations from raw signals of musical audio.
-    \item CLMR enables efficient classification: when fine-tuning on the task of music classification, we achieve comparable performance using as few as 1\% of the labeled data to achieve comparable performance to fully supervised models that require 100\% of the data.
+    \item CLMR enables efficient classification: compared to fully supervised models, when fine-tuning a linear classifier with the self-supervised learned representations on the task of music classification, we achieve comparable performance using as few as 1\% of the labeled data.
     \item The learned representations are transferable across different musical corpora.
     \item CLMR can learn from \emph{any} dataset of raw audio, requiring neither transformations nor fine-tuning on the input data; nor do the models require manually annotated labels for pre-training.
     \item We provide a thorough ablation study on the effectiveness of the data augmentations of raw audio on the downstream performance of music tagging.
@@ -53,7 +53,7 @@ In chapter 4, the details of the implementation of the framework is discussed.
 
 In chapter 5, the datasets are outlined, both for the main and transfer learning experiments.
 
-In chapter 6, the results of this thesis are presented, along with the study on the effect of different batch sizes, parameters, data augmentations on the performance of the downstream task.
+In chapter 6, the results of the linear classification, efficient classification and transfer learning tasks, along with the study on the effect of different data augmentations, parameters and mini-batch sizes on the performance of the downstream task, are presented.
 
 In chapter 7, we give a thorough qualitative analysis of the learned representations of the CLMR model. Rather than looking at hard numbers, we perform a listening experiment to gain a deeper understanding of representations learned by the CLMR model.
 

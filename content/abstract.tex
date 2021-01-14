@@ -2,11 +2,9 @@
     \begin{fullwidth}
         Learning and designing representations lie at the heart of many successful machine learning tasks.
         Supervised approaches have seen widespread adoption within music information retrieval for learning such representations, but unsupervised representation learning remains challenging.
-        In this paper, we transfer the SimCLR framework to the audio domain and contribute a chain of data augmentations on raw audio and their effectiveness in an ablation study, together to form a simple framework for self-supervised learning of raw audio data: \textit{CLMR}.
-        This approach requires no manual labeling, no fine-tuning and no pre-processing of audio data to learn useful representations.
-        We evaluate the self-supervised learned representations in the downstream task of music classification on the MagnaTagATune and Million Song datasets.
-        A linear classifier fine-tuned on representations from a frozen, pre-trained CLMR model achieves a score of 88.3\% on the MagnaTagATune dataset, challenging fully supervised models that currently achieve a score of 89.0\%.
-        Moreover, we show self-supervised representations from large, unlabeled corpora learned by CLMR transfer well to smaller, labeled musical corpora, indicating that they capture important musical knowledge.
+        In this thesis, we introduce the SimCLR framework to the audio domain and contribute a chain of data augmentations on raw audio and their effectiveness in an ablation study, together to form a simple framework for self-supervised learning of raw audio data: \textit{CLMR}.
+        This approach requires no manual labeling, no fine-tuning and no pre-processing of audio data to learn useful representations. We evaluate the self-supervised learned representations in the downstream task of music classification on the MagnaTagATune and Million Song datasets. A linear classifier fine-tuned on representations from a frozen, pre-trained CLMR model achieves a score of 35.4\% PR-AUC on the MagnaTagATune dataset, superseding fully supervised models that currently achieve a score of 34.9\%. 
+        Moreover, we show representations learned by \textit{CLMR} from large, unlabeled corpora are transferable to smaller, labeled musical corpora, indicating that they capture important musical knowledge. Lastly, we show that when \textit{CLMR} is fine-tuned on only 1\% of the labels in the dataset, we still achieve 33.1\% PR-AUC despite using 100$\times$ fewer labels.
         To foster reusability and future research on self-supervised learning in MIR, we release pre-trained models and the source code of all experiments of this thesis.
         \footnote{\url{https://github.com/spijkervet/CLMR}}
     \end{fullwidth}
