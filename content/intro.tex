@@ -36,6 +36,7 @@ Our key contributions are summarized as follows.
 \begin{itemize}
     \item CLMR achieves strong performance on the music classification task, despite self-supervised pre-training and fine-tuning on the downstream task using a linear classifier (see Figure~\ref{fig:example}).
     \item CLMR learns useful, compact representations from raw signals of musical audio.
+    \item CLMR enables efficient classification: when fine-tuning on the task of music classification, we achieve comparable performance using as few as 1\% of the labeled data to achieve comparable performance to fully supervised models that require 100\% of the data.
     \item The learned representations are transferable across different musical corpora.
     \item CLMR can learn from \emph{any} dataset of raw audio, requiring neither transformations nor fine-tuning on the input data; nor do the models require manually annotated labels for pre-training.
     \item We provide a thorough ablation study on the effectiveness of the data augmentations of raw audio on the downstream performance of music tagging.

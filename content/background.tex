@@ -285,7 +285,7 @@ Normalized temperature-scaled cross entropy loss is used as the contrastive loss
 \end{equation}
 
 
-Batches of $2N$, i.e., every sample has a corresponding, augmented view, are used for pre-training. When training on larger batch sizes, they attribute the increased effectiveness of the learned representations to the increased complexity of the contrastive learning task. Simply put, it makes it harder for the model to infer the positive pair when increasing the pool of negative examples. With a batch size up to 8192 samples (that is 16384 samples in total during training), learning becomes instable for standard stochastic gradient descent. To stabalise training, they employ the LARS optimizer \cite{You2017LargeBT}.
+Batches of $2N$, i.e., every sample has a corresponding, augmented view, are used for pre-training. When training on larger batch sizes, they attribute the increased effectiveness of the learned representations to the increased complexity of the contrastive learning task. Simply put, it makes it harder for the model to infer the positive pair when increasing the pool of negative examples. With a batch size up to 8192 samples (that is 16384 samples in total during training), learning becomes instable for standard stochastic gradient descent. To stabalise training, they employ the LARS optimiser \cite{You2017LargeBT}.
 
 \section{CNN's for Audio}\label{sec:conv_audio}
 Most papers in MIR utilise CNN's on audio in the time-frequency domain, i.e., they use CNN's on (mel-)spectograms, CQT's, etc., to learn representations of audio \cite{chen_harmony_2019,bock_joint_2016}.

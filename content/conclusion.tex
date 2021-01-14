@@ -1,7 +1,7 @@
 \chapter{Conclusion}\label{sec:conclusion}
 In this paper, we presented CLMR, a self-supervised contrastive learning framework that learns useful and compact representations of raw waveforms of musical audio.
 
-The framework requires no preprocessing of the input and is trained without ground truth, which enables simple and straightforward pre-training on datasets of unprecedented scale, requiring no human labeling. We tested the learned representations in the music classification task on the MagnaTagATune and Million Song Dataset, achieving state-of-the-art and competitive performance respectively, exceeding previous supervised benchmarks, and demonstrated the transferability of representations learned from pre-training on different datasets. We also demonstrated the out-of-domain generalisability of the CLMR model with a listening experiment.
+The framework requires no preprocessing of the input and is trained without ground truth, which enables simple and straightforward pre-training on datasets of unprecedented scale, requiring no human labeling. We tested the learned, task-agnostic representations by fine-tuning a linear classifier on the music classification task on both the MagnaTagATune and Million Song Dataset, achieving state-of-the-art and competitive performance respectively. We showed that CLMR can achieve comparable downstream task performance using 100$\times$ fewer labels, and demonstrated the out-of-domain transferability of representations learned from pre-training on entirely different datasets of musical audio. We also demonstrated the out-of-domain generalisability of the CLMR model with a listening experiment.
 
 While we hope this research will advance the field of Music Information Retrieval into a new learning paradigm, we would like to put forward the following recommendations:
 
@@ -11,4 +11,4 @@ While we hope this research will advance the field of Music Information Retrieva
 \end{itemize}
 
 To foster reproducible research, we published the source code and pre-trained models of this research on GitHub.\footnote{\url{https://github.com/spijkervet/CLMR}}
-The simplicity of training the model without a direct supervised signal and without preprocessing inputs, together with encouraging results obtained with a single linear layer optimised for a challenging downstream task, are exciting developments towards unsupervised learning on raw musical signals.
+The simplicity of training the model without a direct supervised signal and without preprocessing inputs, together with encouraging results obtained with a single linear layer optimised for a challenging downstream task, are exciting developments towards unsupervised learning on raw musical audio.
