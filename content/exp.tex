@@ -170,6 +170,7 @@ While our smallest model already shows competitive performance compared to fully
     \label{tab:mini_batch_ablation}
 \end{table*}
 
+\newpage
 
 \subsection{Training Duration}
 Contrastive learning techniques have shown to benefit from longer training compared to their supervised equivalent \cite{chen_simple_2020}. While larger mini-batch sizes increase the number of negative examples the model can `see' simultaneously, training for a longer time increases the number of negative examples the model sees overall. We vary the number of epochs we train the model for, while we keep all other parameters constant, i.e., identically to those described in Section \ref{sec:exp_mini_batch_size}. The mini-batch size is set to 96 and all models are again trained from scratch and evaluated using the linear evaluation procedure.
@@ -209,11 +210,6 @@ When re-sampling the audio to 8\,000~Hz and 16\,000~Hz respectively, there is a 
     \label{tab:sample_rate_ablation}
 \end{table*}
 
-
-% \subsection{Projector Network}
-% A non-linear projector network positively impacts the performance of the model.
-% Adding only one extra hidden layer to the classifier increases the results by $4\%$, making the gap between supervised end-to-end baselines even smaller.
-% It is clear from these results that useful representations can be learned from high-dimensional signals of raw audio even without access to ground truth labels.
 
 \subsection{Temperature}
 The temperature parameter $\tau$ in the NT-Xent loss function (Equation \ref{eq:loss_function}) controls the penalty given to the negative samples. The experiments in Table \ref{tab:temperature_ablation} are run using a mini-batch size of 96, which is a smaller mini-batch size than those used in the original SimCLR paper (i.e., $\leq 4096$ samples per mini-batch) \cite{chen_simple_2020}. Consequently, the performance difference is marginal. Again, no additional transformations except random cropping are applied in this experiment to isolate the contribution of this temperature parameter.

@@ -32,7 +32,7 @@ The `DataParallel' (DP) module parallelises the data across multiple GPU's on a 
 We use either DP or DDP to speed up training or to increase the mini-batch size.
 The maximum available hardware provided for this thesis was a a single $4\times \text{Titan RTX}$ node with 96 gigabytes of GDDR6 memory.
 \footnote{We would like to thank SURFsara for providing the GPU nodes on the lisa system.}
-This allowed us to train our best-performing model with a mini-batch size of 456. For future work, this can be scaled even more if more hardware is available.
+This allowed us to train our largest model with a mini-batch size of 456. We leave further model scaling for future work.
 
 As described earlier, batch normalisation is used in the convolution block to stabalise training, especially for larger mini-batch sizes \ref{tab:conv_block}.
 Since information about batch statistics could leak to the learning objective, we utilise global batch normalisation.
