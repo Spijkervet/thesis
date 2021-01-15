@@ -148,7 +148,7 @@ When pre-training on smaller datasets, the autoregressive modelling in CPC can f
 
 \newpage
 
-\section{Additional experiments}\label{sec:additional_experiments}
+\section{Additional Experiments}\label{sec:additional_experiments}
 \subsection{Mini-batch Size}\label{sec:exp_mini_batch_size}
 The complexity of the pretext task increases with larger mini-batch sizes. To reiterate: in our pretext task, it is harder for the the model to infer the positive pair when increasing the pool of negative examples.
 To further study the quality of the repesentations for the downstream task performance, given the increase of complexity of the pretext task, we experimented with varying mini-batch sizes while keeping all other parameters the same.
@@ -232,7 +232,7 @@ The temperature parameter $\tau$ in the NT-Xent loss function (Equation \ref{eq:
 \end{table*}
 
 
-\section{Summary}
+\section*{Summary}
 In this chapter, we presented the results of this thesis. We showed that CLMR learns effective representations from raw signals of musical audio. Despite self-supervised pre-training and fine-tuning a linear classifier on the representations, we achieve strong performance on the downstream music classification task. CLMR outperforms the current state-of-the-art waveform-based model on the MagnaTagATune dataset, but it requires longer training to show comparable results on the Million Song Dataset.
 
 We studied the contribution of seven different data augmentations, of which five were studied with altering transformation probabilities, to the robustness of the learned representations. In line with previous research on self-supervised learning, we demonstrated that strong data augmentations during pre-training benefit the downstream task performance. We also showed that too strong augmentations can negatively impact the usability of the representations.

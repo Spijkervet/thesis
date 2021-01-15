@@ -54,7 +54,9 @@ This idea of self-supervised learning has seen widespread adoption in language m
 Its most common task is to predict the next word, given a past sequence of words, but more auxiliary (pretext) tasks can be added to improve the language model.
 For example, BERT \cite{Devlin2019BERTPO} adds two auxiliary tasks that both rely on self-generated labels to improve the bi-directional prediction of word tokens and sentence-level understanding: 1) a cloze test \cite{doi:10.1177/107769905303000401}, in which part of the tokens in each sequence is randomly masked and the model is asked to predict the missing tokens, and 2) optimising a binary classifier on predicting whether one sequence follows another sequence.
 The first pretext task encourages the model to better capture the syntactic and semantic meaning of the context around a word, and the second task improves the understanding of relationships between sentences.
-Building these tasks requires no manual labeling, and can therefore be scaled up to arbitrary size while there is plenty of free text available to use as training data.\\
+Building these tasks requires no manual labeling, and can therefore be scaled up to arbitrary size while there is plenty of free text available to use as training data.
+
+\newpage
 
 \subsection{Formulation of pretext tasks}
 In the image domain, self-supervised learning manifests itself in a similar way: one or multiple pretext tasks are formulated on a set of unlabelled images and, subsequently, the pre-trained encoder or its intermediate layers are used to fine-tune on a downstream task like image classification.
@@ -84,7 +86,6 @@ In this case, the trivial solution was mitigated by shifting the green and magen
 To conclude self-supervised learning in the image domain, \cite{noroozi_unsupervised_2016} converted aforementioned pretext task into a full $3\times 3$-grid `jigsaw puzzle', asking the model to reconstruct a sampled patch of an image after randomly shuffling all 9 sub-patches.
 
 From these series of approaches to self-supervised learning, we like to distinguish two categories of pretext tasks throughout this thesis: those that involve distortions to learn \textbf{spectral relationships} and those that use patches to learn \textbf{spatial relationships} in data.
-\\
 
 \section{Self-supervision on Audio}\label{sec:self_supervision_audio}
 Self-supervised learning on audio brings unique challenges compared to the image domain.
@@ -266,7 +267,9 @@ Recently, the contribution of mutual information to the success of CPC has been 
 \subsection{SimCLR}
 SimCLR is a recently proposed contrastive learning technique for learning effective representations of images in a self-supervised manner without relying on specialised architectures and powerful autoregressive modeling \cite{chen_simple_2020}.
 The key findings of SimCLR boils down to Yann LeCun's aforementioned `cake analogy' (\ref{fig:cake_analogy}): given a large enough neural network, a lot of unlabeled data for pre-training with a pretext task, supervised learning really becomes the icing on the cake of artificial intelligence.
-Contrary to prior contrastive learning methods \cite{oord_representation_2019,henaff2019data,hjelm_learning_2019}, SimCLR does not require a specialised encoder architecture or powerful autoregressive modeling to learn useful representations. Instead, it relies on strong data augmentations and very large batch sizes to make the learned representations more rubust and the contrastive pretext task harder.
+Contrary to prior contrastive learning methods \cite{oord_representation_2019,henaff2019data,hjelm_learning_2019}, SimCLR does not require a specialised encoder architecture or powerful autoregressive modeling to learn useful representations.
+
+Instead, it relies on strong data augmentations and very large batch sizes to make the learned representations more rubust and the contrastive pretext task harder.
 When finetuning a \textit{linear} classifier using the self-supervised learned representations from the pre-trained encoder, it achieved $76.5\%$ top-1 accuracy on ImageNet on the task of image classification.
 For comparison, the same encoder architecture (ResNet-50) in a standard supervised setting scores $76.6\%$ top-1 accuracy.
 A next iteration of SimCLR surpassed this supervised benchmark by a significant margin: SimCLRv2 achieves $79.8\%$ top-1 accuracy \cite{chen2020big}\footnote{BYOL surpassed the supervised benchmark a few days before SimCLRv2 was published \cite{Grill2020BootstrapYO}, but SimCLRv2 exceeded their scores.}.
