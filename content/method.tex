@@ -107,7 +107,7 @@ This loss is computed for all pairs, both $(z_i, z_j)$ and $(z_j, z_i)$, resulti
 
 
 \section{Evaluation}
-\label{evaluation}
+\label{sec:evaluation}
 The evaluation of representations learned by self-supervised models is commonly done with linear evaluation \cite{oord_representation_2019,hjelm_learning_2019,chen_simple_2020}, which measures how linearly separable the relevant classes are under the learned representations.
 We obtain representations $h_t$ for all data points $X$ from a frozen CLMR network after pre-training has converged, and train a linear classifier using these self-supervised representations on the downstream task of music classification.
 For CPC, the representations are extracted from the autoregressor, yielding context vector $c$ of $256$ dimensions, which is global-average pooled to obtain a single vector of $512$ dimensions.

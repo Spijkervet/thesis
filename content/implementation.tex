@@ -7,7 +7,7 @@
 \section{CLMR}
 The CLMR model extends the vision contrastive learning framework, SimCLR \cite{chen_simple_2020}. We implemented their paper in PyTorch and ran extensive experiments to ensure it met the original paper's results.
 We provide the code on GitHub as well.
-\footnote{\url{https://github.com/spijkervet/SimCLR}}
+\footnote{With 250+ stars and 50+ forks, our code has grown into one of the most popular PyTorch implementations of this framework: \url{https://github.com/spijkervet/SimCLR}}
 \footnote{After we published the code, the original author, Ting Chen, also published their implementation in TensorFlow. We are cited as one of the PyTorch implementations in their work \url{https://github.com/google-research/SimCLR}}
 
 \subsection{Optimising Audio Transformations}
@@ -70,7 +70,7 @@ Instead of relying on max-pooling, the filter sizes and strides are adjusted acc
 We also increased the number of prediction steps $k$ to 20, effectively asking the network to predict 100~ms of audio into the future.
 The mini-batch size, i.e., the number of training examples the model is exposed to at once, is set to 64 from which 15 negative samples in the contrastive loss are drawn.
 
-\section{Optimization}
+\section{Optimisation}
 For asymmetric, non-linear activation functions like ReLU, it has been demonstrated that initialising the model parameters using Kaiming initialisation allows for faster model convergence \cite{he2015delving}.
 We employ Kaiming initialisation for both CLMR and CPC. The following optimisers are used for pre-training. For smaller batch sizes, i.e., $< 96$, we use the Adam optimiser with a learning rate of $0.0003$ and $\beta_1 = 0.9$ and $\beta_2 = 0.999$. 
 For larger batch sizes, i.e., $\geq 96$, we use the LARS optimiser with  square root learning rate scaling shown in Equation \ref{eq:sqrt_lr}, a cosine annealing schedule \ref{fig:cosine_annealing_lr} for the learning rate and a weight decay of $10^{-6}$.
