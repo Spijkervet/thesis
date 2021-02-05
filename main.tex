@@ -101,15 +101,114 @@
 \usepackage{xspace}
 \usepackage{marginfix} % fixes long sidenotes
 
-\usepackage[parfill]{parskip}
-\usepackage{tuftefoot}
-\usepackage{marginfix}
 
+% custom page numbering
+\fancypagestyle{plain}{
+	\fancyhead[LE]{\thepage\quad\smallcaps}% 
+	\fancyhead[RO]{\smallcaps\quad\thepage}%
+}
+
+\usepackage[parfill]{parskip}
+
+% remove paragraph indentation
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{%
+  \setlength{\RaggedRightParindent}{0.0pc}%
+  \setlength{\JustifyingParindent}{0pt}% % parindent
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{5pt}%
+}
+\@tufte@reset@par
+
+% Paragraph indentation and separation for marginal text
+\renewcommand{\@tufte@margin@par}{%
+  \setlength{\RaggedRightParindent}{0.0pc}%
+  \setlength{\JustifyingParindent}{0.0pc}%
+  \setlength{\parindent}{24pt}%
+  \setlength{\parskip}{10pt}%
+}
+\makeatother
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH], \THEYEAR}
+
+
+% \titlecontents{part}%
+%     [0pt]% distance from left margin
+%     {\addvspace{0.25\baselineskip}}% above (global formatting of entry)
+%     {\allcaps{Part~\thecontentslabel}\allcaps}% before w/ label (label = ``Part I'')
+%     {\allcaps{Part~\thecontentslabel}\allcaps}% before w/o label
+%     {}% filler and page (leaders and page num)
+%     [\vspace*{0.5\baselineskip}]% after
+
+% \titlecontents{chapter}%
+%     [4em]% distance from left margin
+%     {}% above (global formatting of entry)
+%     {\contentslabel{2em}\textit}% before w/ label (label = ``Chapter 1'')
+%     {\hspace{0em}\textit}% before w/o label
+%     {\qquad\thecontentspage}% filler and page (leaders and page num)
+%     [\vspace*{0.5\baselineskip}]% after
+% %%%% End additional code by Kevin Godby
+
+% \newcommand{\formatpart}[1]{%
+%     \centering%
+%     \begin{fullwidth}
+%     \centering%
+%     \hfil\partname~\thepart\hfil%%
+%     \newline%
+%     % \hfil\pgfornament[width=4cm]{84}\hfil%
+%     \newline%
+%     #1%
+%     \end{fullwidth}
+%     }
+
+% \titleformat% Formatting the part header
+%   {\part} % command
+%   [block] % shape
+%   {\bfseries\sc\Huge} % format
+%   {} % label
+%   {} % sep
+%   { \formatpart
+% }%
 
 \begin{document}
-\begin{fullwidth}
-  \include{content/lay_summary}
-\end{fullwidth}
+\frontmatter
+\include{titlepage}
+
+% abstract
+\include{content/abstract}
+\include{content/acknowledgements}
+
+
+\null\vfill
+\noindent
+Copyright \textcopyright \, Janne Spijkervet \\
+{\LARGE\textit{\monthyeardate\today}}
+\newpage
+
+% table of contents
+% \begin{fullwidth}
+\tableofcontents
+% \end{fullwidth}
+
+\mainmatter
+\thispagestyle{plain}
+\include{content/intro}
+\include{content/background}
+\include{content/method}
+\include{content/datasets}
+\include{content/implementation}
+\include{content/exp}
+\include{content/interpretability}
+\include{content/conclusion}
+
+\appendix
+% \include{content/appendix}
+
+\begin{singlespace}
+  \bibliography{main.bib}
+  \bibliographystyle{apalike}
+\end{singlespace}
 
 \end{document}
-
